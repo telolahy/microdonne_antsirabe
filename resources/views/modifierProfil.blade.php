@@ -1,0 +1,55 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <h2 class="text-center my-4">Modifier l'utilisateur</h2>
+
+    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto;">
+        @csrf
+        @method('PUT')
+        
+        <div class="form-group">
+            <label for="profile">Image de profil</label>
+            <input type="file" id="profile" name="profile" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}" required>
+            @error('name') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" id="prenom" class="form-control" value="{{ old('prenom', $user->prenom) }}" required>
+            @error('prenom') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}" required>
+            @error('email') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+        <div class="form-group">
+            <label for="adresse">Adresse</label>
+            <input type="text" name="adresse" id="adresse" class="form-control" value="{{ old('adresse', $user->adresse) }}">
+            @error('adresse') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input type="text" name="telephone" id="telephone" class="form-control" value="{{ old('telephone', $user->telephone) }}">
+            @error('telephone') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="profession">Profession</label>
+            <input type="text" name="profession" id="profession" class="form-control" value="{{ old('profession', $user->profession) }}">
+            @error('profession') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="d-flex justify-content-start">
+            <button type="submit" class="btn btn-primary">Mettre à jour</button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">Retour</a>
+        </div>
+    </form>
+</div>
+@endsection

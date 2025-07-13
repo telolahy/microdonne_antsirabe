@@ -1,0 +1,779 @@
+@extends('layouts.app')
+
+@section('content')
+<style>
+    .page-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        text-align: left;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+        margin-left:0px;
+    }
+    body{
+        margin-top:150px;
+    }
+    .underline {
+        width: 100%;
+        height: 4px;
+        background-color: rgb(22, 18, 4);
+        margin-bottom: 30px;
+    }
+
+    .enquete-card {
+        flex: 1 1 calc(25% - 20px); 
+        max-width: calc(25% - 20px);
+        padding: 15px;
+        background-color: rgb(223, 223, 220);
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin: 10px;
+        border: 2px solid transparent;
+    }
+
+    .enquete-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .enquete-card.selected {
+        border: 2px solid #2c3e50;
+        box-shadow: 0 0 10px rgba(44, 62, 80, 0.5);
+    }
+
+    .enquetes-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+        margin-left: 0px;
+        margin-right: 20px;
+        padding: 10px;
+    }
+
+    .enquete-image {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+    .enquete-link {
+        color: rgb(199, 176, 24);
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .new-badge {
+        background-color: #e74c3c;
+        color: white;
+        font-size: 12px;
+        padding: 5px 10px;
+        border-radius: 50px;
+        margin-left: 10px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .file-card-container {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .file-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        color: red;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: darkred;
+    }
+    .file-card-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        table-layout: fixed;
+    }
+
+    th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+        word-wrap: break-word;
+    }
+    .file-search {
+    margin-bottom: 15px;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+    
+
+    th {
+        background-color: rgb(154, 129, 54);
+        color: white;
+    }
+
+    td:nth-child(1), th:nth-child(1) { 
+        width: 25%;
+    }
+
+    td:nth-child(2), th:nth-child(2) { 
+        width: 25%;
+    }
+
+    td:nth-child(3), th:nth-child(3) { 
+        width: 10%;
+        text-align: center;
+    }
+
+    td:nth-child(4), th:nth-child(4) { 
+        width: 15%;
+    }
+
+    td:nth-child(5), th:nth-child(5) { 
+        width: 15%;
+    }
+
+    td:nth-child(6), th:nth-child(6) {
+        width: 10%;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 3px 7px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 10px;
+    }
+
+    .badge-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .badge-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .badge-warning {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .badge-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .badge-secondary {
+        background-color: #6c757d;
+        color: white;
+        font-size: 12px;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 12px;
+        margin: 5px 0;
+        text-align: center;
+        font-size: 14px;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+        border: none;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+        border: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        border: none;
+    }
+
+    .no-files-message {
+        font-size: 22px;
+        font-weight: bold;
+        color: rgb(22, 22, 21);
+        text-align: center;
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .space-between {
+        margin: 30px 0;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding-top: 50px;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 50%;
+        position: relative;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    textarea.form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+    }
+
+    .left-align {
+        display: block;  
+        text-align: left; 
+    }
+
+    .enquete-link h3 {
+        color: #000000;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .no-underline-link {
+        text-decoration: none;
+    }
+
+    .no-underline-link:hover {
+        text-decoration: none; 
+    }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; 
+        z-index: 1000; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    }
+
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search-container {
+        width: 250px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        width: auto;
+    }
+
+    .search-input {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-right: 10px; 
+        width: 300px;
+    }
+
+    .search-btn {
+        padding: 8px 16px;
+        background-color:#2c3e50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .search-btn:hover {
+        background-color: #8c9ba5;
+    }
+    
+    .enquete-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .enquete-row-wrapper {
+        width: 100%;
+    }
+    
+    .enquete-row-content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    @media (max-width: 1200px) {
+        .enquete-card {
+            flex: 1 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+        }
+    }
+
+    @media (max-width: 900px) {
+        .enquete-card {
+            flex: 1 1 calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .enquete-card {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+        
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .search-container {
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .search-input {
+            width: 100%;
+        }
+        
+        table, thead, tbody, th, td, tr {
+            display: block;
+        }
+        
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        
+        tr {
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        
+        td {
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+            width: 100%;
+        }
+        
+        td:before {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+        
+        td:nth-of-type(1):before { content: "Nom du fichier"; }
+        td:nth-of-type(2):before { content: "Description"; }
+        td:nth-of-type(3):before { content: "Téléchargements"; }
+        td:nth-of-type(4):before { content: "Statut"; }
+        td:nth-of-type(5):before { content: "Action"; }
+        td:nth-of-type(6):before { content: "Rapport"; }
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<div class="enquetes-section" style="margin-top: 0px;">
+    <div class="header-section">
+        <h1 class="page-title">Enquetes</h1>
+        <div class="search-container">
+            <form method="GET" action="{{ route('showEnquetes') }}">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher..." value="{{ request('search') }}">
+                <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="underline"></div>
+
+    <div class="enquetes-container">
+        @foreach($enquetes->chunk(8) as $chunk)
+            <div class="enquete-row-wrapper">
+                <div class="enquete-row-content">
+                    @foreach($chunk as $enquete)
+                        @php
+                            $isNew = $enquete->fichiers->where('created_at', '>=', now()->subMonth())->isNotEmpty();
+                        @endphp
+
+                        <div class="enquete-card" id="card-{{ $enquete->id }}">
+                            @if($isNew)
+                                <div class="badge-container">
+                                    <span class="badge badge-danger">Nouveau</span>
+                                </div>
+                            @endif
+                            <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link">
+                                <img src="{{ asset('storage/images/enquetes/' . $enquete->images) }}" alt="Image de l'enquête" class="enquete-image">
+                            </a>
+                            <div class="enquete-info">
+                                <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link">
+                                    <h3>{{ $enquete->nom }}</h3>
+                                </a>
+                                <p class='left-align'>{{ Str::limit($enquete->description, 70) }}</p>
+                                <p><i class="far fa-clock me-2"></i> {{$enquete->created_at->format('d M Y') }}</p>
+                                <p>Total de téléchargements: {{ $enquete->fichiers->sum('nombre') }} <i class="fas fa-download"></i></p>
+                                <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link">
+                                    <i class="bi bi-arrow-right-circle arrow-icon"></i> Plus de details
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="pagination-wrapper">
+        {{ $enquetes->appends(request()->query())->links() }}
+    </div>
+                
+                @foreach($chunk as $enquete)
+                    <div id="files-{{ $enquete->id }}" class="file-card-container" style="display: none;">
+                        <div class="file-card">
+                            <button class="close-btn" onclick="closeFiles({{ $enquete->id }})">&times;</button>
+                            @if($enquete->fichiers->isNotEmpty())
+                                @if($enquete->fichiers->first()->enquete)
+                                    <p>{{ $enquete->fichiers->first()->enquete->description }}</p>
+                                @else
+                                    <p>Description non disponible</p>
+                                @endif
+
+                                <div class="file-card-content">
+                                    <div class="file-card-table">
+                                    <div class="search-container" style="position: relative; width: 300px; text-align: right;">
+                                        <i class="fas fa-search" style="position: absolute; top: 30%; right:20px;transform: translateY(-50%); color: #888;"></i>
+                                    <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
+                                </div>
+
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nom du fichier</th>
+                                                    <th>Description</th>
+                                                    <th>Nombre <i class="fas fa-download"></i></th>
+                                                    <th>Statut</th>
+                                                    <th>Action</th>
+                                                    <th>Rapport d'analyses</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($enquete->fichiers as $fichier)
+                                                    @php
+                                                        $demande = $fichier->demandes()->where('user_id', auth()->id())->latest()->first();
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $fichier->file_name }}</td>
+                                                        <td>{{ $fichier->description ?? 'Inconnue' }}</td>
+                                                        <td style="text-align: center;"><i class="fas fa-download"></i> {{ $fichier->nombre }}</td>
+                                                        <td>
+                                                            @php
+                                                                $demande = \App\Download::where('user_id', auth()->id())
+                                                                            ->where('file_id', $fichier->id)
+                                                                            ->latest()
+                                                                            ->first();
+                                                            @endphp
+                                                            @if($demande)
+                                                                @if($demande->status === 'valide')
+                                                                    <span class="badge badge-success">Validé</span>
+                                                                @elseif($demande->status === 'rejete')
+                                                                    <span class="badge badge-danger">Refusé</span>
+                                                                @else
+                                                                    <span class="badge badge-warning">En attente</span>
+                                                                @endif
+                                                            @else
+                                                                @if($fichier->type === 'sans_validation')
+                                                                    <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                @else
+                                                                    <span class="badge badge-secondary">Demande requise</span>
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if(!$demande)
+                                                                @if($fichier->type === 'sans_validation')
+                                                                    <a href="{{ route('file.request', $fichier) }}" class="btn btn-success">Télécharger</a>
+                                                                @elseif($fichier->type === 'avec_validation')
+                                                                    <a href="#" class="btn btn-secondary" onclick="openModal({{ $fichier->id }})">Faire Demande</a>
+                                                                @endif
+                                                            @else
+                                                                @if($demande->status === 'valide')
+                                                                    <a href="{{ route('file.request', $fichier) }}" class="btn btn-success">Télécharger</a>
+                                                                @elseif($demande->status === 'rejete')
+                                                                    <span class="text-danger">Téléchargement refusé</span>
+                                                                @else
+                                                                    <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
+                                                                @endif
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
+                                                                <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
+                                                            @else
+                                                                <button class="btn btn-primary" disabled>Envoyer rapport</button>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                 </div>
+                                </div>
+                            @else
+                                <p class="no-files-message">Aucun fichier associé à cette enquête.</p>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+    
+</div>
+<div id="requestModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h3>Faire une Demande</h3>
+        <form action="{{ route('downloads.demandeEnquetes', ['file' => '__ID__']) }}" method="POST" id="requestForm">
+            @csrf
+            <input type="hidden" id="file_id" name="file_id">
+            <div class="form-group">
+                <label for="motif">Motif de la demande</label>
+                <textarea id="motif" name="motif" rows="4" required class="form-control"></textarea>
+                <div class="form-group">
+                    <input type="checkbox" id="accept_conditions" onchange="toggleSubmitButton()">
+                    <label for="accept_conditions">
+                        J'accepte les <a href="javascript:void(0)" onclick="openConditionsModal()">conditions générales</a>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="submitRequestBtn" disabled>Envoyer la Demande</button>
+        </form>
+    </div>
+</div>
+<div id="reportModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeReportModal()">&times;</span>
+        <h3>Envoyer un rapport d'analyse</h3>
+        <form action="{{ route('downloads.uploadRapport') }}" method="POST" id="reportForm" enctype="multipart/form-data">
+            @csrf
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <div class="form-group">
+                <input type="hidden" id="download_id" value="{{ $userDownload ? $userDownload->id : '' }}">
+                <label for="report_file">Sélectionner un fichier</label>
+                <input type="file" id="report_file" name="file" required class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
+    </div>
+</div>
+<div id="conditionsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeConditionsModal()">&times;</span>
+        <h3 id="condition">Conditions générales d'utilisation</h3>
+        <p><h5>1. <u>Principe de confidentialité et protection des données</u> :</h5></p>
+        <p>Conformément à la Loi n°2018-04 du 12 mars 2018 relative à l'organisation et à la règlementation des activités statistiques, 
+            les données statistiques mises à disposition respectent les principes suivants :</p>
+        <p><strong>- Confidentialité :</strong> les données diffusées sont anonymisées et ne permettent pas d'identifier 
+        directement ou indirectement une personne physique ou morale.</p>
+        <p><strong>- Protection des données :</strong> Toute collecte, traitement et diffusion des données statistiques sont 
+        réalisés dans le respect des normes éthiques en vigueur, garantissant leur intégrité et leur sécurité.</p>
+        <p><strong>- Utilisation légale :</strong> les données statistiques ne peuvent être exploitées qu'à des fins 
+        d'analyse, de recherche, ou d'évaluation dans cadre légal.</p>
+        <p><h5>2. <u>Droits et responsabilités de l'utilisateur</u> :</h5></p>
+        <p>Tout utilisateur des données s'engage à :</p>
+        <p>- Respecter les principes de confidentialité et de protection des données définis par la Loi ;</p>
+        <p>- Ne pas utiliser les données à des fins commerciales sans autorisation expresse de l'INSTAT ;</p>
+        <p>- Ne pas altérer, falsifier ou modifier les données mises à disposition ;</p>
+        <p><h5>3. <u>Limitation de responsabilité</u> :</h5></p>
+        <p>- Toute analyse ou conclusion découlant de l'utilisation des données par 
+        l'utilisateur ne peut engager la responsabilité de l'INSTAT.</p>
+        <p>- L'INSTAT décline toute responsabilité quant aux conséquences découlant d'une 
+            utilisation inappropriée, erronée ou frauduleuse des données mises en ligne.</p>
+        <p>- L'INSTAT ne pourra être tenu responsable des erreurs, omissions ou délais dans la mise à jour des données.</p>
+        <button class="btn btn-primary" onclick="closeConditionsModal()">Ok</button>
+    </div>
+</div>
+<script>
+function toggleFiles(enqueteId) {
+    document.querySelectorAll('.file-card-container').forEach(container => {
+        if (container.id !== `files-${enqueteId}`) {
+            container.style.display = 'none';
+        }
+    });
+    const filesContainer = document.getElementById(`files-${enqueteId}`);
+    const card = document.getElementById(`card-${enqueteId}`);
+    
+    if (filesContainer.style.display === 'none' || filesContainer.style.display === '') {
+        filesContainer.style.display = 'block';
+        card.classList.add('selected');
+        filesContainer.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        filesContainer.style.display = 'none';
+        card.classList.remove('selected');
+    }
+}
+
+function closeFiles(enqueteId) {
+    document.getElementById(`files-${enqueteId}`).style.display = 'none';
+    document.getElementById(`card-${enqueteId}`).classList.remove('selected');
+}
+
+function openReportModal(fileId) {
+    const modal = document.getElementById('reportModal');
+    document.getElementById('download_id').value = fileId;
+    modal.style.display = 'block';
+}
+
+function closeReportModal() {
+    document.getElementById('reportModal').style.display = 'none';
+}
+
+function openModal(fileId) {
+    const modal = document.getElementById('requestModal');
+    document.getElementById('file_id').value = fileId;
+    const form = document.getElementById('requestForm');
+    form.action = form.action.replace('__ID__', fileId);
+
+    modal.style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('requestModal').style.display = 'none';
+}
+
+function toggleSubmitButton() {
+    const checkbox = document.getElementById('accept_conditions');
+    const submitButton = document.getElementById('submitRequestBtn');
+
+    submitButton.disabled = !checkbox.checked;
+}
+
+function openConditionsModal() {
+    const modal = document.getElementById('conditionsModal');
+    modal.style.display = 'block';
+}
+
+function closeConditionsModal() {
+    document.getElementById('conditionsModal').style.display = 'none';
+}
+function filterFiles(input) {
+    const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    const table = input.closest('div').nextElementSibling;
+    const rows = table.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+        const nameCell = row.querySelector('td:nth-child(1)');
+        const descriptionCell = row.querySelector('td:nth-child(2)');
+        const statusCell = row.querySelector('td:nth-child(4)');
+        const nameText = nameCell ? nameCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+        const descriptionText = descriptionCell ? descriptionCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+        const statusText = statusCell ? statusCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+        const match = nameText.includes(searchTerm) || descriptionText.includes(searchTerm) || statusText.includes(searchTerm);
+        row.style.display = match ? '' : 'none';
+    });
+}
+
+
+
+</script>
+@endsection
