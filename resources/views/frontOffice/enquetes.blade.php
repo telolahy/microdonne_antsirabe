@@ -36,7 +36,7 @@
     }
 
     .enquete-card:hover {
-        transform: translateY(-5px);
+        transform: scale(1.07)!important;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
@@ -465,6 +465,8 @@
         td:nth-of-type(5):before { content: "Action"; }
         td:nth-of-type(6):before { content: "Rapport"; }
     }
+
+
 </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -484,6 +486,7 @@
     <div class="underline"></div>
 
     <div class="enquetes-container">
+        @php $delay = 0; @endphp
         @foreach($enquetes->chunk(8) as $chunk)
             <div class="enquete-row-wrapper">
                 <div class="enquete-row-content">
@@ -492,7 +495,7 @@
                             $isNew = $enquete->fichiers->where('created_at', '>=', now()->subMonth())->isNotEmpty();
                         @endphp
 
-                        <div class="enquete-card" id="card-{{ $enquete->id }}">
+                        <div class="enquete-card" id="card-{{ $enquete->id }}"  data-aos="fade-in" data-aos-delay="{{ $delay }}">
                             @if($isNew)
                                 <div class="badge-container">
                                     <span class="badge badge-danger">Nouveau</span>
@@ -513,6 +516,7 @@
                                 </a>
                             </div>
                         </div>
+                        @php $delay += 100; @endphp {{-- Ajoute 100ms de délai à chaque carte --}}
                     @endforeach
                 </div>
                 <div class="pagination-wrapper">

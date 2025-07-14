@@ -8,8 +8,13 @@
             <!-- Footer Description -->
             <div class="col-md-8 col-sm-10 col-lg-3">
                 <div class="footer-description text-center text-lg-left">
-                    <h6 class="g-mb-10"><img src="/logo/logo_instat.png" alt="Image Description" class="logoInstat"></h6>
-                    <p class="g-mb-20 g-px-20 g-px-md-0 text-center">la statistique, un outil de gouvernance au service du développement</p>
+
+                    <div class="logoFooter">
+                        <img src="/logo/logo_instat.png" alt="Image Description" class="logoInstat">
+                        <img src="/logo/WB_F-WBG-Horizontal-CMYK.jpg" alt="image Description" class="logoWB">
+                    </div>
+
+                    <p class="g-mb-20 g-px-20 g-px-md-0 text-center mt-1">la statistique, un outil de gouvernance au service du développement</p>
                     <div class="social-icons list-unstyled d-flex justify-content-center justify-content-lg-start">
                         <a href="https://www.facebook.com/INSTATMadagascar" target="_blank" class="g-font-size-25 g-mr-10"><i class="fa-brands fa-facebook"></i></a>
                         <!--<a href="" class="g-font-size-25"><i class="fa fa-twitter-square"></i></a> -->
