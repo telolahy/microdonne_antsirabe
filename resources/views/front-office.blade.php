@@ -623,8 +623,8 @@ td:nth-child(7), th:nth-child(7) {
                             <a href="javascript:void(0)" onclick="toggleFiles({{ $theme->id }})" class="enquete-link">
                                 <h3>{{ $theme->nom }}</h3>
                             </a>
-                            <p class='left-align'>{{ Str::limit($theme->description, 70) }}</p>
-                            <p> <i class='far fa-clock me-2'></i> {{$theme->created_at->format('d M Y')}}</p>
+                            {{-- <p class='left-align'>{{ Str::limit($theme->description, 70) }}</p>
+                            <p> <i class='far fa-clock me-2'></i> {{$theme->created_at->format('d M Y')}}</p> --}}
                         </div>
                     </div>
                 @endforeach
