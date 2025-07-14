@@ -304,7 +304,7 @@
                 </li>
                 <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('showEnquetes') }}">
-                        <i class="bi bi-bar-chart-line"></i> RECENSEMENTS ET ENQUÊTES
+                        <i class="bi bi-bar-chart-line"></i> RECENSEMENT ET ENQUÊTES
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('historique') ? 'active' : '' }}">
