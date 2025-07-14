@@ -73,7 +73,7 @@
                         <li class="g-mb-10">
                             <a href="{{ route('showEnquetes') }}">
                                 <i class="fa fa-angle-right g-mr-5"></i>
-                                <span class="align-middle">{{__('Recensements et enquêtes')}}</span>
+                                <span class="align-middle">{{__('Recensement et enquêtes')}}</span>
                             </a>
                         </li>
                     

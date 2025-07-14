@@ -25,11 +25,11 @@
         flex: 1 1 calc(25% - 20px); 
         max-width: calc(25% - 20px);
         padding: 15px;
-        background-color: rgb(223, 223, 220);
+        background-color: whitesmoke;
         box-sizing: border-box;
         margin-bottom: 20px;
         border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(33, 32, 32, 0.1);
         transition: all 0.3s ease;
         margin: 10px;
         border: 2px solid transparent;
@@ -474,7 +474,7 @@
 
 <div class="enquetes-section" style="margin-top: 0px;">
     <div class="header-section">
-        <h1 class="page-title">Recensements et Enquêtes</h1>
+        <h1 class="page-title">Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher..." value="{{ request('search') }}">
