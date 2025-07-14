@@ -174,7 +174,7 @@
     right: 0; /* Aligne à droite pour correspondre à la position du dropdown-toggle */
 }
 /* Micky d*/
-@media (max-width: 1499px) {
+@media (max-width: 1525px) {
 .navbar-nav, .dropdown {
         
             font-size: 0.75rem; 
@@ -186,7 +186,7 @@
         }
 }
 
-@media (max-width: 1199px) and (min-width: 992px) {
+@media (max-width: 1215px) and (min-width: 992px) {
             .navbar-brand span {
                 display: none;
             }
@@ -286,7 +286,7 @@
         <a class="navbar-brand d-flex align-items-center" href="{{ route('front-office') }}">
             <img src="/logo/logo_instat.png" alt="Logo INSTAT">
             <!-- Micky d-->
-            <span>INSTAT Microdonnées</span>
+            <span><i class="bi bi-house-door"></i>  INSTAT Microdonnées</span>
         </a>
         <button class="navbar-toggler ms-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
