@@ -14,7 +14,7 @@
                         <img src="/logo/WB_F-WBG-Horizontal-CMYK.jpg" alt="image Description" class="logoWB">
                     </div>
 
-                    <p class="g-mb-20 g-px-20 g-px-md-0 text-center mt-1">la statistique, un outil de gouvernance au service du développement</p>
+                    <p class="g-mb-20 g-px-20 g-px-md-0 text-center mt-1">La statistique, un outil de gouvernance au service du développement</p>
                     <div class="social-icons list-unstyled d-flex justify-content-center justify-content-lg-start">
                         <a href="https://www.facebook.com/INSTATMadagascar" target="_blank" class="g-font-size-25 g-mr-10"><i class="fa-brands fa-facebook"></i></a>
                         <!--<a href="" class="g-font-size-25"><i class="fa fa-twitter-square"></i></a> -->
