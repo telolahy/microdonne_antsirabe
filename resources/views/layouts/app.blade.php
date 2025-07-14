@@ -24,7 +24,8 @@
              border-bottom: 1px solid rgba(255, 255, 255, 0.05);
              
         }
-    .navbar-nav {
+        /* Micky d*/
+    .navbar-nav, .dropdown {
         font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 700;
             font-size: 1rem; 
@@ -36,12 +37,13 @@
             display: inline-flex !important;
             align-items: center !important;
             gap: 6px; 
-            padding-bottom: 4px !important;
+            padding-bottom: 8px 12px !important;
             position: relative !important;
             color: #f0f0f0 !important;
         
             white-space: nowrap;
         }
+        /* Micky f*/
         .navbar .nav-link::after {
             content: "" !important;
             position: absolute!important ;
@@ -61,14 +63,15 @@
             width: 50% !important;
         }
 
-
+        /* Micky d*/
         .navbar-brand span {
             font-size: 1.2rem !important;
             font-weight: 700 !important;
             letter-spacing: 0.8px !important;
             color: #ffffff !important;
+            margin-left: 10px !important;
         }
-
+        /* Micky f*/
             
                 #userDropdown img {
                     width: 40px !important;
@@ -122,25 +125,23 @@
     transform: scale(1.05);
     border: 3px solid #1f4cf5;
 }
-
+/* Micky d*/
         .user-name {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #ffffff;
         }
-        .drowdown_menu2 {
-            display:flex;
-            justify-content: space-between;
-        }
+        
+        
       .badge-direction {
             background-color: #1f4cf5 !important;
             color: #fff !important;
-            padding: 2px 50px 1px 60px !important; 
-            margin-bottom: 40px;
+            padding: 4px 20px !important; 
+            margin-bottom: 10px;
             border-radius: 20px !important;
             font-weight: 600 !important;
-            font-size: 0.85rem !important;
+            font-size: 0.8rem !important;
             font-family: 'Poppins', sans-serif !important;
             text-align: center !important;
             text-transform: uppercase !important;
@@ -152,7 +153,7 @@
             justify-content: center;    
             line-height: 1;              
         }
-
+        /* Micky f*/
 
         .badge-direction:hover {
             background-color: #1738b8 !important;
@@ -166,42 +167,92 @@
     left: auto !important;
     right: 0; /* Aligne à droite pour correspondre à la position du dropdown-toggle */
 }
+/* Micky d*/
+@media (max-width: 1499px) {
+.navbar-nav, .dropdown {
+        
+            font-size: 0.75rem; 
+            
+    }  
+    .navbar-brand span {
+            font-size: 0.8rem !important;
+            
+        }
+}
 
-@media (max-width: 991px) {    
-    .navbar-collapse {
-    background-color: #1c252e !important; /* Couleur de fond sombre pour contraste */
-    padding: 15px; /* Ajoute de l'espace interne */
-}
-.navbar-collapse .navbar-nav {
-    flex-direction: column; /* Aligne les éléments verticalement sur mobile */
-}
-}
-
-@media (max-width: 1199px) and (min-width: 992px)  {
+@media (max-width: 1199px) and (min-width: 992px) {
             .navbar-brand span {
-                display: none; /* Cache "INSTAT Madagascar" sur smartphones */
+                display: none;
             }
             .navbar-brand {
                 margin-right: 0;
             }
+            .navbar-nav {
+                font-size: 0.7rem;
+            }
+            .navbar .nav-link {
+                padding: 6px 10px !important;
+            }
+            .user-name {
+                font-size: 0.85rem;
+            }
+            .dropdown {
+        
+            font-size: 0.65rem; 
+            
+            }  
+            
         }
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: #1c252e !important;
+        padding: 15px;
+    }
+    .navbar-collapse .navbar-nav {
+        flex-direction: column;
+    }
+    .navbar .nav-link {
+        font-size: 0.95rem;
+        padding: 10px 15px !important;
+    }
+    .navbar-brand span {
+        font-size: 1.1rem !important;
+        margin-left: 8px !important;
+    }
+    .user-name {
+        font-size: 0.9rem;
+    }
+    .navbar .dropdown-menu {
+        position: static;
+        float: none;
+        width: 100%;
+    }
+    .badge-direction {
+        font-size: 0.75rem;
+        padding: 3px 15px !important;
+    }
+}
 
 @media (max-width: 359px) {
     .navbar-brand span {
-                display: none; /* Cache "INSTAT Madagascar" sur smartphones */
-            }
-            .navbar-brand {
-                margin-right: 0;
-            }
-}      
-
-@media (max-width: 991px) {
-    .navbar .dropdown-menu {
-        position: static; /* Réinitialise la position dans le menu effondré */
-        float: none;
-        width: 100%; /* Occupe toute la largeur dans le menu burger */
+        display: none;
+    }
+    .navbar-brand {
+        margin-right: 0;
+    }
+    .navbar-nav {
+        font-size: 0.85rem;
+    }
+    .navbar .nav-link {
+        padding: 8px 12px !important;
+    }
+    .user-name {
+        font-size: 0.8rem;
     }
 }
+
+        /* Micky f*/
 
 .navbar-dark .navbar-toggler {
     border: 2px solid #fff;
@@ -226,21 +277,23 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="https://www.instat.mg/">
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('front-office') }}">
             <img src="/logo/logo_instat.png" alt="Logo INSTAT">
-            <span class="ml-auto">INSTAT Madagascar</span>
+            <!-- Micky d-->
+            <span>INSTAT Microdonnées</span>
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler ms-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <!-- Micky f-->
 
         <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarSupportedContent">
         
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item {{ Route::is('front-office') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('front-office') }}">
-                        <i class="bi bi-bookmarks"></i> THEMES
+                        <i class="bi bi-bookmarks"></i> THÈMES
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">
@@ -250,12 +303,12 @@
                 </li>
                 <li class="nav-item {{ Route::is('historique') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('historique') }}">
-                        <i class="bi bi-clock-history"></i> HISTORIQUE
+                        <i class="bi bi-clock-history"></i> HISTORIQUE DES TÉLÉCHARGEMENTS
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://dataviz.instat.mg" target="_blank">
-                        <i class="bi bi-globe"></i> DATA VISUALISATION
+                    <a class="nav-link" href="https://www.instat.mg/" target="_blank">
+                        <i class="bi bi-globe"></i> SITE WEB INSTAT
                     </a>
                 </li>
             </ul>
@@ -267,7 +320,9 @@
                 @endif
                 <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('images/profiles/' . Auth::user()->profile) ?? asset('default-avatar.png') }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                    <span class="ml-2">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</span>
+                    <!-- Micky d-->
+                    <span class="ml-2 user-name">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</span>
+                    <!-- Micky f-->
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="{{ route('profile') }}">
@@ -286,73 +341,7 @@
         </div>
     </div>
 </nav>    
-<!-- <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" href="https://www.instat.mg/">
-                <img src="/logo/logo_instat.png" alt="Logo INSTAT">
-                <span class="ml-auto">INSTAT Madagascar</span>
-                </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarSupportedContent">
-                <div class="topmenu">
-                  <ul class="navbar-nav mx-auto ">
-                            <li class="nav-item {{ Route::is('front-office') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('front-office') }}">
-                                <i class="bi bi-bookmarks"></i> THEMES
-                                </a>
-                            </li>
-
-                            <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('showEnquetes') }}">
-                                    <i class="bi bi-bar-chart-line"></i> ENQUÊTES
-                                </a>
-                            </li>
-
-                            <li class="nav-item {{ Route::is('historique') ? 'active' : '' }}">
-                                <a class="nav-link" href="{{ route('historique') }}">
-                                    <i class="bi bi-clock-history"></i> HISTORIQUE     
-                                </a>
-                            </li>
-
-                            <li class="nav-item ">
-                                <a class="nav-link" href="https://dataviz.instat.mg" target="_blank">
-                                    <i class="bi bi-globe"></i> DATA VISUALISATION
-                                </a>
-                            </li>
-                    </ul>
-
-                </div>
-        
-            </div>
-            <div class="dropdown ml-lg-auto mt-2 mt-lg-0 d-flex align-items-center">
-                @if(Auth::user()->isDirection() && Auth::user()->direction)
-                    <a class="nav-link mr-3" href="#">{{ Auth::user()->direction->name }}</a>
-                @endif
-    
-                    <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{ asset('images/profiles/' . Auth::user()->profile) ?? asset('default-avatar.png') }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                    <span class="ml-2">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</span>
-                    </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="{{ route('profile') }}">
-                            <i class="bi bi-person-circle"></i> Voir Profil
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="bi bi-box-arrow-right"></i> Se déconnecter
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </div>
-    </div>
-</nav> -->
 
 <div>
     @include('layouts.sidebar')
