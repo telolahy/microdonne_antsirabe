@@ -206,17 +206,17 @@
     <ul class="nav nav-pills flex-column">
         <li class="nav-item">
             <a href="{{ route('themes.index') }}" class="nav-link {{ Request::routeIs('themes.index') ? 'active' : '' }}">
-                <i class="bi bi-folder"></i> THEMES
+                <i class="bi bi-folder"></i> THÈMES
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('enquete.index') }}" class="nav-link {{ Request::routeIs('enquete.index') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text"></i> ENQUETES
+                <i class="bi bi-file-earmark-text"></i> RECENSEMENTS ET ENQUÊTES
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
-                <i class="bi bi-clock"></i> HISTORIQUE
+                <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
             </a>
         </li>
         <li class="nav-item">
