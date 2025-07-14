@@ -151,7 +151,7 @@
         </form>
         <div class="table-wrapper">
             <div class="table-section">
-                <h4>Historique de Téléchargements</h4>
+                <h4>Historiques de Téléchargements</h4>
                 <table>
                     <thead>
                         <tr>
