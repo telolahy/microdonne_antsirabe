@@ -29,20 +29,20 @@
                     <h6 class="footer-title g-py-10 g-mb-10 text-uppercase">Contact info</h6>
                     <ul class="list-unstyled">
                         <li class="g-flex-middle justify-content-center justify-content-lg-start g-mb-10">
-                            <i class="icon-directions g-font-size-16 g-mr-10"></i>
+                            <i class="fa-solid fa-location-dot g-font-size-16 g-mr-10"></i>
                             <span class="align-middle">INSTAT - Rue Jules RANAIVO - ANOSY, BP 485 Antananarivo 101</span>
                         </li>
                         <li class="g-flex-middle justify-content-center justify-content-lg-start g-mb-10">
-                            <i class="icon-screen-smartphone g-font-size-16 g-mr-10"></i>
+                            <i class="fa-solid fa-mobile-screen-button g-font-size-16 g-mr-10"></i>
                             <span class="align-middle">+261 32 11 086 66 </span>
                         </li>
                         <li class="g-flex-middle justify-content-center justify-content-lg-start g-mb-10">
-                            <i class="icon-user g-font-size-16 g-mr-10"></i>
+                            <i class="fa-solid fa-user g-font-size-16 g-mr-10"></i>
                             <span class="align-middle">infos@instat.mg</span>
                         </li>
                         <li class="g-flex-middle justify-content-center justify-content-lg-start g-mb-10">
-                            <i class="icon-globe g-font-size-16 g-mr-10"></i>
-                            <span class="align-middle"> <a href=" {{route('home')}} ">www.instat.mg</a> </span>
+                            <i class="fa-solid fa-globe g-font-size-16 g-mr-10"></i>
+                            <span class="align-middle"> <a href=" https://www.instat.mg/" target="_blank">www.instat.mg</a> </span>
                         </li>
                     </ul>
                 </div>
@@ -53,7 +53,30 @@
 
             <div class="col-sm-10 col-md-8 col-lg-2">
                 <div class="footer-info g-px-20 g-py-15 g-py-lg-0">
-                    <h6 class="footer-title g-py-10 g-mb-10 text-uppercase">Menu</h6>
+                    <h6 class="footer-title g-py-10 g-mb-10 text-uppercase">Menus</h6>
+
+                    <ul class="list-unstyled">
+                        <li class="g-mb-10">
+                            <a href="{{ route('front-office') }}">
+                                <i class="fa fa-angle-right g-mr-5"></i>
+                                <span class="align-middle">{{__('Home')}}</span>
+                            </a>
+                        </li>
+
+                        <li class="g-mb-10">
+                            <a href="{{ route('front-office') }}">
+                                <i class="fa fa-angle-right g-mr-5"></i>
+                                <span class="align-middle">{{__('Thèmes')}}</span>
+                            </a>
+                        </li>
+
+                        <li class="g-mb-10">
+                            <a href="{{ route('showEnquetes') }}">
+                                <i class="fa fa-angle-right g-mr-5"></i>
+                                <span class="align-middle">{{__('Recensements et enquêtes')}}</span>
+                            </a>
+                        </li>
+                    
                 </div>
             </div>
             {{-- <div class="col-sm-10 col-md-8 col-lg-2">
