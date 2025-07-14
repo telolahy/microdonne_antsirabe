@@ -134,6 +134,10 @@
             font-size: 0.9rem;
             color: #ffffff;
         }
+        .user-name:hover {
+            color: #1738b8 !important;
+            text-decoration: underline !important;
+        }
         
         
       .badge-direction {
