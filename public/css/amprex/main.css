@@ -37565,3 +37565,19 @@ a.g-text-bluegray-darken-4:hover, a.g-text-bluegray-darken-4:focus {
       background-position: center;
       background-size: contain;
     } 
+
+    .logoWB {
+      width: 60%;
+      background-image: url(https://www.instat.tv/assets/images/logo-wb.svg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+
+    .logoFooter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }

@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/amprex/main.css') }}">
     <link rel="stylesheet" href="/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="{{asset('dist/aos.css')}}">
+    
 
 
 
@@ -357,6 +359,21 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{asset('dist/aos.js')}}"></script>
+    <script>
+        AOS.init({
+            once: false,
+            duration: 600,
+            offset: 50,
+            mirror: true,
+            disable: function() {
+                return window.innerWidth < 885; // désactiver AOS sur mobile
+            }
+        });
+    </script>
+<script>
+
 <script>
     $(document).ready(function () {
         $('#userDropdown').dropdown();

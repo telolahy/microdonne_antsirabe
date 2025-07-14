@@ -38,7 +38,7 @@
     }
 
     .enquete-card:hover {
-        transform: translateY(-5px);
+         transform: scale(1.07)!important;
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
@@ -602,6 +602,8 @@ td:nth-child(7), th:nth-child(7) {
     <div class="underline"></div>
 
     <div class="enquetes-container">
+
+    @php $delay = 0; @endphp
     @foreach($themes->chunk(4) as $chunk)
         <div class="enquete-row-wrapper">
             <div class="enquete-row-content">
@@ -610,7 +612,7 @@ td:nth-child(7), th:nth-child(7) {
                         $isNew = $theme->files->where('created_at', '>=', now()->subMonth())->isNotEmpty();
                     @endphp
 
-                    <div class="enquete-card" id="card-{{ $theme->id }}">
+                    <div class="enquete-card " id="card-{{ $theme->id }}" data-aos="fade-up" data-aos-delay="{{ $delay }}">
                         @if($isNew)
                             <div class="badge-container">
                                 <span class="badge badge-danger">Nouveau</span>
@@ -627,6 +629,7 @@ td:nth-child(7), th:nth-child(7) {
                             <p> <i class='far fa-clock me-2'></i> {{$theme->created_at->format('d M Y')}}</p> --}}
                         </div>
                     </div>
+                    @php $delay += 100; @endphp
                 @endforeach
             </div>
         </div>
