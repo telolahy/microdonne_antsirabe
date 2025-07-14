@@ -474,7 +474,7 @@
 
 <div class="enquetes-section" style="margin-top: 0px;">
     <div class="header-section">
-        <h1 class="page-title">Enquetes</h1>
+        <h1 class="page-title">Recensements et Enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher..." value="{{ request('search') }}">
