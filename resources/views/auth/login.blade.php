@@ -10,7 +10,7 @@
         background-color: #f8f9fc;
         margin: 0;
         padding: 20px;
-        /* height: 100vh; */
+        height: 100vh;
         display: flex;
         justify-content: center;
         align-items: center;
