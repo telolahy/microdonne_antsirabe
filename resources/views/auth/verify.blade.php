@@ -14,8 +14,9 @@
             margin: 0;
             padding: 0;
         }
-        .container {
-            background-color: #f4f4f4; /* Orange Jaune */
+        
+        .container2 {
+            background-color: #f4f4f4;
             color: #333;
             text-align: center;
             padding: 0px;
@@ -62,7 +63,7 @@
             font-weight: bold;
         }
         .btn:hover {
-            background-color:darkgoldenrod; /* Orange Jaune style="color:darkgoldenrod" */ 
+            background-color:darkgoldenrod;
         }
         .action-form {
             display: inline-block;
@@ -75,9 +76,9 @@
             border-radius: 5px;
         }
         .badge {
-            padding: 0.6em 1em; /* Augmentez le padding */
+            padding: 0.6em 1em; 
             border-radius: 0.25rem;
-            font-size: 0.85em; /* Augmentez la taille de la police */
+            font-size: 0.85em; 
         }
 
         .badge-success {
@@ -100,19 +101,51 @@
             color: white;
         }
 
+        .titreVerificationMail {
+            font-size: 2em;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .paragrapheInstruction {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .action-form {
+            display: inline-block;
+            margin-bottom: 80px;
+            text-align: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .clic {
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            font-size: 1rem
+        }
     </style> 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 <body> 
-    <div class="container">
-        <div class="alert alert-info">
-            <strong>Merci de vérifier votre adresse e-mail.</strong>  
-            Nous avons envoyé un lien de vérification à votre adresse e-mail. Si vous n'avez pas reçu l'email,
+    <div class="container2">
+        <h1 class="titreVerificationMail">Vérification de l'adresse e-mail</h1>
+
+        <p class="paragrapheInstruction">Avant de continuer, merci de vérifier votre adresse e-mail pour le lien de vérification.</p>
+        <p class="paragrapheInstruction">Si vous n'avez pas reçu l'e-mail, cliquez sur le bouton ci-dessous pour le renvoyer.</p>
+
+        <div class="action-form">
             <form action="{{ route('verification.resend') }}" method="POST" style="display:inline;">
                 @csrf
-                 <button type="submit" class="btn btn-link p-0 m-0 align-baseline">cliquez ici pour le renvoyer</button>
+                 <button type="submit" class="btn btn-link p-0 m-0 align-baseline clic">Cliquez ici pour le renvoyer</button>
             </form>
         </div>
     </div>
