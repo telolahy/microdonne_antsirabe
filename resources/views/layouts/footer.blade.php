@@ -44,6 +44,10 @@
                             <i class="fa-solid fa-globe g-font-size-16 g-mr-10"></i>
                             <span class="align-middle"> <a href=" https://www.instat.mg/" target="_blank">www.instat.mg</a> </span>
                         </li>
+                        <li class="g-flex-middle justify-content-center justify-content-lg-start g-mb-10">
+                            <i class="fa-solid fa-globe g-font-size-16 g-mr-10"></i>
+                            <span class="align-middle"> <a href="https://dataviz.instat.mg/accueil" target="_blank">https://dataviz.instat.mg</a> </span>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -125,12 +129,12 @@
                     <h6 class="footer-title g-py-10 g-mb-10 text-uppercase">Abonnez-vous</h6>
                     <p class="g-px-20 g-px-md-0">{{__('Subscribe to our newsletter and stay up to date with the latest news.')}}</p>
                     <p class="g-mb-20 g-px-20 g-px-md-0"></p>
-                    <form class="footer-subscribe-form">
+                    {{-- <form class="footer-subscribe-form">
                         <div class="form-group form-group-v1 focus-effect g-rounded-30 g-p-5">
                             <input type="mail" name="subscribe_email" placeholder="{{__('Your Email')}}" class="form-control g-rounded-30 g-p-5">
                             <button type="submit" class="g-rounded-30 g-px-20 g-py-10 border-0">Envoyer</button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <!-- END Footer Newsletter -->
