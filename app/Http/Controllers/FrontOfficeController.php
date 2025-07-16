@@ -75,6 +75,7 @@ class FrontOfficeController extends Controller
     
     public function showEnquetes(Request $request)
     {
+       // dd('coucou');
         $user = Auth::user();
         $search = $request->input('search'); 
     

@@ -492,7 +492,8 @@
 
     <div class="enquetes-container">
         @php $delay = 0; @endphp
-        @foreach($enquetes->chunk(8) as $chunk)
+        {{-- @foreach($enquetes->chunk(8) as $chunk) --}}
+        @foreach($enquetes->filter(fn($e) => $e->fichiers->isNotEmpty())->chunk(8) as $chunk)
             <div class="enquete-row-wrapper">
                 <div class="enquete-row-content">
                     @foreach($chunk as $enquete)

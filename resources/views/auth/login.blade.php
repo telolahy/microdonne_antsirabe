@@ -4,153 +4,310 @@
     <title>Microdonne INSTAT</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
-        body {
-            font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            /*display: flex;*/
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fc;
-            margin: 0;
-        }
+    
+    body {
+        font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        background-color: #f8f9fc;
+        margin: 0;
+        padding: 20px;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821);
+        /* width: 100%; */
+    }
 
-
-
-        .login-container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 400px;
-        }
-
+    .container-fluid {
+        margin: 0 auto;
+        display: flex;
+        gap: 20px;
         
+    }
 
-        .login-container h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    .row {
+        display: flex;
+        width: 100%;
+        gap: 20px;
+    }
 
-        .login-container label {
-            display: block;
-            margin-bottom: 8px;
-        }
+    .card, .card1 {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;        
+        flex: 1;
+    }
+    .card {
+        padding: 0 40px;
+        min-height: 100%;
+        width: 100%;
+        /* max-width: 400px; */
+    }
 
-        .login-container input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #fff;
-        }
+    .card1 {
+        
+        padding: 40px;
+        min-height: 400px;
+        width: 100%;
+        /* max-width: 400px; */
+    }
 
-        .login-container input:focus {
-            outline: none;
-            background-color: #fff;
-        }
+    .card1 h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
 
-        .login-container button {
-            width: 30%;
-            padding: 10px;
-            background-color: #000000;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: lighter;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-        }
+    .card1 label {
+        display: block;
+        margin-bottom: 8px;
+    }
 
-        .login-container button:hover {
-            background-color: #454444;
-        }
+    .card1 input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #fff;
+    }
 
-        .login-container a {
-            color: #1a73e8;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-        }
+    .card1  input:focus {
+        outline: none;
+        background-color: #fff;
+    }
 
-        .logo {
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-        }
+    .card1 button {
+        width: 40%;
+        padding: 10px;
+        background-color: #000000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: lighter;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
 
-        .logo img {
-            max-width: 120px;
-        }
+    .card1 button:hover {
+        background-color: #454444;
+    }
 
-        @media screen and (min-width: 530px){
-            body{
-                display: flex;
-            }
-        }
+    .card1 a {
+        color: #1a73e8;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
 
-        .form-check {
+    .card1 .logo {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .card1 .logo img {
+        max-width: 120px;
+    }
+
+    .card1 .form-check {
         display: flex;
         align-items: center;
     }
 
-    .form-check-input {
-        margin-right: 3px;  /* Espacement à droite de la case à cocher */
+    .card1 .form-check-input {
+        margin-right: 3px;
     }
 
-    .form-check-label {
-        margin-left: 0px;  /* Espacement entre la case et le texte */
+    .card1 .form-check-label {
+        margin-left: 0px;
     }
- 
-    </style>
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    /* .map-placeholder {
+        width: 100%;
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        border-radius: 5px;
+    }
+
+    #world-map {
+        background-image: url('https://via.placeholder.com/400x400?text=World+Map');
+    }
+
+    #madagascar-map {
+        background-image: url('https://via.placeholder.com/400x400?text=Madagascar+Map');
+    }
+
+    .form-group label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #555;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        font-size: 0.9rem;
+        padding: 0.75rem;
+        border-color: #ced4da;
+    }
+
+    .custom-select {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+        border-radius: 5px;
+        border-color: #ced4da;
+    } */
+
+    .flex-center {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .position-ref {
+        position: relative;
+    }
+
+    .content {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 84px;
+    }
+
+    .links > a {
+        color: #636b6f;
+        padding: 0 25px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    .m-b-md {
+        margin-bottom: 30px;
+    }
+
+    .logo img {
+        animation: rotation 4s linear infinite alternate;
+    }
+
+    @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+    
+
+    @media (max-width: 768px) {
+        .card {
+            display: none;
+        }
+        .container-fluid {
+            display: block;
+            text-align: center;
+        }
+        .row {
+            display: block;
+            text-align: center;
+        }
+        .card1 {
+            display: inline-block;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: auto;
+        }
+        body {
+            height: auto;
+            padding: 10px;
+        }
+        
+    }
+
+</style>
 </head>
 <body> 
-    <div class="container">
-        <div class="logo">
-            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
-        </div> 
-        <div class="login-container">
-        <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li style="color:red">{{ $error }}</li>
-                    @endforeach
-                </ul>
+     <div class="container-fluid">
+        <div class="row">
+            <div class="flex-center position-ref">
+                <div class="card "> <!-- Visible uniquement sur md et plus grand -->
+                    <h5 class="card-title">Thèmes disponibles</h5>
+                    <div class="map-placeholder" id="world-map"></div>
+                </div>
             </div>
-        @endif
+            <div class="flex-center position-ref">
+                <div class="card1">
+                    <!-- <div class="login-container"> -->
+                        <div class="logo">
+                            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
+                        </div>
+                        <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li style="color:red">{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-        <!-- Formulaire de connexion -->
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus>
-            </div>
+                        <!-- Formulaire de connexion -->
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus>
+                            </div>
 
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
 
-            <div class="form-group">
-                <label class="flex items-center justify-start" for="remember"> 
-                    <input type="checkbox" name="remember" id="remember" class="mr-2" style="width: auto; height: auto; "> 
-                    <span style="white-space: nowrap;">Se souvenir de moi</span>
-                </label>
+                            <div class="form-group">
+                                <label class="flex items-center justify-start" for="remember">
+                                    <input type="checkbox" name="remember" id="remember" class="mr-2" style="width: auto; height: auto;">
+                                    <span style="white-space: nowrap;">Se souvenir de moi</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                            <!-- Lien mot de passe oublié -->
+                            <a href="{{ route('password.request') }}" class="d-block text-center mt-2">Mot de passe oublié ?</a>
+                        </form>
+                        <p class="mt-3" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
+                            Pas encore inscrit ? <a href="{{ route('register') }}" style="margin-left: 5px; margin-top:0px;">Créer un compte</a>
+                        </p>
+                    <!-- </div> -->
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Se connecter</button>
-             <!-- Lien mot de passe oublié -->
-            <a href="{{ route('password.request') }}" class="d-block text-center mt-2">Mot de passe oublié ?</a>
-        </form>
-        <p class="mt-3" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
-                 Pas encore inscrit ? <a href="{{ route('register') }}" style="margin-left: 5px; margin-top:0px;">Créer un compte</a>
-        </p>
+            <div class="flex-center position-ref">
+                <div class="card "> <!-- Visible uniquement sur md et plus grand -->
+                    <h5 class="card-title">Recensement et enquêtes disponibles</h5>
+                      
+                </div>
+                           
+                    
+            </div>
+        </div>
     </div>
-    </body>
+</body>
 
 </html>

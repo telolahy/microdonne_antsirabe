@@ -694,7 +694,9 @@ td:nth-child(7), th:nth-child(7) {
     <div class="enquetes-container">
 
     @php $delay = 0; @endphp
-    @foreach($themes->chunk(4) as $chunk)
+    {{-- @foreach($themes->chunk(4) as $chunk) --}}
+    @foreach($themes->filter(fn($theme) => $theme->files->isNotEmpty())->chunk(4) as $chunk)
+
         <div class="enquete-row-wrapper">
             <div class="enquete-row-content">
                 @foreach($chunk as $theme)

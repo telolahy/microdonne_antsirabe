@@ -11,7 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f9fc;
+            background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821);
             margin: 0;
         }
 
@@ -125,10 +125,10 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
-        </div> 
         <div class="login-container">
+            <div class="logo">
+                <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
+            </div> 
             <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
             @if ($errors->any())
                 <div class="alert alert-danger">
