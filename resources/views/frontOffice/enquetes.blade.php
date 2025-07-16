@@ -466,6 +466,11 @@
         td:nth-of-type(6):before { content: "Rapport"; }
     }
 
+    .bouttonTheme:hover {
+        background-color: #2c3e50;
+        transform: scale(1.05);
+        color: white;
+    }
 
 </style>
 
@@ -477,7 +482,7 @@
         <h1 class="page-title">Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
-                <input type="text" name="search" class="search-input" placeholder="Rechercher..." value="{{ request('search') }}">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête" value="{{ request('search') }}">
                 <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -546,8 +551,8 @@
                                                 <tr>
                                                     <th>Nom du fichier</th>
                                                     <th>Description</th>
-                                                    <th>Nombre <i class="fas fa-download"></i></th>
-                                                    <th>Statut</th>
+                                                    <th><i class="fas fa-download"></i></th>
+                                                    {{-- <th>Statut</th> --}}
                                                     <th>Action</th>
                                                     <th>Rapport d'analyses</th>
                                                 </tr>
@@ -560,8 +565,8 @@
                                                     <tr>
                                                         <td>{{ $fichier->file_name }}</td>
                                                         <td>{{ $fichier->description ?? 'Inconnue' }}</td>
-                                                        <td style="text-align: center;"><i class="fas fa-download"></i> {{ $fichier->nombre }}</td>
-                                                        <td>
+                                                        <td style="text-align: center;">{{ $fichier->nombre }}</td>
+                                                        {{-- <td>
                                                             @php
                                                                 $demande = \App\Download::where('user_id', auth()->id())
                                                                             ->where('file_id', $fichier->id)
@@ -583,13 +588,13 @@
                                                                     <span class="badge badge-secondary">Demande requise</span>
                                                                 @endif
                                                             @endif
-                                                        </td>
-                                                        <td>
+                                                        </td> --}}
+                                                        <td class="text-center">
                                                             @if(!$demande)
                                                                 @if($fichier->type === 'sans_validation')
-                                                                    <a href="{{ route('file.request', $fichier) }}" class="btn btn-success">Télécharger</a>
+                                                                    <a href="{{ route('file.request', $fichier) }}" class="btn btn-success bouttonTheme">Télécharger</a>
                                                                 @elseif($fichier->type === 'avec_validation')
-                                                                    <a href="#" class="btn btn-secondary" onclick="openModal({{ $fichier->id }})">Faire Demande</a>
+                                                                    <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                                 @endif
                                                             @else
                                                                 @if($demande->status === 'valide')
@@ -601,11 +606,11 @@
                                                                 @endif
                                                             @endif
                                                         </td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
                                                                 <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                             @else
-                                                                <button class="btn btn-primary" disabled>Envoyer rapport</button>
+                                                                <button class="btn btn-primary" disabled>Ajouter un rapport</button>
                                                             @endif
                                                         </td>
                                                     </tr>
