@@ -11,6 +11,13 @@
         letter-spacing: 1px;
         margin-left:0px;
     }
+
+    .page-title i {
+        margin-right: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+    }
+
     body{
         margin-top:150px;
     }
@@ -330,6 +337,7 @@
 
     .search-container {
         width: 250px;
+        white-space: nowrap;
     }
 
     .search-input {
@@ -405,6 +413,51 @@
         }
     }
 
+    @media (max-width: 855px) {
+        .page-title {
+        font-size: 28px;    
+        }
+
+        .page-title i {
+            margin-right: 7px;
+            font-size: 18px;
+        }
+
+        .search-input {
+        width: 250px;
+        }
+    }
+
+     @media (max-width: 750px) {
+        .page-title {
+        font-size: 25px;
+        }
+
+        .page-title i {
+            margin-right: 4px;
+            font-size: 13px;
+        }
+        .search-input {
+        margin-bottom: 5px;
+        width: 250px;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .page-title {
+        font-size: 20px;       
+        }
+
+        .page-title i {
+            margin-right: 4px;
+            font-size: 9px;
+        }
+
+        .search-input {
+        width: 210px;
+        }
+    } 
+
     @media (max-width: 600px) {
         .enquete-card {
             flex: 1 1 100%;
@@ -414,6 +467,15 @@
         .header-section {
             flex-direction: column;
             align-items: flex-start;
+        }
+
+        .page-title {
+        font-size: 22px;    
+        }
+
+        .page-title i {
+            margin-right: 7px;
+            font-size: 12px;
         }
         
         .search-container {
@@ -479,7 +541,7 @@
 
 <div class="enquetes-section" style="margin-top: 0px;">
     <div class="header-section">
-        <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>  Recensement et enquêtes</h1>
+        <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête" value="{{ request('search') }}">
