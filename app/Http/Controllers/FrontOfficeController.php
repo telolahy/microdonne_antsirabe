@@ -30,7 +30,7 @@ class FrontOfficeController extends Controller
                         $q->where('file_name', 'like', '%' . $search . '%');
                     });
             });
-        })->latest()->paginate(8); // trie par created_at DESC
+        })->orderBy('nom')->paginate(8);
  
     
         $files = File::when($themeId, function ($query, $themeId) {
@@ -91,7 +91,7 @@ class FrontOfficeController extends Controller
             });
         }
 
-        $enquetes = $enquetes->latest()->paginate(8, ['*'], 'enquetes_page');
+        $enquetes = $enquetes->orderBy('nom')->paginate(8, ['*'], 'enquetes_page');
 
     
         $fichiers = null;  
