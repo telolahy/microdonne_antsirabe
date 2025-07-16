@@ -678,7 +678,7 @@ td:nth-child(7), th:nth-child(7) {
 
 <div class="enquetes-section">
     <div class="header-section">
-        <h1 class="page-title">Thèmes</h1>
+        <h1 class="page-title"><i class="bi bi-bookmarks"></i>  Thèmes</h1>
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}">

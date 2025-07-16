@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="historique-container flex-grow-1">
-        <h1 class="page-title">Mon historique</h1>
+        <h1 class="page-title"><i class="bi bi-clock-history"></i>  Mon historique</h1>
         <div class="underline"></div>
 
         <!-- Barre de recherche -->
