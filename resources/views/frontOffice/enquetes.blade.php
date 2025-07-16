@@ -2,6 +2,19 @@
 
 @section('content')
 <style>
+
+     .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
+                width: 5% !important;
+        }
+
+    .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 10% !important;
+        }
+
+    .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
+                width: 10% !important;
+        }
+        
     .page-title {
         font-size: 32px;
         font-weight: 700;
@@ -91,6 +104,7 @@
     .file-card {
         background-color: #ffffff;
         padding: 20px;
+        /* padding-right: 50px; */
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -328,10 +342,6 @@
         align-items: center;
     }
 
-    .search-container {
-        width: 250px;
-    }
-
     .search-input {
         width: 100%;
         padding: 8px;
@@ -345,10 +355,18 @@
         align-items: center;
     }
 
-    .search-container {
+    .file-card-table .search-container {
         display: flex;
-        align-items: center;
         width: auto;
+        justify-content: flex-end;
+    }
+
+    .file-card-table .search-container i {
+        position: absolute;
+        color: #888;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-right: 22px !important;
     }
 
     .search-input {
@@ -391,6 +409,18 @@
         width: 100%;
     }
 
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+
+    .file-card p {
+        margin: 25px 0;
+    }
+
     @media (max-width: 1200px) {
         .enquete-card {
             flex: 1 1 calc(33.333% - 20px);
@@ -398,14 +428,63 @@
         }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1008px) {
+
+        .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 15% !important;
+        }
+
         .enquete-card {
             flex: 1 1 calc(50% - 20px);
             max-width: calc(50% - 20px);
         }
+
+        .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
+                display: none !important;
+        }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 986px) {
+        .enquete-card {
+            flex: 1 1 calc(33.333% - 20px);
+            max-width: calc(33.333% - 20px);
+        }
+
+        .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 13% !important;
+        }
+
+        .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
+                width: 15% !important;
+        }
+    }
+
+    @media (max-width: 876px) {
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .search-container>form {
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+    
+    @media (max-width: 770px) {
+
+        .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 100% !important;
+        }
+
+        .enquetes-section td {
+            padding-left: 10px;
+            width: 100% !important;
+            text-align: left;
+        }
+
         .enquete-card {
             flex: 1 1 100%;
             max-width: 100%;
@@ -458,12 +537,33 @@
             font-weight: bold;
         }
         
-        td:nth-of-type(1):before { content: "Nom du fichier"; }
+        /* td:nth-of-type(1):before { content: "Nom du fichier"; }
         td:nth-of-type(2):before { content: "Description"; }
         td:nth-of-type(3):before { content: "Téléchargements"; }
         td:nth-of-type(4):before { content: "Statut"; }
         td:nth-of-type(5):before { content: "Action"; }
-        td:nth-of-type(6):before { content: "Rapport"; }
+        td:nth-of-type(6):before { content: "Rapport"; } */
+
+        .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4), .enquetes-section td:nth-child(4) > a {
+            width: 100% !important;
+        }
+
+        .titreTableauEnquete {
+            display: none !important;
+        }
+
+    }
+
+    @media (max-width: 441px) {
+        /* .search-input {
+            width: 60%;
+        } */
+
+        .iconSearch {
+            right: 10px;
+            font-size: 18px;
+            color: #888;
+        }
     }
 
     .bouttonTheme:hover {
@@ -542,20 +642,20 @@
 
                                 <div class="file-card-content">
                                     <div class="file-card-table">
-                                    <div class="search-container" style="position: relative; width: 300px; text-align: right;">
-                                        <i class="fas fa-search" style="position: absolute; top: 30%; right:20px;transform: translateY(-50%); color: #888;"></i>
-                                    <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
-                                </div>
+                                    <div class="search-container">
+                                        <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
+                                        <i class="fas fa-search iconSearch"></i>
+                                    </div>
 
                                         <table>
                                             <thead>
                                                 <tr>
-                                                    <th>Nom du fichier</th>
-                                                    <th>Description</th>
-                                                    <th><i class="fas fa-download"></i></th>
+                                                    <th class="titreTableauEnquete">Nom du fichier</th>
+                                                    <th class="titreTableauEnquete">Description</th>
+                                                    <th class="titreTableauEnquete"><i class="fas fa-download"></i></th>
                                                     {{-- <th>Statut</th> --}}
-                                                    <th>Action</th>
-                                                    <th>Rapport d'analyses</th>
+                                                    <th class="titreTableauEnquete">Action</th>
+                                                    {{-- <th>Rapport d'analyses</th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -607,13 +707,13 @@
                                                                 @endif
                                                             @endif
                                                         </td>
-                                                        <td class="text-center">
+                                                        {{-- <td class="text-center">
                                                             @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
                                                                 <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                             @else
                                                                 <button class="btn btn-primary" disabled>Ajouter un rapport</button>
                                                             @endif
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>

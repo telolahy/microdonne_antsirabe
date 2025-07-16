@@ -125,6 +125,7 @@
     .file-card-table {
         width: 100%;
         overflow-x: auto;
+        margin-top: 35px;
     }
 
     table {
@@ -445,6 +446,24 @@
         width: 100%;
     }
 
+    .file-card-table .search-container {
+        display: flex;
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    .file-card-table .search-container i {
+        position: absolute;
+        color: #888;
+        font-size: 16px;
+        margin-top: -15px;
+        margin-right: 22px !important;
+    }
+
+    .file-card-table .file-search {
+        width: 40%;
+    }
+
     @media (max-width: 1200px) {
         .enquete-card {
             flex: 1 1 calc(33.333% - 20px);
@@ -466,6 +485,20 @@
 
         .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
                 width: 15% !important;
+        }
+    }
+
+    @media (max-width: 876px) {
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .search-container>form {
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
         }
     }
 
@@ -547,6 +580,10 @@
             width: 100%;
             padding: 10px;
             font-size: 13px;
+        }
+
+        .file-card-table .file-search {
+            width: 100%;
         }
     }
 
@@ -695,7 +732,7 @@ td:nth-child(7), th:nth-child(7) {
 
     @php $delay = 0; @endphp
     {{-- @foreach($themes->chunk(4) as $chunk) --}}
-    @foreach($themes->filter(fn($theme) => $theme->files->isNotEmpty())->chunk(8) as $chunk)
+    @foreach($themes->filter(fn($theme) => $theme->files->isNotEmpty())->chunk(4) as $chunk)
 
         <div class="enquete-row-wrapper">
             <div class="enquete-row-content">
@@ -733,9 +770,9 @@ td:nth-child(7), th:nth-child(7) {
                         
                         <div class="file-card-content">
                             <div class="file-card-table">
-                            <div class="search-container" style="position: relative; width: 300px; text-align: right;">
-                                        <i class="fas fa-search" style="position: absolute; top: 30%; right:20px;transform: translateY(-50%); color: #888;"></i>
+                                <div class="search-container">
                                     <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
+                                    <i class="fas fa-search"></i>
                                 </div>
                                 <table>
                                     <thead>
