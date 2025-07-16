@@ -2,6 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microdonne INSTAT</title>
+    <link rel="shortcut icon" href="/logo/logo_instat.png" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
     
@@ -11,24 +12,45 @@
         margin: 0;
         padding: 20px;
         height: 100vh;
-        display: flex;
+        /* display: flex;
         justify-content: center;
-        align-items: center;
-        background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821);
+        align-items: center; */
+        background: linear-gradient(to right, #f5f5f5, #cccccc, #888888, #333333);
+        /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
         /* width: 100%; */
     }
 
+   
+    .header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-top: 20px; /* Ajoute un espace en haut */
+    width: 100%;
+    position: relative; /* Pour le garder en haut */
+    z-index: 1; /* Assure qu'il reste au-dessus du fond */
+    }
+
+    .header h1 {
+        font-size: 2rem;
+        color: #1a73e8;
+        margin: 0; /* Supprime les marges par défaut */
+    }
+
     .container-fluid {
-        margin: 0 auto;
-        display: flex;
-        gap: 20px;
-        
+    margin: 0 auto; /* Centre le conteneur horizontalement */
+    max-width: 1200px; /* Limite la largeur maximale pour un meilleur centrage */
+    display: flex;
+    justify-content: center; /* Centre les cartes horizontalement */
+    gap: 20px;
     }
 
     .row {
         display: flex;
         width: 100%;
+        max-width: 1200px; /* Synchronisé avec .container-fluid */
+        justify-content: center; /* Centre les cartes */
         gap: 20px;
+        
     }
 
     .card, .card1 {
@@ -126,6 +148,14 @@
         margin-left: 0px;
     }
 
+    .card1 .no-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap; /* Empêche le retour à la ligne */
+    
+    }
+
     .card-title {
         font-size: 1rem;
         font-weight: 600;
@@ -187,7 +217,7 @@
         font-size: 84px;
     }
 
-    .links > a {
+    /* .links > a {
         color: #636b6f;
         padding: 0 25px;
         font-size: 13px;
@@ -195,7 +225,7 @@
         letter-spacing: .1rem;
         text-decoration: none;
         text-transform: uppercase;
-    }
+    } */
 
     .m-b-md {
         margin-bottom: 30px;
@@ -222,10 +252,12 @@
         .container-fluid {
             display: block;
             text-align: center;
+            max-width: 400px;
         }
         .row {
             display: block;
             text-align: center;
+            max-width: 400px;
         }
         .card1 {
             display: inline-block;
@@ -238,17 +270,23 @@
             height: auto;
             padding: 10px;
         }
+        .card1 .no-wrap {
+        font-size: 0.9rem; /* Réduit légèrement la taille sur petit écran */
+    }
         
     }
 
 </style>
 </head>
 <body> 
-     <div class="container-fluid">
+    <div class="header">
+        <h1>Bienvenue sur la plateforme de partage des microdonnées de l'INSTAT Madagascar</h1>
+    </div>
+    <div class="container-fluid">
         <div class="row">
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">Thèmes disponibles</h5>
+                    <h5 class="card-title">Thèmes</h5>
                     <div class="map-placeholder" id="world-map"></div>
                 </div>
             </div>
@@ -292,7 +330,7 @@
                             <!-- Lien mot de passe oublié -->
                             <a href="{{ route('password.request') }}" class="d-block text-center mt-2">Mot de passe oublié ?</a>
                         </form>
-                        <p class="mt-3" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
+                        <p class="mt-3 no-wrap" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
                             Pas encore inscrit ? <a href="{{ route('register') }}" style="margin-left: 5px; margin-top:0px;">Créer un compte</a>
                         </p>
                     <!-- </div> -->
@@ -300,7 +338,7 @@
             </div>
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">Recensement et enquêtes disponibles</h5>
+                    <h5 class="card-title">Recensement et enquêtes</h5>
                       
                 </div>
                            
