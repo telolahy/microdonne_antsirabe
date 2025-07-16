@@ -23,7 +23,7 @@
    
     .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     padding-top: 20px; /* Ajoute un espace en haut */
     width: 100%;
     position: relative; /* Pour le garder en haut */
@@ -34,6 +34,12 @@
         font-size: 2rem;
         color: #1a73e8;
         margin: 0; /* Supprime les marges par défaut */
+        max-width: 800px; /* Limite la largeur du texte */
+        width: 100%; /* Prend toute la largeur disponible dans max-width */
+        margin-left: auto; /* Centre horizontalement */
+        margin-right: auto; /* Centre horizontalement */
+        word-break: break-word; /* Permet le retour à la ligne naturel */
+        line-height: 1.5; /* Ajuste l'espacement entre les lignes */
     }
 
     .container-fluid {
@@ -272,7 +278,10 @@
         }
         .card1 .no-wrap {
         font-size: 0.9rem; /* Réduit légèrement la taille sur petit écran */
-    }
+        }
+        .header {
+            margin-bottom: 10px; /* Réduit l'espace en bas de l'en-tête sur petit écran */
+        }
         
     }
 
