@@ -24,6 +24,13 @@
         letter-spacing: 1px;
         margin-left:0px;
     }
+
+    .page-title i {
+        margin-right: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+    }
+
     body{
         margin-top:150px;
     }
@@ -46,6 +53,9 @@
         transition: all 0.3s ease;
         margin: 10px;
         border: 2px solid transparent;
+        /* Micky d*/
+        cursor: pointer; /* Indique que la carte est cliquable */
+        /* Micky f*/
     }
 
     .enquete-card:hover {
@@ -74,12 +84,18 @@
         max-height: 150px;
         object-fit: cover;
         margin-bottom: 15px;
+        /* Micky d */
+        pointer-events: none; /* Empêche l'image de capturer les clics */
+        /* Micky f */
     }
     .enquete-link {
         color: rgb(199, 176, 24);
         text-decoration: none;
         font-size: 18px;
         font-weight: 600;
+        /* Micky d */
+        pointer-events: none; /* Empêche l'image de capturer les clics */
+        /* Micky f */
     }
 
     .new-badge {
@@ -494,6 +510,15 @@
             flex-direction: column;
             align-items: flex-start;
         }
+
+        .page-title {
+        font-size: 22px;    
+        }
+
+        .page-title i {
+            margin-right: 7px;
+            font-size: 12px;
+        }
         
         .search-container {
             width: 100%;
@@ -579,7 +604,7 @@
 
 <div class="enquetes-section" style="margin-top: 0px;">
     <div class="header-section">
-        <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>  Recensement et enquêtes</h1>
+        <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête" value="{{ request('search') }}">
@@ -601,19 +626,21 @@
                             $isNew = $enquete->fichiers->where('created_at', '>=', now()->subMonth())->isNotEmpty();
                         @endphp
 
-                        <div class="enquete-card" id="card-{{ $enquete->id }}"  data-aos="fade-in" data-aos-delay="{{ $delay }}">
+                        <div class="enquete-card" id="card-{{ $enquete->id }}"  data-aos="fade-in" data-aos-delay="{{ $delay }}" onclick="toggleFiles({{ $enquete->id }})">
                             @if($isNew)
                                 <div class="badge-container">
                                     <span class="badge badge-danger">Nouveau</span>
                                 </div>
                             @endif
-                            <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link">
+                            <!-- Micky d -->
+                            <!-- <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link"> -->
                                 <img src="{{ asset('storage/images/enquetes/' . $enquete->images) }}" alt="Image de l'enquête" class="enquete-image">
-                            </a>
+                            <!-- </a> -->
                             <div class="enquete-info">
-                                <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link">
-                                    <h3>{{ $enquete->nom }}</h3>
-                                </a>
+                                <!-- <a href="javascript:void(0)" onclick="toggleFiles({{ $enquete->id }})" class="enquete-link"> -->
+                                    <h3 class="enquete-link">{{ $enquete->nom }}</h3>
+                                <!-- </a> -->
+                            <!-- Micky f -->
                                 <p class='left-align'>{{ Str::limit($enquete->description, 70) }}</p>
                                 <p><i class="far fa-clock me-2"></i> {{$enquete->created_at->format('d M Y') }}</p>
                                 <p>Total de téléchargements: {{ $enquete->fichiers->sum('nombre') }} <i class="fas fa-download"></i></p>
@@ -812,6 +839,12 @@ function toggleFiles(enqueteId) {
     });
     const filesContainer = document.getElementById(`files-${enqueteId}`);
     const card = document.getElementById(`card-${enqueteId}`);
+    
+    document.querySelectorAll('.enquete-card').forEach(c => {
+        if (c.id !== `card-${enqueteId}`) {
+            c.classList.remove('selected');
+        }
+    });
     
     if (filesContainer.style.display === 'none' || filesContainer.style.display === '') {
         filesContainer.style.display = 'block';

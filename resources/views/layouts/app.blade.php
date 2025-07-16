@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microdonne INSTAT</title>
-    <link rel="shortcut icon" href="/logo/logo_instat.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/logo/logo instat.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=League+Gothic&family=Londrina+Shadow&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -300,7 +300,7 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item {{ Route::is('front-office') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('front-office') }}">
-                        <i class="bi bi-house-door"></i>ACCUEIL
+                        <i class="bi bi-house-door"></i> THÈMES
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">

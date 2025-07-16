@@ -26,10 +26,12 @@ class FileController extends Controller
 }
 public function store(Request $request)
 {
+    //dd('coucou');
     $request->validate([
         'file' => 'required|file',
-        'description' => 'required|string',
-        'theme_ids' => 'required|array', 
+        'description' => 'required|string|max:255',
+       // 'theme_ids' => 'required|array', 
+        'theme_ids' => 'required|array|min:1',
         'type' => 'required|in:sans_validation,avec_validation',  
         'enquete_id' => 'required|exists:enquetes,id' 
     ]);

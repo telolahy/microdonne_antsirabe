@@ -2,7 +2,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microdonne INSTAT</title>
-    <link rel="shortcut icon" href="/logo/logo_instat.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/logo/logo instat.ico" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
     
@@ -15,7 +15,7 @@
         /* display: flex;
         justify-content: center;
         align-items: center; */
-        background: linear-gradient(to right, #f5f5f5, #cccccc, #888888, #333333);
+        background: linear-gradient(to right, #f9f9f9, #eeeeee, #dddddd);
         /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
         /* width: 100%; */
     }

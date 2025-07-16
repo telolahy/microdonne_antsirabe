@@ -57,6 +57,11 @@
         margin-bottom: 10px;
         letter-spacing: 1px;
     }
+    .page-title i {
+        margin-right: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+    }
 
     .underline {
         width: 100%;

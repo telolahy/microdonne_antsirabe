@@ -117,7 +117,15 @@
             </div>
             @endif
         </div>
-
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         @if(Auth::user()->direction_id == $direction->id)
             @if($files->isEmpty()) 
                 <p>Aucun fichier téléchargé pour cette direction.</p>
@@ -236,42 +244,50 @@
                 <div class="modal-body">
                     <!-- Formulaire de téléchargement -->
                     <form action="{{ route('files.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="theme_ids">Choisir un ou plusieurs thèmes</label>
-        <select name="theme_ids[]" class="form-control" multiple>
-            @foreach($themes as $theme)
-                <option value="{{ $theme->id }}">{{ $theme->nom }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="form-group">
-    <label for="enquete_id">Choisir une enquete</label>
-    <select name="enquete_id" class="form-control">
-        <option value="{{ $enquete->id }}">{{ $enquete->nom }}</option>
-    </select>
-</div>
+                        @csrf
+                        <div class="form-group">
+                            <label for="theme_ids">Choisir un ou plusieurs thèmes</label>
+                            <select name="theme_ids[]" class="form-control" multiple>
+                                @foreach($themes as $theme)
+                                    <option value="{{ $theme->id }}">{{ $theme->nom }}</option>
+                                @endforeach
+                            </select>
+                             @error('theme_ids')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                           
+                        <div class="form-group">
+                        <label for="enquete_id">Choisir une enquete</label>
+                        <select name="enquete_id" class="form-control">
+                            <option value="{{ $enquete->id }}">{{ $enquete->nom }}</option>
+                        </select>
+                        </div>
 
-    <div class="form-group">
-        <label for="file">Choisir un fichier</label>
-        <input type="file" name="file" id="file" class="form-control" required>
-    </div>
+                        <div class="form-group">
+                            <label for="file">Choisir un fichier</label>
+                            <input type="file" name="file" id="file" class="form-control" required>
+                        </div>
 
-    <div class="form-group">
-        <label for="description">Description</label>
-        <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
-    </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" class="form-control" rows="4" required></textarea>
+                            @error('description')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
 
-    <div class="form-group">
-        <label for="type">Type</label>
-        <select name="type" id="type" class="form-control" required>
-            <option value="sans_validation">Sans validation</option>
-            <option value="avec_validation">Avec validation</option>
-        </select>
-    </div>
+                        </div>
 
-    <button type="submit" class="btn btn-primary">Ajouter</button>
-</form>
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select name="type" id="type" class="form-control" required>
+                                <option value="sans_validation">Sans validation</option>
+                                <option value="avec_validation">Avec validation</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
 
                 </div>
             </div>

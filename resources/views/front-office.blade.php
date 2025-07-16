@@ -19,6 +19,13 @@
         margin-bottom: 10px;
         letter-spacing: 1px;
     }
+
+    .page-title i {
+        margin-right: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+    }
+
     /* .container{
         margin-left: 300px;  
     } */
@@ -44,6 +51,9 @@
         transition: all 0.3s ease;
         margin: 10px;
         border: 2px solid transparent;
+        /* Micky d*/
+        cursor: pointer; /* Indique que la carte est cliquable */
+        /* Micky f*/
     }
 
     .enquete-card:hover {
@@ -71,12 +81,18 @@
         max-height: 150px;
         object-fit: cover;
         margin-bottom: 15px;
+        /* Micky d */
+        pointer-events: none; /* Empêche l'image de capturer les clics */
+        /* Micky f */
     }
     .enquete-link {
         color: rgb(199, 176, 24);
         text-decoration: none;
         font-size: 18px;
         font-weight: 600;
+        /* Micky d */
+        pointer-events: none; /* Empêche l'image de capturer les clics */
+        /* Micky f */
     }
 
     .new-badge {
@@ -528,6 +544,7 @@
         .search-container {
             width: 100%;
             margin-top: 10px;
+            white-space: nowrap;
         }
         
         .search-input {
@@ -715,7 +732,7 @@ td:nth-child(7), th:nth-child(7) {
 
 <div class="enquetes-section">
     <div class="header-section">
-        <h1 class="page-title"><i class="bi bi-bookmarks"></i>  Thèmes</h1>
+        <h1 class="page-title"><i class="bi bi-bookmarks"></i>Thèmes</h1>
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}">
@@ -741,19 +758,19 @@ td:nth-child(7), th:nth-child(7) {
                         $isNew = $theme->files->where('created_at', '>=', now()->subMonth())->isNotEmpty();
                     @endphp
 
-                    <div class="enquete-card " id="card-{{ $theme->id }}" data-aos="fade-up" data-aos-delay="{{ $delay }}">
+                    <div class="enquete-card " id="card-{{ $theme->id }}" data-aos="fade-up" data-aos-delay="{{ $delay }}" onclick="toggleFiles({{ $theme->id }})">
                         @if($isNew)
                             <div class="badge-container">
                                 <span class="badge badge-danger">Nouveau</span>
                             </div>
                         @endif
-                        <a href="javascript:void(0)" onclick="toggleFiles({{ $theme->id }})" class="enquete-link">
+                        <!-- <a href="javascript:void(0)" onclick="toggleFiles({{ $theme->id }})" class="enquete-link"> -->
                             <img src="{{ asset('storage/images/themes/' . $theme->image) }}" alt="Image de l'enquête" class="enquete-image">
-                        </a>
+                        <!-- </a> -->
                         <div class="enquete-info">
-                            <a href="javascript:void(0)" onclick="toggleFiles({{ $theme->id }})" class="enquete-link">
-                                <h3>{{ $theme->nom }}</h3>
-                            </a>
+                            <!-- <a href="javascript:void(0)" onclick="toggleFiles({{ $theme->id }})" class="enquete-link"> -->
+                                <h3 class="enquete-link">{{ $theme->nom }}</h3>
+                            <!-- </a> -->
                             {{-- <p class='left-align'>{{ Str::limit($theme->description, 70) }}</p>
                             <p> <i class='far fa-clock me-2'></i> {{$theme->created_at->format('d M Y')}}</p> --}}
                         </div>
