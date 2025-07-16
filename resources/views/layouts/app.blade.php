@@ -300,7 +300,7 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item {{ Route::is('front-office') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('front-office') }}">
-                        <i class="bi bi-house-door"></i>ACCUEIL
+                        <i class="bi bi-house-door"></i> THÈMES
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">
