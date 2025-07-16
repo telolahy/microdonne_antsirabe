@@ -19,6 +19,13 @@
         margin-bottom: 10px;
         letter-spacing: 1px;
     }
+
+    .page-title i {
+        margin-right: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+    }
+
     /* .container{
         margin-left: 300px;  
     } */
@@ -495,6 +502,7 @@
         .search-container {
             width: 100%;
             margin-top: 10px;
+            white-space: nowrap;
         }
         
         .search-input {
@@ -678,7 +686,7 @@ td:nth-child(7), th:nth-child(7) {
 
 <div class="enquetes-section">
     <div class="header-section">
-        <h1 class="page-title"><i class="bi bi-bookmarks"></i>  Thèmes</h1>
+        <h1 class="page-title"><i class="bi bi-bookmarks"></i>Thèmes</h1>
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}">
