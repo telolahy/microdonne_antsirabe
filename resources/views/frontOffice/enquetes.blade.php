@@ -775,6 +775,12 @@ function toggleFiles(enqueteId) {
     const filesContainer = document.getElementById(`files-${enqueteId}`);
     const card = document.getElementById(`card-${enqueteId}`);
     
+    document.querySelectorAll('.enquete-card').forEach(c => {
+        if (c.id !== `card-${enqueteId}`) {
+            c.classList.remove('selected');
+        }
+    });
+    
     if (filesContainer.style.display === 'none' || filesContainer.style.display === '') {
         filesContainer.style.display = 'block';
         card.classList.add('selected');
