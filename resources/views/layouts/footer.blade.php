@@ -9,10 +9,7 @@
             <div class="col-md-8 col-sm-10 col-lg-3">
                 <div class="footer-description text-center text-lg-left">
 
-                    <div class="logoFooter">
-                        <img src="/logo/logo_instat.png" alt="Image Description" class="logoInstat">
-                        <img src="/logo/WB_F-WBG-Horizontal-CMYK.jpg" alt="image Description" class="logoWB">
-                    </div>
+                    <img src="/logo/logo_instat.png" alt="Image Description" class="logoInstat">
 
                     <p class="g-mb-20 g-px-20 g-px-md-0 text-center mt-1">La statistique, un outil de gouvernance au service du développement</p>
                     <div class="social-icons list-unstyled d-flex justify-content-center justify-content-lg-start">
