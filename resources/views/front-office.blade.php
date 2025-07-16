@@ -2,6 +2,15 @@
 
 @section('content')
 <style>
+
+    .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
+                width: 5% !important;
+        }
+
+    .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 10% !important;
+        }
+
     .page-title {
         font-size: 32px;
         font-weight: 700;
@@ -173,6 +182,12 @@
     td:nth-of-type(7):before {
         content: "Rapport d'analyses";
         white-space: normal;
+    }
+
+    .enquetes-section td {
+        padding-left: 10px;
+        width: 100% !important;
+        text-align: left;
     }
 }
 
@@ -444,7 +459,29 @@
         }
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 1050px) {
+        .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5) {
+                width: 15% !important;
+        }
+
+        .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
+                width: 15% !important;
+        }
+    }
+
+    @media (max-width: 850px) {
+
+        .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
+                width: 100% !important;
+        }
+
+        .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5) {
+                width: 15% !important;
+        }
+
+        .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
+                width: 15% !important;
+        }
         .enquete-card {
             flex: 1 1 100%;
             max-width: 100%;
@@ -497,6 +534,22 @@
             font-weight: bold;
         }
 
+        .enquetes-section td {
+            padding-left: 10px;
+            width: 100% !important;
+            text-align: left;
+        }
+
+        .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4), .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5) {
+            width: 100% !important;
+        }
+        .enquetes-section td:nth-child(5)>button {
+            width: 100%;
+            padding: 10px;
+            font-size: 13px;
+        }
+    }
+
         /* Modifier ces styles pour ajuster les largeurs des colonnes */
 td:nth-child(1), th:nth-child(1) { width: 15%; }
 td:nth-child(2), th:nth-child(2) { width: 20%; }
@@ -532,7 +585,8 @@ td:nth-child(7), th:nth-child(7) {
         content: "Rapport d'analyses";
     }
 }
-    }
+
+
     @keyframes slideDown {
     from {
         opacity: 0;
@@ -566,6 +620,24 @@ td:nth-child(7), th:nth-child(7) {
         position: relative;
     }
     
+
+
+    @media (max-width: 975px) {
+
+            .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
+                display: none;
+            }
+
+            .nombreTelechargement {
+            display: none;
+            }
+
+            .bouttonTheme{
+                width: 100%;
+                padding: 10px;
+                font-size: 13px;
+            }
+    }
     /* Add this to fix the animation */
     @keyframes slideDown {
         from {
@@ -581,6 +653,24 @@ td:nth-child(7), th:nth-child(7) {
     .slide-down {
         animation: slideDown 0.3s ease-out forwards;
     }
+
+    .enqueteAssocie {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .chaqueEnquete {
+        color: #3318be;
+        text-decoration: none;
+    }
+
+    .bouttonTheme:hover {
+        background-color: #2c3e50;
+        transform: scale(1.05);
+        color: white;
+    }
+
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -652,11 +742,11 @@ td:nth-child(7), th:nth-child(7) {
                                         <tr>
                                             <th>Nom du fichier</th>
                                             <th>Description</th>
-                                            <th>Enquête associée</th>
-                                            <th>Nombre <i class="fas fa-download"></i></th>
-                                            <th>Statut</th>
+                                            {{-- <th>Enquête associée</th> --}}
+                                            <th><i class="fas fa-download"></i></th>
+                                            {{-- <th>Statut</th> --}}
                                             <th>Action</th>
-                                            <th><i class="bi bi-file-earmark-text"></i></th>
+                                            <th>Rapport d'analyse</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -667,8 +757,20 @@ td:nth-child(7), th:nth-child(7) {
                                             @endphp
                                             <tr>
                                                 <td>{{ $fichier->file_name }}</td>
-                                                <td>{{ $fichier->description ?? 'Inconnue' }}</td>
                                                 <td>
+                                                    @if($enquete)
+                                                        <span class="enqueteAssocie">Enquête associée :</span>
+                                                        <a href="{{ route('frontOffice.showFichiers', ['enqueteId' => $enquete->id]) }}" 
+                                                        class="chaqueEnquete">
+                                                            {{ $enquete->nom }}. <br>
+                                                        </a>
+                                                    @else
+                                                        <span class="text-gray-400 italic">Aucune enquête</span>
+                                                    @endif
+
+                                                    {{ $fichier->description ?? 'Inconnue' }}
+                                                </td>
+                                                {{-- <td>
                                             @if($enquete)
                                                 <a href="{{ route('frontOffice.showFichiers', ['enqueteId' => $enquete->id]) }}" 
                                                    class="inline-block px-2 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 hover:text-blue-900 transition duration-200">
@@ -677,10 +779,10 @@ td:nth-child(7), th:nth-child(7) {
                                             @else
                                                 <span class="text-gray-400 italic">Aucune enquête</span>
                                             @endif
-                                        </td>
+                                        </td> --}}
 
-                                                <td style="text-align: center;"><i class="fas fa-download"></i> {{ $fichier->nombre }}</td>
-                                                <td>
+                                                <td style="text-align: center;" class="nombreTelechargement">{{ $fichier->nombre }}</td>
+                                                {{-- <td>
                                                     @php
                                                         $demande = \App\Download::where('user_id', auth()->id())
                                                                     ->where('file_id', $fichier->id)
@@ -703,13 +805,13 @@ td:nth-child(7), th:nth-child(7) {
                                                             <span class="badge badge-secondary">Demande requise</span>
                                                         @endif
                                                     @endif
-                                                </td>
-                                                <td>
+                                                </td> --}}
+                                                <td class="text-center placeBoutton">
                                                     @if(!$demande)
                                                         @if($fichier->type === 'sans_validation')
-                                                            <a href="{{ route('file.request', $fichier) }}" class="btn btn-success">Télécharger</a>
+                                                            <a href="{{ route('file.request', $fichier) }}" class="btn btn-success bouttonTheme">Télécharger</a>
                                                         @elseif($fichier->type === 'avec_validation')
-                                                            <a href="#" class="btn btn-secondary" onclick="openModal({{ $fichier->id }})">Faire Demande</a>
+                                                            <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                         @endif
                                                     @else
                                                         @if($demande->status === 'valide')
@@ -721,11 +823,11 @@ td:nth-child(7), th:nth-child(7) {
                                                         @endif
                                                     @endif
                                                 </td>
-                                                <td>
+                                                <td class="text-center">
                                                     @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
                                                         <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                     @else
-                                                        <button class="btn btn-primary" disabled>Envoyer rapport</button>
+                                                        <button class="btn btn-primary" disabled>Ajouter un rapport</button>
                                                     @endif
                                                 </td>
                                             </tr>
