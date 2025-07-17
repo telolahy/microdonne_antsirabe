@@ -73,6 +73,34 @@
         }
 
         /* Micky d*/
+        .nav-link1 {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 0px; 
+            padding-bottom: 8px 12px !important;
+            position: relative !important;
+            color: #f0f0f0 !important;
+        
+            white-space: nowrap;
+        }
+        .nav-link1::after {
+            content: "" !important;
+            position: absolute!important ;
+            left: 0 !important;
+            bottom: 0 !important;
+            height: 4px !important;
+            width: 0% !important;
+            background-color: #1f4cf5 !important; 
+            transition: width 0.3s ease-in-out !important;
+            border-radius: 2px !important;
+        }
+        .navbar .nav-link1:hover {
+            color: #4dabf7 !important;
+            text-decoration: none !important;
+        }
+        .navbar .nav-link1:hover::after {
+            width: 50% !important;
+        }
        /*  .navbar-brand span {
             font-size: 1.2rem !important;
             font-weight: 700 !important;
@@ -360,15 +388,16 @@
 
             <div class="dropdown ml-lg-auto mt-2 mt-lg-0 d-flex align-items-center">
                 @if(Auth::user()->isDirection() && Auth::user()->direction)
-                <div style="position: relative; display: inline-block; font-weight: 600; color: #fff;">
-                       <i class="bi bi-bell" style="font-size: 15px;"></i>
+                <div style="position: relative; display: inline-block;">
+                       <a href="{{ route('notifications.index') }}" style= "font-weight: 800; color: #fff; margin-right: 2px;" >
+                        <i class="bi bi-bell" style="font-size: 15px;"></i>
                        @if($nouvellesDemandes > 0)
                            <span class="not-badge">
                                {{ $nouvellesDemandes }}
                            </span>
                        @endif
                </div>
-                    <a class="nav-link mr-3" href="#">{{ Auth::user()->direction->name }}</a>
+                    <a class="nav-link1 ml-3 mr-3" href="#">{{ Auth::user()->direction->name }}</a>
 
                 @endif
                 <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
