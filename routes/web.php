@@ -30,6 +30,8 @@ use App\Http\Controllers\FrontOfficeController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\RapportController;
 use App\Http\Controllers\SuperadminController;
+use App\Http\Controllers\UserChangeController;
+
 
 //Route::get('/execute-solution', [ExecuteSolutionController::class, 'someMethod']);
 
@@ -150,4 +152,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Pour l'admin qui valide ou rejette un fichier
         Route::patch('files/{file}/validate/{status}', [FileController::class, 'updateStatus'])->name('files.updateStatus');
     });
+});
+
+// stagiaire
+Route::middleware('auth')->group(function () {
+    Route::get('/gestion-utilisateur', [UserChangeController::class, 'index'])->name('users.index');
+    Route::post('/gestion-utilisateur/{user}/changer-role', [UserChangeController::class, 'changerRole'])->name('users.changerRole');
 });

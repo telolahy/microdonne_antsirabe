@@ -200,40 +200,47 @@
 
 
 <div id="sidebar" class="sidebar">
-    <hr>
-    <input type="text" class="search-box" placeholder="Rechercher..." id="searchInput">
+  <hr>
+  <input type="text" class="search-box" placeholder="Rechercher..." id="searchInput">
 
-    <ul class="nav nav-pills flex-column">
+  <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+          <a href="{{ route('themes.index') }}" class="nav-link {{ Request::routeIs('themes.index') ? 'active' : '' }}">
+              <i class="bi bi-folder"></i> THÈMES
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="{{ route('enquete.index') }}" class="nav-link {{ Request::routeIs('enquete.index') ? 'active' : '' }}">
+              <i class="bi bi-file-earmark-text"></i> RECENSEMENTS ET ENQUÊTES
+          </a>
+      </li>
+      <li class="nav-item">
+          <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
+              <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
+          </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ route('notifications.index') }}" class="nav-link {{ Request::routeIs('notifications.index') ? 'active' : '' }}">
+          <div style="position: relative; display: inline-block;">
+            <i class="bi bi-bell" style="font-size: 20px;"></i>
+            @if($nouvellesDemandes > 0)
+                <span class="not-badge">
+                    {{ $nouvellesDemandes }}
+                </span>
+            @endif
+          </div>
+          NOTIFICATIONS
+        </a>
+      </li>
+      {{-- Stagiaire --}}
+      @if(Auth::user()->direction_id != 0)
         <li class="nav-item">
-            <a href="{{ route('themes.index') }}" class="nav-link {{ Request::routeIs('themes.index') ? 'active' : '' }}">
-                <i class="bi bi-folder"></i> THÈMES
+            <a href="{{ route('users.index') }}" class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
+                <i class="bi bi-people"></i> GESTION DES UTILISATEURS
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route('enquete.index') }}" class="nav-link {{ Request::routeIs('enquete.index') ? 'active' : '' }}">
-                <i class="bi bi-file-earmark-text"></i> RECENSEMENTS ET ENQUÊTES
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
-                <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
-            </a>
-        </li>
-        <li class="nav-item">
-    <a href="{{ route('notifications.index') }}" class="nav-link {{ Request::routeIs('notifications.index') ? 'active' : '' }}">
-    <div style="position: relative; display: inline-block;">
-    <i class="bi bi-bell" style="font-size: 20px;"></i>
-    @if($nouvellesDemandes > 0)
-        <span class="not-badge">
-            {{ $nouvellesDemandes }}
-        </span>
-    @endif
-</div>
-        NOTIFICATIONS
-    </a>
-</li>
-
-    </ul>
+      @endif
+  </ul>
 </div>
 @endif
 <div class="main-content">
