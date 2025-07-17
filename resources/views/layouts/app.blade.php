@@ -392,7 +392,7 @@
                        <a href="{{ route('notifications.index') }}" style= "font-weight: 800; color: #fff; margin-right: 2px;" >
                         <i class="bi bi-bell" style="font-size: 15px;"></i>
                        @if($nouvellesDemandes > 0)
-                           <span class="not-badge">
+                           <span class="not-badge" style="font-size:3px;">
                                {{ $nouvellesDemandes }}
                            </span>
                        @endif
