@@ -14,6 +14,10 @@
     .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
                 width: 10% !important;
         }
+
+    .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5) {
+                width: 10% !important;
+        }
         
     .page-title {
         font-size: 32px;
@@ -489,7 +493,7 @@
             max-width: calc(33.333% - 20px);
         }
     }
-
+/* 
     @media (max-width: 1008px) {
 
         .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
@@ -504,9 +508,13 @@
         .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
                 display: none !important;
         }
-    }
+    } */
 
-    @media (max-width: 986px) {
+    @media (max-width: 1165px) {
+        .enquetes-section th:nth-child(3), .enquetes-section td:nth-child(3) {
+                display: none !important;
+        }
+
         .enquete-card {
             flex: 1 1 calc(33.333% - 20px);
             max-width: calc(33.333% - 20px);
@@ -519,23 +527,13 @@
         .enquetes-section th:nth-child(4), .enquetes-section td:nth-child(4) {
                 width: 15% !important;
         }
-    }
 
-    @media (max-width: 876px) {
-        .header-section {
-            flex-direction: column;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .search-container>form {
-            display: flex;
-            width: 100%;
-            margin-top: 10px;
+        .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5) {
+                width: 15% !important;
         }
     }
     
-    @media (max-width: 770px) {
+    @media (max-width: 926px) {
 
         .enquetes-section th:nth-child(1), .enquetes-section td:nth-child(1) {
                 width: 100% !important;
@@ -619,6 +617,11 @@
             width: 100% !important;
         }
 
+        .enquetes-section th:nth-child(5), .enquetes-section td:nth-child(5), .enquetes-section td:nth-child(5) > button {
+            width: 100% !important;
+        }
+
+
         .titreTableauEnquete {
             display: none !important;
         }
@@ -641,6 +644,11 @@
         background-color: #2c3e50;
         transform: scale(1.05);
         color: white;
+    }
+
+    .enqueteAssocie {
+        font-weight: bold;
+        color: #2c3e50;
     }
 
 </style>
@@ -740,7 +748,7 @@
                                                     <th class="titreTableauEnquete"><i class="fas fa-download"></i></th>
                                                     {{-- <th>Statut</th> --}}
                                                     <th class="titreTableauEnquete">Action</th>
-                                                    {{-- <th>Rapport d'analyses</th> --}}
+                                                    <th>Rapport d'analyses</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -750,7 +758,35 @@
                                                     @endphp
                                                     <tr>
                                                         <td>{{ $fichier->file_name }}</td>
-                                                        <td>{{ $fichier->description ?? 'Inconnue' }}</td>
+                                                        <td>
+                                                            <span class="enqueteAssocie">Statut:</span>
+
+                                                            @php
+                                                                $demande = \App\Download::where('user_id', auth()->id())
+                                                                            ->where('file_id', $fichier->id)
+                                                                            ->latest()
+                                                                            ->first();
+                                                            @endphp
+                                                            @if($demande)
+                                                                @if($demande->status === 'valide')
+                                                                    <span class="badge badge-success">Validé</span>
+                                                                @elseif($demande->status === 'rejete')
+                                                                    <span class="badge badge-danger">Refusé</span>
+                                                                @else
+                                                                    <span class="badge badge-warning">En attente</span>
+                                                                @endif
+                                                            @else
+                                                                @if($fichier->type === 'sans_validation')
+                                                                    <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                @else
+                                                                    <span class="badge badge-secondary">Demande requise</span>
+                                                                @endif
+                                                            @endif
+                                                            <br><br>
+
+                                                            {{ $fichier->description ?? 'Inconnue' }}
+
+                                                        </td>
                                                         <td style="text-align: center;">{{ $fichier->nombre }}</td>
                                                         {{-- <td>
                                                             @php
@@ -792,13 +828,13 @@
                                                                 @endif
                                                             @endif
                                                         </td>
-                                                        {{-- <td class="text-center">
+                                                        <td class="text-center">
                                                             @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
                                                                 <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                             @else
                                                                 <button class="btn btn-primary" disabled>Ajouter un rapport</button>
                                                             @endif
-                                                        </td> --}}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
