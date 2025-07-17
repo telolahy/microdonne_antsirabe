@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Theme;
+use App\Enquete;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
 class LoginController extends Controller
@@ -24,7 +26,11 @@ class LoginController extends Controller
     // Affiche le formulaire de connexion
     public function showLoginForm()
     {
-        return view('auth.login');
+        $themes = Theme::has('files')->orderBy('nom')->take(5)->get();
+        $nbr_themes = $themes->count();
+        $enquetes = Enquete::has('files')->orderBy('nom')->take(5)->get();
+        $nbr_enquetes = $enquetes->count();
+        return view('auth.login', compact('themes', 'nbr_themes', 'enquetes', 'nbr_enquetes'));
     }
 
     // Gère la connexion de l'utilisateur

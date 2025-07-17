@@ -4,6 +4,7 @@
     <title>Microdonne INSTAT</title>
     <link rel="shortcut icon" href="/logo/logo instat.ico" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
     
     body {
@@ -62,7 +63,7 @@
     .card, .card1 {
         border: none;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         background-color: #ffffff;        
         flex: 1;
     }
@@ -70,14 +71,22 @@
         padding: 0 40px;
         min-height: 100%;
         width: 100%;
-        /* max-width: 400px; */
+        min-width: 250px;
     }
-
+    .card i {
+        font-size: 1rem;
+        margin-right: 10px;
+    }
+    .card-title{
+        text-align: center;
+    }
+    
     .card1 {
         
         padding: 40px;
         min-height: 400px;
         width: 100%;
+        min-width: 250px;
         /* max-width: 400px; */
     }
 
@@ -108,7 +117,7 @@
     .card1 button {
         width: 40%;
         padding: 10px;
-        background-color: #000000;
+        background-color: #1a73e8;
         color: white;
         border: none;
         border-radius: 4px;
@@ -163,7 +172,7 @@
     }
 
     .card-title {
-        font-size: 1rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: #333;
         margin-bottom: 10px;
@@ -236,6 +245,57 @@
     .m-b-md {
         margin-bottom: 30px;
     }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-body li {
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+        
+        /* padding: 10px; */
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: #555;
+        list-style-type: square; /* Supprime les puces */
+        opacity: 0;
+        transform: translateY(20px); /* Départ légèrement en bas */
+        animation: fadeInSlide 0.6s ease-out forwards; /* Animation de 0.6s */
+        animation-delay: calc(0.2s * var(--i)); /* Décalage basé sur l'index */
+    }
+
+
+    @keyframes fadeInSlide {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .card-body1 {
+        padding: 20px;
+    }
+
+    .card-body1 li {
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+        
+        /* padding: 10px; */
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        color: rgba (85, 85, 85, 0.9);
+        list-style-type: square; /* Supprime les puces */
+        opacity: 0;
+        transform: rotate(-15deg); /* Départ avec une légère rotation */
+        animation: rotateIn 0.8s ease-out forwards;
+        animation-delay: calc(1s + 0.1s * var(--i)); /* Délai progressif */
+        }
+
+
+    @keyframes rotateIn {
+    to {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+}
 
     .logo img {
         /* animation: rotation 4s linear infinite alternate; */
@@ -317,9 +377,35 @@
     <div class="container-fluid">
         <div class="row">
             <div class="flex-center position-ref">
-                <div class="card "> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">Thèmes</h5>
-                    <div class="map-placeholder" id="world-map"></div>
+                <div class="card"> <!-- Visible uniquement sur md et plus grand -->
+                    <h5 class="card-title">
+                        <i class="bi bi-bookmarks"></i>
+                        Thèmes</h5>
+                    <!-- <div class="map-placeholder" id="world-map"> -->
+                        <div class="card-body">
+                            <ul>
+                                @php
+                                $index = 0;
+                                @endphp
+                                @foreach ($themes as $theme)
+                                    @php
+                                    $index++;
+                                    @endphp
+                                    <li style="--i: {{ $loop->iteration }}">
+                                            {{ $theme->nom }}
+                                        
+                                    </li>
+                                @endforeach
+                                @php
+                                $index++;
+                                @endphp
+                                    <li style="--i: {{ $index }}">
+                                            Etc ...
+                                        
+                                    </li>
+                            </ul>
+                        </div>
+                    <!-- </div> -->
                 </div>
             </div>
             <div class="flex-center position-ref">
@@ -370,7 +456,33 @@
             </div>
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">Recensement et enquêtes</h5>
+                    <h5 class="card-title">
+                        <i class="bi bi-bar-chart-line"></i>
+                        Recensement et enquêtes
+                    </h5>
+                    <div class="card-body1">
+                            <ul>
+                                @php
+                                $index = 0;
+                                @endphp
+                                @foreach ($enquetes as $enquete)
+                                    @php
+                                    $index++;
+                                    @endphp
+                                    <li style="--i: {{ $loop->iteration }}">
+                                            {{ $enquete->nom }}
+                                        
+                                    </li>
+                                @endforeach
+                                @php
+                                $index++;
+                                @endphp
+                                    <li style="--i: {{ $index }}">
+                                            Etc ...
+                                        
+                                    </li>
+                            </ul>
+                        </div>
                       
                 </div>
                            
