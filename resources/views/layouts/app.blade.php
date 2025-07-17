@@ -323,6 +323,46 @@
     }
 } */
 
+#not-badge {
+    display: inline-block;
+    min-width: 19px;
+    height: 19px;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    color: white;
+    border-radius: 50%;
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20px;
+    padding: 0 4px;
+    box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+    position: absolute;
+    top: -10px;
+    right: -8px;
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+    z-index: 100;
+    transition: transform 0.2s ease;
+}
+
+#not-badge:hover {
+    transform: scale(1.1);
+    animation-play-state: paused;
+}
+
+/* Animation keyframes */
+@keyframes pulse {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.1); 
+    }
+    100% { 
+        transform: scale(1); 
+    }
+}
+
         /* Micky f*/
 
 .navbar-dark .navbar-toggler {
@@ -392,9 +432,9 @@
                        <a href="{{ route('notifications.index') }}" style= "font-weight: 800; color: #fff; margin-right: 2px;" >
                         <i class="bi bi-bell" style="font-size: 15px;"></i>
                        @if($nouvellesDemandes > 0)
-                           <span class="not-badge" style="font-size:3px;">
-                               {{ $nouvellesDemandes }}
-                           </span>
+                            <span class="not-badge" id="not-badge">
+                               {{ $nouvellesDemandes > 99 ? '99+' : $nouvellesDemandes }}
+                            </span>
                        @endif
                </div>
                     <a class="nav-link1 ml-3 mr-3" href="#">{{ Auth::user()->direction->name }}</a>
