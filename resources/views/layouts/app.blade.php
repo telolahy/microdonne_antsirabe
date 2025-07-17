@@ -28,12 +28,18 @@
              
         }
         /* Micky d*/
-    .navbar-nav, .dropdown {
+    .navbar-nav {
+        font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem; 
+            
+    }  
+
+    .dropdown{
         font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-weight: 700;
             font-size: 1rem; 
-            
-    }  
+    }
         
 
     .navbar .nav-link {
@@ -67,13 +73,13 @@
         }
 
         /* Micky d*/
-        .navbar-brand span {
+       /*  .navbar-brand span {
             font-size: 1.2rem !important;
             font-weight: 700 !important;
             letter-spacing: 0.8px !important;
             color: #ffffff !important;
             margin-left: 10px !important;
-        }
+        } */
         /* Micky f*/
             
                 #userDropdown img {
@@ -84,19 +90,33 @@
                 .dropdown-menu .dropdown-item.text-danger {
                     color: #ff7f00 !important;
                 }
-            @keyframes rotation {
+           /*  @keyframes rotation {
                 from {
                     transform: rotate(0deg);
                 }
                 to {
                     transform: rotate(360deg);
                 }
+            } */
+            
+            /* Animation de pulsation */
+            @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre légère */
+            }
+            50% {
+                transform: scale(1.3);
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Ombre plus intense pour l'effet de lueur */
+            }
             }
 
 
         .navbar-brand img {
             height: 60px;
-            animation: rotation 4s linear infinite; /* durée: 4s, type: linéaire, infini */
+            animation: 
+            /* rotation 4s linear infinite; durée: 4s, type: linéaire, infini */
+            pulse 2s ease-in-out infinite; /* Pulsation toutes les 2 secondes */
         }
         
 
@@ -132,7 +152,7 @@
         .user-name {
             font-family: 'Poppins', sans-serif !important;
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
             color: #ffffff;
         }
         .user-name:hover {
@@ -141,7 +161,7 @@
         }
         
         
-      .badge-direction {
+      /* .badge-direction {
             background-color: #1f4cf5 !important;
             color: #fff !important;
             padding: 4px 20px !important; 
@@ -159,35 +179,51 @@
             align-items: center;         
             justify-content: center;    
             line-height: 1;              
-        }
+        } */
         /* Micky f*/
 
-        .badge-direction:hover {
+       /*  .badge-direction:hover {
             background-color: #1738b8 !important;
             box-shadow: 0 4px 14px rgba(23, 56, 184, 0.6) !important;
             color: #e6eaff !important;
             text-decoration: none !important;
-        }
+        } */
 
         .navbar .dropdown-menu {
     top: 100%; /* Positionne le menu juste en dessous de l'élément parent */
     left: auto !important;
     right: 0; /* Aligne à droite pour correspondre à la position du dropdown-toggle */
-}
+    }
 /* Micky d*/
-@media (max-width: 1525px) {
-.navbar-nav, .dropdown {
-        
-            font-size: 0.75rem; 
-            
-    }  
-    .navbar-brand span {
-            font-size: 0.8rem !important;
-            
-        }
+
+.nav-link {
+    margin-right: 20px; /* Espace entre les éléments du menu */
 }
 
-@media (max-width: 1215px) and (min-width: 992px) {
+  @media (max-width: 1350px) {
+.nav-link {
+    margin-right: 3px; /* Supprime l'espace entre les éléments du menu */
+}
+.navbar-nav {
+    font-size: 1rem;      
+    }  
+ .dropdown {
+    font-size: 0.8rem;
+    }
+    
+}  
+
+@media (max-width: 1200px) {
+.navbar-nav {
+    font-size: 0.8rem;      
+    }  
+ .dropdown {
+    font-size: 0.75rem;
+    }
+    
+}  
+
+/* @media (max-width: 1215px) and (min-width: 992px) {
             .navbar-brand span {
                 display: none;
             }
@@ -209,7 +245,7 @@
             
             }  
             
-        }
+        } */
 
 @media (max-width: 991px) {
     .navbar-collapse {
@@ -223,10 +259,10 @@
         font-size: 0.95rem;
         padding: 10px 15px !important;
     }
-    .navbar-brand span {
+    /* .navbar-brand span {
         font-size: 1.1rem !important;
         margin-left: 8px !important;
-    }
+    } */
     .user-name {
         font-size: 0.9rem;
     }
@@ -235,13 +271,13 @@
         float: none;
         width: 100%;
     }
-    .badge-direction {
+    /* .badge-direction {
         font-size: 0.75rem;
         padding: 3px 15px !important;
-    }
+    } */
 }
 
-@media (max-width: 359px) {
+/* @media (max-width: 359px) {
     .navbar-brand span {
         display: none;
     }
@@ -257,7 +293,7 @@
     .user-name {
         font-size: 0.8rem;
     }
-}
+} */
 
         /* Micky f*/
 
@@ -287,7 +323,7 @@
         <a class="navbar-brand d-flex align-items-center" href="{{ route('front-office') }}">
             <img src="/logo/logo_instat.png" alt="Logo INSTAT">
             <!-- Micky d-->
-            <span>INSTAT Microdonnées</span>
+            <!-- <span>INSTAT Microdonnées</span> -->
         </a>
         <button class="navbar-toggler ms-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -300,7 +336,8 @@
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item {{ Route::is('front-office') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('front-office') }}">
-                        <i class="bi bi-house-door"></i> THÈMES
+                        <!-- <i class="bi bi-house-door"></i>  -->
+                        <i class="bi bi-bookmarks"></i>  THÈMES
                     </a>
                 </li>
                 <li class="nav-item {{ Route::is('showEnquetes') ? 'active' : '' }}">
@@ -313,11 +350,11 @@
                         <i class="bi bi-clock-history"></i> HISTORIQUE DES TÉLÉCHARGEMENTS
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="https://www.instat.mg/" target="_blank">
                         <i class="bi bi-globe"></i> SITE WEB INSTAT
                     </a>
-                </li>
+                </li> -->
             </ul>
             
 
