@@ -238,20 +238,43 @@
     }
 
     .logo img {
-        animation: rotation 4s linear infinite alternate;
+        /* animation: rotation 4s linear infinite alternate; */
+        animation: 
+        oscillate 4s ease-in-out infinite, /* Oscillation légère */
+        burst 5s ease-in-out infinite; /* Éclat intermittent */
     }
 
-    @keyframes rotation {
+    /* @keyframes rotation {
                 from {
                     transform: rotate(0deg);
                 }
                 to {
                     transform: rotate(360deg);
                 }
-            }
+            } */
+            
+    @keyframes oscillate {
+    0%, 100% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    }
+
+    @keyframes burst {
+        0%, 70%, 100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            filter: brightness(100%);
+        }
+        15% {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            filter: brightness(120%);
+        }
+    }
     
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
         .card {
             display: none;
         }
