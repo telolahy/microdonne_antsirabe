@@ -57,12 +57,12 @@
                     <h6 class="footer-title g-py-10 g-mb-10 text-uppercase">Menus</h6>
 
                     <ul class="list-unstyled">
-                        <li class="g-mb-10">
+                        {{-- <li class="g-mb-10">
                             <a href="{{ route('front-office') }}">
                                 <i class="fa fa-angle-right g-mr-5"></i>
                                 <span class="align-middle">{{__('Home')}}</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="g-mb-10">
                             <a href="{{ route('front-office') }}">
