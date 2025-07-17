@@ -94,7 +94,7 @@ class FrontOfficeController extends Controller
             });
         }
 
-        $enquetes = $enquetes->has('files')->orderBy('nom')->paginate(8, ['*'], 'enquetes_page');
+        $enquetes = $enquetes->has('files')->orderBy('updated_at', 'desc')->paginate(8, ['*'], 'enquetes_page');
 
     
         $fichiers = null;  
@@ -105,28 +105,29 @@ class FrontOfficeController extends Controller
     
 
     public function showFichiers($enqueteId = null)
-{
-    $user = Auth::user();
-    $enquetes = Enquete::paginate(8);
+    {
+        $user = Auth::user();
+        $enquetes = Enquete::paginate(8);
 
-    $fichiers = collect(); 
-    if ($enqueteId) {
-        $enquete = Enquete::findOrFail($enqueteId);
+        $fichiers = collect(); 
+        if ($enqueteId) {
+            $enquete = Enquete::findOrFail($enqueteId);
 
-        $fichiers = File::where('enquete_id', $enqueteId)
-                        ->where('published', 1)
-                        ->paginate(2, ['*'], 'fichiers_page');
+            $fichiers = File::where('enquete_id', $enqueteId)
+                            ->where('published', 1)
+                            ->paginate(2, ['*'], 'fichiers_page');
 
-        foreach ($fichiers as $fichier) {
-            $demande = $fichier->demandes()->where('user_id', auth()->id())->latest()->first();
-            $fichier->demande_statut = $demande ? $demande->statut : null;
+            foreach ($fichiers as $fichier) {
+                $demande = $fichier->demandes()->where('user_id', auth()->id())->latest()->first();
+                $fichier->demande_statut = $demande ? $demande->statut : null;
+            }
         }
+
+        $userDownload = Download::where('user_id', $user->id)->first(); 
+
+        return view('frontOffice.enquetes', compact('enquetes', 'fichiers', 'userDownload'));
     }
 
-    $userDownload = Download::where('user_id', $user->id)->first(); 
-
-    return view('frontOffice.enquetes', compact('enquetes', 'fichiers', 'userDownload'));
-}
 public function showFichiersParTheme($themeId, Request $request)
 {
     $user = Auth::user();

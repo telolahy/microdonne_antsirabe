@@ -361,6 +361,15 @@
             <div class="dropdown ml-lg-auto mt-2 mt-lg-0 d-flex align-items-center">
                 @if(Auth::user()->isDirection() && Auth::user()->direction)
                     <a class="nav-link mr-3" href="#">{{ Auth::user()->direction->name }}</a>
+
+                     <div style="position: relative; display: inline-block;">
+                            <i class="bi bi-bell" style="font-size: 20px;"></i>
+                            @if($nouvellesDemandes > 0)
+                                <span class="not-badge">
+                                    {{ $nouvellesDemandes }}
+                                </span>
+                            @endif
+                    </div>
                 @endif
                 <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('images/profiles/' . Auth::user()->profile) ?? asset('default-avatar.png') }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
