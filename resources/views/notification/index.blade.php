@@ -103,6 +103,7 @@
         font-weight: 500;
         padding: 0.35em 0.65em;
         font-size: 0.75em;
+        color: #fff;
     }
     
     .alert-info {
