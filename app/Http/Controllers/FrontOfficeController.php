@@ -94,7 +94,7 @@ class FrontOfficeController extends Controller
             });
         }
 
-        $enquetes = $enquetes->orderBy('nom')->paginate(8, ['*'], 'enquetes_page');
+        $enquetes = $enquetes->has('files')->orderBy('nom')->paginate(8, ['*'], 'enquetes_page');
 
     
         $fichiers = null;  
