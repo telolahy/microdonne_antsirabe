@@ -191,22 +191,36 @@
     word-wrap: break-word;
     white-space: normal;
 }
-@media (max-width: 600px) {
-    td:nth-child(1), th:nth-child(1) { width: 10%; }
-    td:nth-child(4), th:nth-child(4) { width: 8%; }
-    td:nth-child(7), th:nth-child(7) { width: 30%; }
-    
-    td:nth-of-type(7):before {
-        content: "Rapport d'analyses";
-        white-space: normal;
+    .no-result {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        margin-top: 30px;
+        padding-bottom: 100px;
     }
+    .search-results {
+        text-align: center;
+        font-size: 18px;
+        color: #2c3e50;
+        margin-top: 20px;
+        padding-bottom: 20px;
+    }
+    @media (max-width: 600px) {
+        td:nth-child(1), th:nth-child(1) { width: 10%; }
+        td:nth-child(4), th:nth-child(4) { width: 8%; }
+        td:nth-child(7), th:nth-child(7) { width: 30%; }
+        
+        td:nth-of-type(7):before {
+            content: "Rapport d'analyses";
+            white-space: normal;
+        }
 
-    .enquetes-section td {
-        padding-left: 10px;
-        width: 100% !important;
-        text-align: left;
+        .enquetes-section td {
+            padding-left: 10px;
+            width: 100% !important;
+            text-align: left;
+        }
     }
-}
 
     .badge {
         display: inline-block;
@@ -476,8 +490,39 @@
         margin-right: 22px !important;
     }
 
+    .file-card-table .search-container .delete-button i  {
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .file-card-table .search-container .delete-button {
+        margin-top: -22px;
+        margin-right: 75px;
+        display: none;
+    }
+
     .file-card-table .file-search {
         width: 40%;
+    }
+
+    .search-container>form {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .delete-button {
+        position: absolute;
+        color: #888;
+        font-size: 25px;
+        cursor: pointer;
+        transition: color 0.3s;
+        margin-right: 64px;
+        margin-top: 2px;
+    }
+
+    .delete-button:hover {
+        color: #2c3e50;
+        transform: scale(1.2);
     }
 
     @media (max-width: 1200px) {
@@ -736,6 +781,9 @@ td:nth-child(7), th:nth-child(7) {
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}">
+                @if(isset($_GET["search"]) && $_GET["search"] !== "")
+                    <a class="delete-button" href="{{ route('front-office')}}"><i class="bi bi-x"></i></a>
+                @endif
                 <button type="submit" class="search-btn">
                     <i class="bi bi-search"></i>
                 </button>
@@ -745,7 +793,16 @@ td:nth-child(7), th:nth-child(7) {
 
     <div class="underline"></div>
 
+    @if(isset($_GET["search"]) && $_GET["search"] !== "")
+        <div class="search-results">
+            <p>
+                Résultats de la recherche pour : <strong>{{ $_GET["search"] }}</strong>
+            </p>
+        </div>
+    @endif
+
     <div class="enquetes-container">
+
 
     @php $delay = 0; @endphp
     {{-- @foreach($themes->chunk(4) as $chunk) --}}
@@ -789,6 +846,7 @@ td:nth-child(7), th:nth-child(7) {
                             <div class="file-card-table">
                                 <div class="search-container">
                                     <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
+                                    <a class="delete-button" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                                     <i class="fas fa-search"></i>
                                 </div>
                                 <table>
@@ -904,6 +962,12 @@ td:nth-child(7), th:nth-child(7) {
     <div class="pagination-wrapper">
         {{ $themes->links() }}
     </div>
+
+    @if($themes->isEmpty() && isset($_GET["search"]) && $_GET["search"] !== "")
+        <div class="no-result">
+            <p>Aucun thème trouvé.</p>
+        </div>
+    @endif
 </div>
 
 <div id="requestModal" class="modal">
@@ -1044,6 +1108,14 @@ function closeFiles(themeId) {
     }
 }
 function filterFiles(input) {
+
+    const value = input.value.trim();
+    if (value === '') {
+        $(".search-container .delete-button").hide();
+    } else {
+        $(".search-container .delete-button").show();
+    }
+
     const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const table = input.closest('div').nextElementSibling;
     const rows = table.querySelectorAll('tbody tr');
@@ -1060,6 +1132,11 @@ function filterFiles(input) {
         const match = nameText.includes(searchTerm) || descriptionText.includes(searchTerm) || statusText.includes(searchTerm) || enqueteText.includes(searchTerm);
         row.style.display = match ? '' : 'none';
     });
+}
+function clearSearch(element) {
+    const searchInput = element.previousElementSibling;
+    searchInput.value = '';
+    filterFiles(searchInput);
 }
 function openReportModal(fileId) {
     const modal = document.getElementById('reportModal');

@@ -385,6 +385,17 @@
         margin-right: 22px !important;
     }
 
+    .file-card-table .search-container .delete-button i  {
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    .file-card-table .search-container .delete-button {
+        margin-top: -11px;
+        margin-right: 75px;
+        display: none;
+    }
+
     .search-input {
         padding: 8px;
         font-size: 14px;
@@ -435,6 +446,41 @@
 
     .file-card p {
         margin: 25px 0;
+    }
+
+    .search-container>form {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .delete-button {
+        position: absolute;
+        color: #888;
+        font-size: 25px;
+        cursor: pointer;
+        transition: color 0.3s;
+        margin-right: 64px;
+        margin-top: 2px;
+    }
+
+    .delete-button:hover {
+        color: #2c3e50;
+        transform: scale(1.2);
+    }
+
+    .no-result {
+        text-align: center;
+        font-size: 18px;
+        color: #888;
+        margin-top: 30px;
+        padding-bottom: 100px;
+    }
+    .search-results {
+        text-align: center;
+        font-size: 18px;
+        color: #2c3e50;
+        margin-top: 20px;
+        padding-bottom: 20px;
     }
 
     @media (max-width: 1200px) {
@@ -608,6 +654,9 @@
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête" value="{{ request('search') }}">
+                @if(isset($_GET["search"]) && $_GET["search"] !== "")
+                    <a class="delete-button" href="{{ route('showEnquetes')}}"><i class="bi bi-x"></i></a>
+                @endif
                 <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
             </form>
         </div>
@@ -615,6 +664,14 @@
     
     <div class="underline"></div>
 
+    @if(isset($_GET["search"]) && $_GET["search"] !== "")
+        <div class="search-results">
+            <p>
+                Résultats de la recherche pour : <strong>{{ $_GET["search"] }}</strong>
+            </p>
+        </div>
+    @endif
+    
     <div class="enquetes-container">
         @php $delay = 0; @endphp
         {{-- @foreach($enquetes->chunk(8) as $chunk) --}}
@@ -671,6 +728,7 @@
                                     <div class="file-card-table">
                                     <div class="search-container">
                                         <input type="text" class="search-input file-search" placeholder="Rechercher un fichier..." onkeyup="filterFiles(this)">
+                                        <a class="delete-button" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                                         <i class="fas fa-search iconSearch"></i>
                                     </div>
 
@@ -756,7 +814,11 @@
             </div>
         @endforeach
     </div>
-    
+    @if($enquetes->isEmpty() && isset($_GET["search"]) && $_GET["search"] !== "")
+        <div class="no-result">
+            <p>Aucun résultat trouvé.</p>
+        </div>
+    @endif
 </div>
 <div id="requestModal" class="modal">
     <div class="modal-content">
@@ -900,6 +962,14 @@ function closeConditionsModal() {
     document.getElementById('conditionsModal').style.display = 'none';
 }
 function filterFiles(input) {
+
+    const value = input.value.trim();
+    if (value === '') {
+        $(".search-container .delete-button").hide();
+    } else {
+        $(".search-container .delete-button").show();
+    }
+
     const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const table = input.closest('div').nextElementSibling;
     const rows = table.querySelectorAll('tbody tr');
@@ -916,7 +986,11 @@ function filterFiles(input) {
     });
 }
 
-
+function clearSearch(element) {
+    const searchInput = element.previousElementSibling;
+    searchInput.value = '';
+    filterFiles(searchInput);
+}
 
 </script>
 @endsection
