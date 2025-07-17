@@ -858,7 +858,7 @@ td:nth-child(7), th:nth-child(7) {
                                             <th><i class="fas fa-download"></i></th>
                                             {{-- <th>Statut</th> --}}
                                             <th>Action</th>
-                                            {{-- <th>Rapport d'analyse</th> --}}
+                                            <th>Rapport d'analyse</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -876,10 +876,37 @@ td:nth-child(7), th:nth-child(7) {
                                                         class="chaqueEnquete">
                                                             {{ $enquete->nom }}. <br>
                                                         </a>
+
+                                                        <span class="enqueteAssocie">Statut:</span>
+
+                                                        @php
+                                                            $demande = \App\Download::where('user_id', auth()->id())
+                                                                            ->where('file_id', $fichier->id)
+                                                                            ->latest()
+                                                                            ->first();
+                                                        @endphp
+
+                                                        @if($demande)
+                                                            @if($demande->status === 'valide')
+                                                                <span class="badge badge-success">Validé</span>
+                                                            @elseif($demande->status === 'rejete')
+                                                                <span class="badge badge-danger">Refusé</span>
+                                                            @else
+                                                                <span class="badge badge-warning">En attente</span>
+                                                            @endif
+                                                        @else
+                                                            @if($fichier->type === 'sans_validation')
+                                                                <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                            @else
+                                                                <span class="badge badge-secondary">Demande requise</span>
+                                                            @endif
+                                                        @endif
+
                                                     @else
                                                         <span class="text-gray-400 italic">Aucune enquête</span>
                                                     @endif
 
+                                                    <br><br>
                                                     {{ $fichier->description ?? 'Inconnue' }}
                                                 </td>
                                                 {{-- <td>
@@ -936,13 +963,13 @@ td:nth-child(7), th:nth-child(7) {
                                                     @endif
                                                 </td>
 
-                                                {{-- <td class="text-center">
+                                                <td class="text-center">
                                                     @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
                                                         <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                     @else
                                                         <button class="btn btn-primary" disabled>Ajouter un rapport</button>
                                                     @endif
-                                                </td> --}}
+                                                </td>
                                                 
                                             </tr>
                                         @endforeach
