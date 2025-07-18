@@ -863,13 +863,13 @@ td:nth-child(7), th:nth-child(7) {
                                                 <td class="text-center placeBoutton">
                                                     @if(!$demande)
                                                         @if($fichier->type === 'sans_validation')
-                                                            <a href="{{ route('file.request', $fichier) }}" class="btn btn-success bouttonTheme">Télécharger</a>
+                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
                                                         @elseif($fichier->type === 'avec_validation')
                                                             <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                         @endif
                                                     @else
-                                                        @if($demande->status === 'valide')
-                                                            <a href="{{ route('file.request', $fichier) }}" class="btn btn-success">Télécharger</a>
+                                                        @if($demande->status === 'valide')                                                        
+                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
                                                         @elseif($demande->status === 'rejete')
                                                             <span class="text-danger">Téléchargement refusé</span>
                                                         @else
@@ -905,6 +905,30 @@ td:nth-child(7), th:nth-child(7) {
         {{ $themes->links() }}
     </div>
 </div>
+
+<!-- Modal de téléchargement direct xxxx -->
+<div id="downloadModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width:100%; height:100%; background-color: rgba(0,0,0,0.6); z-index: 1050;">
+    <div class="modal-content" style="background: #fff; border-radius: 8px; max-width: 500px; margin: 100px auto; padding: 20px; position: relative;">
+        <h5 class="modal-title mb-3">Téléchargement du fichier</h5>
+        <form id="downloadForm" method="POST" action="{{ route('file.request', ['file' => 'ID']) }}">
+            @csrf
+            <div class="form-group">
+                <label for="motif">Motifs de la demande </label>
+                <textarea name="motif" id="motif" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="cgu" name="terms" required>
+                <label class="form-check-label" for="cgu">
+                    J'accepte les <a href="#" onclick="openCGUModal()">conditions générales d'utilisation</a>.
+                </label>
+            </div>
+            <input type="hidden" name="file_id" id="modal_file_id">
+            <button type="submit" class="btn btn-primary">Télécharger maintenant</button>
+            <button type="button" class="btn btn-secondary" onclick="closeDownloadModal()">Annuler</button>
+        </form>
+    </div>
+</div>
+
 
 <div id="requestModal" class="modal">
     <div class="modal-content">
@@ -985,6 +1009,34 @@ td:nth-child(7), th:nth-child(7) {
         <button class="btn btn-primary" onclick="closeConditionsModal()">Ok</button>
     </div>
 </div>
+
+<script>
+    function openDownloadModal(fileId, fileName) {
+        const modal = document.getElementById('downloadModal');
+        const form = document.getElementById('downloadForm');
+        const fileIdInput = document.getElementById('modal_file_id');
+
+        // Définir l'action du formulaire (vers la route de téléchargement)
+        form.action = '/file/request/' + fileId; // Ajuste selon ta route (ou utilise `{{ route('file.request', ':id') }}` si tu veux générer dynamiquement via JS)
+
+        fileIdInput.value = fileId;
+
+        modal.style.display = 'block';
+    }
+
+    function closeDownloadModal() {
+        const modal = document.getElementById('downloadModal');
+        modal.style.display = 'none';
+    }
+
+    // Ferme le modal si on clique en dehors
+    window.onclick = function(event) {
+        const modal = document.getElementById('downloadModal');
+        if (event.target === modal) {
+            closeDownloadModal();
+        }
+    }
+</script>
 
 <script>
 // Updated JavaScript functions

@@ -134,12 +134,40 @@ public function edit($id)
         return view('files.index', compact('files'));
     }
 
-    public function requestDownload(File $file)
+    public function requestDownload(Request $request, File $file)
     {
-        $user = Auth::user();
+       // dd($request->motif);
+        /* $user = Auth::user();
         $direction = $user->direction ?? null;
         $isNew = $file->created_at > now()->subDays(7);
-        return view('files.request-download', compact('file', 'direction', 'isNew'));
+        return view('files.request-download', compact('file', 'direction', 'isNew')); */
+
+        // Validation du formulaire
+        $user = Auth::user();
+        $validated = $request->validate([
+            'motif' => 'required|string|min:5',
+            'terms' => 'accepted',
+        ]);
+        
+        $download = Download::create([
+            'motif' => $request->motif,
+            'file_id' => $file->id,
+            'user_id' => $user->id,
+            'status' => "valide",
+        ]);
+
+        // Enregistrement du téléchargement (ex: incrémenter un compteur)
+        $file->increment('nombre');
+        
+        // Vérifie si le fichier existe
+        $filePath = $file->file_path; // Ex: 'files/document.pdf'
+        if (!Storage::exists($filePath)) {
+            abort(404, 'Fichier introuvable.');
+        }
+        
+        // Téléchargement immédiat
+        return Storage::download($filePath, $file->file_name);
+
     }
 
     public function sendDownloadLink(Request $request, $fileId)
