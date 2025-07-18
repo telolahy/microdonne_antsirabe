@@ -80,10 +80,10 @@
             padding-bottom: 8px 12px !important;
             position: relative !important;
             color: #f0f0f0 !important;
-        
+            cursor: default;
             white-space: nowrap;
         }
-        .nav-link1::after {
+        /* .nav-link1::after {
             content: "" !important;
             position: absolute!important ;
             left: 0 !important;
@@ -100,7 +100,9 @@
         }
         .navbar .nav-link1:hover::after {
             width: 50% !important;
-        }
+        } */
+
+
        /*  .navbar-brand span {
             font-size: 1.2rem !important;
             font-weight: 700 !important;
