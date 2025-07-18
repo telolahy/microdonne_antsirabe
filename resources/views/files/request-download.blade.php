@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Microdonnée - INSTAT</title>
+    <title>Microdonnées INSTAT Madagascar</title>
     <style>
         :root {
             --instat-primary: #2c3e50;
