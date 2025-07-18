@@ -469,7 +469,23 @@
 
     .delete-button:hover {
         color: #2c3e50;
-        transform: scale(1.2);
+        /* transform: scale(1.2); */
+    }
+
+    .delete-button1 {
+        position: absolute;
+        color: #888;
+        font-size: 25px;
+        cursor: pointer;
+        transition: color 0.3s;
+        margin-right: 64px;
+        margin-top: 2px;
+        display: none; /* Initially hidden */
+    }
+
+    .delete-button1:hover {
+        color: #2c3e50;
+        /* transform: scale(1.2); */
     }
 
     .no-result {
@@ -661,7 +677,8 @@
         <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
-                <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête" value="{{ request('search') }}">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête..." value="{{ request('search') }}" onkeyup="filterFiles(this)">
+                <a class="delete-button1" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                 @if(isset($_GET["search"]) && $_GET["search"] !== "")
                     <a class="delete-button" href="{{ route('showEnquetes')}}"><i class="bi bi-x"></i></a>
                 @endif
@@ -1056,8 +1073,10 @@ function filterFiles(input) {
     const value = input.value.trim();
     if (value === '') {
         $(".search-container .delete-button").hide();
+        $(".search-container .delete-button1").hide();
     } else {
         $(".search-container .delete-button").show();
+        $(".search-container .delete-button1").show();
     }
 
     const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');

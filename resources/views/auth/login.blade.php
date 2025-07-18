@@ -9,14 +9,16 @@
     
     body {
         font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        background-color: #f8f9fc;
+        /* background-color: #f8f9fc; */
+        color: #2c3e50;
         margin: 0;
         padding: 20px;
         height: 100vh;
         /* display: flex;
         justify-content: center;
         align-items: center; */
-        background: linear-gradient(to right, #f9f9f9, #eeeeee, #dddddd);
+        background: linear-gradient(to right, #f1f4f9, #e0e7ef);
+        /* background: linear-gradient(to right, #f9f9f9, #eeeeee, #dddddd); */
         /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
         /* width: 100%; */
     }
@@ -63,22 +65,34 @@
     .card, .card1 {
         border: none;
         border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         background-color: #ffffff;        
         flex: 1;
+        transition: all 0.3s ease;
     }
+    .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    }
+
     .card {
-        padding: 0 40px;
-        min-height: 100%;
+        padding: 0 30px;
+        /* min-height: 100%; */
         width: 100%;
         min-width: 250px;
     }
     .card i {
         font-size: 1rem;
-        margin-right: 10px;
+        margin-right: 8px;
     }
     .card-title{
         text-align: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 10px;
+        max-width: 250px; /* Limite la largeur du titre */
+        break-word: break-word; /* Permet le retour à la ligne naturel */
     }
     
     .card1 {
@@ -98,20 +112,25 @@
     .card1 label {
         display: block;
         margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
     }
 
     .card1 input {
         width: 100%;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 20px;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 6px;
         background: #fff;
+        transition: border 0.3s ease;
     }
 
     .card1  input:focus {
         outline: none;
         background-color: #fff;
+        border-color: #1a73e8;
+        box-shadow: 0 0 4px #c2dbff;
     }
 
     .card1 button {
@@ -120,7 +139,7 @@
         background-color: #1a73e8;
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
         font-weight: lighter;
         margin-left: auto;
@@ -148,6 +167,39 @@
 
     .card1 .logo img {
         max-width: 120px;
+        /* animation: rotation 4s linear infinite alternate; */
+        animation: 
+        oscillate 4s ease-in-out infinite, /* Oscillation légère */
+        burst 5s ease-in-out infinite; /* Éclat intermittent */
+    }
+    
+    /* @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            } */
+            
+    @keyframes oscillate {
+    0%, 100% {
+        transform: rotate(-15deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    }
+
+    @keyframes burst {
+        0%, 70%, 100% {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            filter: brightness(100%);
+        }
+        15% {
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            filter: brightness(120%);
+        }
     }
 
     .card1 .form-check {
@@ -156,7 +208,7 @@
     }
 
     .card1 .form-check-input {
-        margin-right: 3px;
+        margin-right: 5px;
     }
 
     .card1 .form-check-label {
@@ -171,12 +223,7 @@
     
     }
 
-    .card-title {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 10px;
-    }
+    
 
     /* .map-placeholder {
         width: 100%;
@@ -297,41 +344,45 @@
     }
 }
 
-    .logo img {
-        /* animation: rotation 4s linear infinite alternate; */
-        animation: 
-        oscillate 4s ease-in-out infinite, /* Oscillation légère */
-        burst 5s ease-in-out infinite; /* Éclat intermittent */
-    }
+/*icônes dans les champs de saisie */
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+.input-group .input-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-100%);
+    color: #888;
+    font-size: 0.9rem;
+}
+.input-group input {
+    padding-left: 38px; /* espace pour l'icône */
+}
 
-    /* @keyframes rotation {
-                from {
-                    transform: rotate(0deg);
-                }
-                to {
-                    transform: rotate(360deg);
-                }
-            } */
-            
-    @keyframes oscillate {
-    0%, 100% {
-        transform: rotate(-15deg);
-    }
-    50% {
-        transform: rotate(15deg);
-    }
-    }
+.guide {
+    padding-top: 10px;
+}
+.guide a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+}
+.guide i {
+    color: #1a73e8;
+    margin-left: 5px;
+}
+.guide:hover {
+    color: #1a73e8;
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
 
-    @keyframes burst {
-        0%, 70%, 100% {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-            filter: brightness(100%);
-        }
-        15% {
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
-            filter: brightness(120%);
-        }
-    }
+    
     
 
     @media (max-width: 991px) {
@@ -380,7 +431,7 @@
                 <div class="card"> <!-- Visible uniquement sur md et plus grand -->
                     <h5 class="card-title">
                         <i class="bi bi-bookmarks"></i>
-                        Thèmes</h5>
+                        Thèmes disponibles</h5>
                     <!-- <div class="map-placeholder" id="world-map"> -->
                         <div class="card-body">
                             <ul>
@@ -430,15 +481,21 @@
                             @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required autofocus>
+                                <div class="input-group">
+                                    <span class="input-icon"><i class="bi bi-envelope-fill"></i></span>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Votre adresse email" value="{{ old('email') }}" required autofocus>
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="password">Mot de passe</label>
-                                <input type="password" id="password" name="password" class="form-control" required>
+                                <div class="input-group">
+                                    <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
+                                    <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control" required>
+                                </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
                                 <label class="flex items-center justify-start" for="remember">
                                     <input type="checkbox" name="remember" id="remember" class="mr-2" style="width: auto; height: auto;">
                                     <span style="white-space: nowrap;">Se souvenir de moi</span>
@@ -448,17 +505,24 @@
                             <!-- Lien mot de passe oublié -->
                             <a href="{{ route('password.request') }}" class="d-block text-center mt-2">Mot de passe oublié ?</a>
                         </form>
-                        <p class="mt-3 no-wrap" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
+                            <p class="mt-3 no-wrap" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
                             Pas encore inscrit ? <a href="{{ route('register') }}" style="margin-left: 5px; margin-top:0px;">Créer un compte</a>
-                        </p>
+                            </p>
+                            <div class="guide">
+                                <a href="#" class="no-wrap">
+                                Guide d'utilisation
+                                    <i class="bi bi-filetype-pdf" ></i>
+                                </a>
+                            </div>
                     <!-- </div> -->
+
                 </div>
             </div>
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
                     <h5 class="card-title">
                         <i class="bi bi-bar-chart-line"></i>
-                        Recensement et enquêtes
+                        Données de recensement et enquêtes disponibles
                     </h5>
                     <div class="card-body1">
                             <ul>
