@@ -365,6 +365,7 @@
     padding-top: 10px;
 }
 .guide a {
+    color: #1a73e8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -373,7 +374,7 @@
     margin: 0 auto;
 }
 .guide i {
-    color: #1a73e8;
+    color: red;
     margin-left: 5px;
 }
 .guide:hover {
