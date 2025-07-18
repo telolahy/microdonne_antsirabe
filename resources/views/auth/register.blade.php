@@ -12,7 +12,8 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to left, #f9f9f9, #eeeeee, #dddddd);
+            background-color: #B0ABA8;
+            /* background: linear-gradient(to left, #f9f9f9, #eeeeee, #dddddd); */
             /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
             margin: 0;
         }
