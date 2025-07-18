@@ -806,7 +806,7 @@ td:nth-child(7), th:nth-child(7) {
 
     @php $delay = 0; @endphp
     {{-- @foreach($themes->chunk(4) as $chunk) --}}
-    @foreach($themes->filter(fn($theme) => $theme->files->isNotEmpty())->chunk(4) as $chunk)
+    @foreach($themes->filter(fn($theme) => $theme->files->isNotEmpty())->chunk(8) as $chunk)
 
         <div class="enquete-row-wrapper">
             <div class="enquete-row-content">
