@@ -778,6 +778,11 @@ td:nth-child(7), th:nth-child(7) {
 <div class="enquetes-section">
     <div class="header-section">
         <h1 class="page-title"><i class="bi bi-bookmarks"></i>Thèmes</h1>
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
                 <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}">
@@ -921,40 +926,17 @@ td:nth-child(7), th:nth-child(7) {
                                         </td> --}}
 
                                                 <td style="text-align: center;" class="nombreTelechargement">{{ $fichier->nombre }}</td>
-                                                {{-- <td>
-                                                    @php
-                                                        $demande = \App\Download::where('user_id', auth()->id())
-                                                                    ->where('file_id', $fichier->id)
-                                                                    ->latest()
-                                                                    ->first();
-                                                    @endphp
-
-                                                    @if($demande)
-                                                        @if($demande->status === 'valide')
-                                                            <span class="badge badge-success">Validé</span>
-                                                        @elseif($demande->status === 'rejete')
-                                                            <span class="badge badge-danger">Refusé</span>
-                                                        @else
-                                                            <span class="badge badge-warning">En attente</span>
-                                                        @endif
-                                                    @else
-                                                        @if($fichier->type === 'sans_validation')
-                                                            <span class="badge badge-primary">Fichier téléchargeable</span>
-                                                        @else
-                                                            <span class="badge badge-secondary">Demande requise</span>
-                                                        @endif
-                                                    @endif
-                                                </td> --}}
+                                
                                                 <td class="text-center placeBoutton">
                                                     @if(!$demande)
                                                         @if($fichier->type === 'sans_validation')
-                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
+                                                           <a href="{{ route('sauvegarder.create2', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                         @elseif($fichier->type === 'avec_validation')
                                                             <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                         @endif
                                                     @else
                                                         @if($demande->status === 'valide')                                                        
-                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
+                                                            <a href="{{ route('sauvegarder.create2', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                         @elseif($demande->status === 'rejete')
                                                             <span class="text-danger">Téléchargement refusé</span>
                                                         @else
@@ -995,29 +977,6 @@ td:nth-child(7), th:nth-child(7) {
             <p>Aucun thème trouvé.</p>
         </div>
     @endif
-</div>
-
-<!-- Modal de téléchargement direct xxxx -->
-<div id="downloadModal" class="modal" style="display:none; position: fixed; top: 0; left: 0; width:100%; height:100%; background-color: rgba(0,0,0,0.6); z-index: 1050;">
-    <div class="modal-content" style="background: #fff; border-radius: 8px; max-width: 500px; margin: 100px auto; padding: 20px; position: relative;">
-        <h5 class="modal-title mb-3">Téléchargement du fichier</h5>
-        <form id="downloadForm" method="POST" action="{{ route('file.request', ['file' => 'ID']) }}">
-            @csrf
-            <div class="form-group">
-                <label for="motif">Motifs de la demande </label>
-                <textarea name="motif" id="motif" class="form-control" rows="4" required></textarea>
-            </div>
-            <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="cgu" name="terms" required>
-                <label class="form-check-label" for="cgu">
-                    J'accepte les <a href="#" onclick="openCGUModal()">conditions générales d'utilisation</a>.
-                </label>
-            </div>
-            <input type="hidden" name="file_id" id="modal_file_id">
-            <button type="submit" class="btn btn-primary">Télécharger maintenant</button>
-            <button type="button" class="btn btn-secondary" onclick="closeDownloadModal()">Annuler</button>
-        </form>
-    </div>
 </div>
 
 

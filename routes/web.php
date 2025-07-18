@@ -11,26 +11,27 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 //use Facade\Ignition\Http\Controllers\ExecuteSolutionController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\EnqueteController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ThemeController;
-use App\Http\Controllers\DirectionController;
-use App\Http\Controllers\HistoriqueController;
-use App\Http\Controllers\FrontOfficeController;
-use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\EnqueteController;
 use App\Http\Controllers\RapportController;
+use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\DirectionController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\HistoriqueController;
 use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\UserChangeController;
+use App\Http\Controllers\FrontOfficeController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\EnregistrementController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 
 //Route::get('/execute-solution', [ExecuteSolutionController::class, 'someMethod']);
@@ -162,3 +163,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/gestion-utilisateur', [UserChangeController::class, 'index'])->name('users.index');
     Route::post('/gestion-utilisateur/{user}/changer-role', [UserChangeController::class, 'changerRole'])->name('users.changerRole');
 });
+
+
+
+Route::get('sauvegarder/create/{file_id}', [EnregistrementController::class, 'create'])->name('sauvegarder.create2');
+
+Route::post('sauvegarder', [EnregistrementController::class, 'store'])->name('sauvegarder.store');
