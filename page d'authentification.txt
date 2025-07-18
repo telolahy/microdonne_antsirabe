@@ -14,12 +14,12 @@
         margin: 0;
         padding: 20px;
         height: 100vh;
-        /* background-color: #B0ABA8; */
         /* display: flex;
         justify-content: center;
         align-items: center; */
         background: linear-gradient(to right, #f1f4f9, #e0e7ef);
         /* background: linear-gradient(to right, #f9f9f9, #eeeeee, #dddddd); */
+        /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
         /* width: 100%; */
     }
 
@@ -27,15 +27,15 @@
     .header {
     text-align: center;
     margin-bottom: 60px;
-    padding-top: 10px; /* Ajoute un espace en haut */
+    padding-top: 20px; /* Ajoute un espace en haut */
     width: 100%;
     position: relative; /* Pour le garder en haut */
     z-index: 1; /* Assure qu'il reste au-dessus du fond */
     }
 
     .header h1 {
-        font-size: 1.8rem;
-        color: #2D495C;
+        font-size: 2rem;
+        color: #1a73e8;
         margin: 0; /* Supprime les marges par défaut */
         max-width: 800px; /* Limite la largeur du texte */
         width: 100%; /* Prend toute la largeur disponible dans max-width */
@@ -64,7 +64,7 @@
 
     .card, .card1 {
         border: none;
-        border-radius: 20px;
+        border-radius: 10px;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
         background-color: #ffffff;        
         flex: 1;
@@ -82,11 +82,11 @@
         width: 100%;
         min-width: 250px;
     }
-    .card i, .card1 i {
+    .card i {
         font-size: 1rem;
         margin-right: 8px;
     }
-    .card-title {
+    .card-title{
         text-align: center;
         font-size: 1.5rem;
         font-weight: 600;
@@ -94,20 +94,12 @@
         margin-bottom: 10px;
         max-width: 250px; /* Limite la largeur du titre */
         break-word: break-word; /* Permet le retour à la ligne naturel */
-    }
-    .card-title1 {
-        text-align: center;
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 20px;
-        max-width: 250px; /* Limite la largeur du titre */
-        break-word: break-word; /* Permet le retour à la ligne naturel */
+        flex-shrink: 0; /* Empêche le titre de rétrécir */
     }
     
     .card1 {
         
-        padding: 0px 25px 13px 25px;
+        padding: 13px 25px ;
         max-height: 450px;
         width: 100%;
         min-width: 250px;
@@ -175,7 +167,7 @@
         font-size: 0.75rem;
     }
 
-    /* .card1 .logo {
+    .card1 .logo {
         margin-bottom: 5px;
         display: flex;
         justify-content: center;
@@ -183,15 +175,22 @@
 
     .card1 .logo img {
         max-width: 120px;
-        
+        /* animation: rotation 4s linear infinite alternate; */
         animation: 
-        oscillate 4s ease-in-out infinite, 
-        burst 5s ease-in-out infinite; 
-    } */
+        oscillate 4s ease-in-out infinite, /* Oscillation légère */
+        burst 5s ease-in-out infinite; /* Éclat intermittent */
+    }
     
-
+    /* @keyframes rotation {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            } */
             
-    /* @keyframes oscillate {
+    @keyframes oscillate {
     0%, 100% {
         transform: rotate(-15deg);
     }
@@ -209,7 +208,7 @@
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
             filter: brightness(120%);
         }
-    } */
+    }
 
     .card1 .form-check {
         display: flex;
@@ -304,6 +303,12 @@
 
     .card-body {
         padding: 20px;
+        flex-grow: 1; /* Remplit l'espace restant */
+    }
+
+    .card-body ul {
+        list-style-type: square;
+        padding-left: 20px;
     }
 
     .card-body li {
@@ -313,11 +318,11 @@
         margin-bottom: 10px;
         font-size: 1.2rem;
         color: #555;
-        list-style-type: square; /* Supprime les puces */
         opacity: 0;
         transform: translateY(20px); /* Départ légèrement en bas */
         animation: fadeInSlide 0.6s ease-out forwards; /* Animation de 0.6s */
         animation-delay: calc(0.2s * var(--i)); /* Décalage basé sur l'index */
+        height: 30px; /* Hauteur fixe par élément pour 6 éléments */
     }
 
 
@@ -392,7 +397,75 @@
     transition: transform 0.3s ease;
 }
 
-    
+/* Andrana kely */
+    .carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            max-height: 120px; /* Ajusté pour 4 images dans l'espace disponible */
+            flex-shrink: 0; /* Empêche le carrousel de rétrécir */
+        }
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 400%; /* 4 slides */
+            height: 100px; /* Hauteur fixe pour tous les slides */
+        }
+        .carousel-slide {
+            width: 25%; /* 100% / 4 */
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: contain;
+            background-position: center;
+            position: relative;
+        }
+        .carousel-slide-content {
+            text-align: center;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .carousel-slide img {
+            max-width: 80px; /* Ajusté pour s'intégrer dans 100px de hauteur */
+            max-height: 80px; /* Limite la hauteur pour s'intégrer dans 100px */
+            height: auto;
+            object-fit: contain; /* Assure que l'image s'adapte sans déformation */
+        }
+        
+        .dots {
+            text-align: center;
+            padding: 10px 0;
+            display: none;
+        }
+        .dot {
+            height: 5px;
+            width: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #0071e3;
+        }
+        @media (max-width: 768px) {
+            .carousel-slide {
+            height: 60px; /* Réduit sur mobile */
+            }
+            .carousel-slide img {
+                max-width: 50px; /* Réduit la taille des images sur mobile */
+            }
+            .card-body li {
+                height: 25px; /* Réduit la hauteur des éléments sur mobile */
+            }
+        }
     
 
     @media (max-width: 991px) {
@@ -430,18 +503,8 @@
             margin-bottom: 10px; /* Réduit l'espace en bas de l'en-tête sur petit écran */
         }
         .header h1 {
-            font-size: 1.3rem; /* Réduit la taille du titre sur petit écran */
+            font-size: 1.5rem; /* Réduit la taille du titre sur petit écran */
             margin-bottom: 10px; /* Ajoute un espace en bas du titre */
-        }
-        .card-title1 {
-            margin-left: auto; /* Centre le titre horizontalement */
-            margin-right: auto; /* Centre le titre horizontalement */
-            font-size: 1.2rem;
-
-        }
-        .card1 i {
-            font-size: 0.8rem;
-            margin-right: 8px;
         }
         
     }
@@ -450,9 +513,6 @@
 </head>
 <body> 
     <div class="header">
-        <div class="logo">
-            <img src="/logo/logo_instat.png" style="height: 100px; margin: 0 auto; display: block;" alt="Logo INSTAT Madagascar">
-        </div>
         <h1>Bienvenue sur la plateforme de partage des microdonnées de l'INSTAT Madagascar</h1>
     </div>
     <div class="container-fluid">
@@ -463,6 +523,31 @@
                         <i class="bi bi-bookmarks"></i>
                         Thèmes disponibles</h5>
                     <!-- <div class="map-placeholder" id="world-map"> -->
+                        <div class="carousel">
+                            <div class="carousel-container">
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="/storage/images/themes/Instat_PictoAgriculture.jpg" alt="Agriculture">
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="/storage/images/themes/Instat_PictoCommerce.jpg" alt="Commerce">
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="/storage/images/themes/Instat_PictoEducation.jpg" alt="Education">
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="/storage/images/themes/Instat_PictoSante.jpg" alt="Santé">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dots"></div>
+                        </div>
                         <div class="card-body">
                             <ul>
                                 @php
@@ -492,9 +577,9 @@
             <div class="flex-center position-ref">
                 <div class="card1">
                     <!-- <div class="login-container"> -->
-                    <h5 class="card-title1">
-                        <i class="bi bi-lock"></i>
-                        Connexion</h5>
+                        <div class="logo">
+                            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 75px;">
+                        </div>
                         <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -584,6 +669,46 @@
             </div>
         </div>
     </div>
+
+<script>
+    const slides = document.querySelector('.carousel-container').children;
+    const dotsContainer = document.querySelector('.dots');
+    let currentSlide = 0;
+
+    // Créer les points de navigation
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+    }
+    updateDots();
+
+    // Passer à la diapositive suivante toutes les 2 secondes
+    setInterval(nextSlide, 2000);
+
+    function updateDots() {
+        const dots = document.querySelectorAll('.dot');
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSlide);
+        });
+    }
+
+    function goToSlide(index) {
+        if (index >= 0 && index < slides.length) {
+            currentSlide = index;
+            const offset = -currentSlide * 25; // 25% par slide
+            document.querySelector('.carousel-container').style.transform = `translateX(${offset}%)`;
+            updateDots();
+        }
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        goToSlide(currentSlide);
+    }
+</script>
+
 </body>
 
 </html>
