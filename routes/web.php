@@ -143,6 +143,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/themes/fichiers', [FileController::class, 'search'])->name('themes.fichiers');
     });
 
+    //Route du téléchargement fichier sans passer par mail
+    Route::post('/file/request/{file}', [FileController::class, 'requestDownload'])->name('file.request');
+
     //Route lien de telechargement fichier via mail
     Route::get('/file/request-download/{file}', [FileController::class, 'requestDownload'])->name('file.request');
     Route::post('/file/send-download-link/{file}', [FileController::class, 'sendDownloadLink'])->name('file.send');
