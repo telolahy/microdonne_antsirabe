@@ -78,6 +78,7 @@
     .card {
         padding: 0 30px;
         /* min-height: 100%; */
+        height: 450px;
         width: 100%;
         min-width: 250px;
     }
@@ -97,29 +98,30 @@
     
     .card1 {
         
-        padding: 40px;
-        min-height: 400px;
+        padding: 13px 25px ;
+        max-height: 450px;
         width: 100%;
         min-width: 250px;
         /* max-width: 400px; */
     }
 
-    .card1 h2 {
+    /* .card1 h2 {
         margin-bottom: 20px;
         text-align: center;
-    }
+    } */
 
     .card1 label {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         font-weight: 500;
+        font-size: 0.75rem;
         color: #555;
     }
 
     .card1 input {
         width: 100%;
-        padding: 12px;
-        margin-bottom: 20px;
+        padding: 8px;
+        margin-bottom: 15px;
         border: 1px solid #ddd;
         border-radius: 6px;
         background: #fff;
@@ -157,10 +159,15 @@
         display: block;
         text-align: center;
         margin-top: 10px;
+        font-size: 0.75rem;
+    }
+
+    .card1 p {
+        font-size: 0.75rem;
     }
 
     .card1 .logo {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         display: flex;
         justify-content: center;
     }
@@ -407,6 +414,9 @@
             margin: 0 auto;
             min-height: auto;
         }
+        .card1 label {
+            text-align: left;
+        }
         body {
             height: auto;
             padding: 10px;
@@ -416,6 +426,10 @@
         }
         .header {
             margin-bottom: 10px; /* Réduit l'espace en bas de l'en-tête sur petit écran */
+        }
+        .header h1 {
+            font-size: 1.5rem; /* Réduit la taille du titre sur petit écran */
+            margin-bottom: 10px; /* Ajoute un espace en bas du titre */
         }
         
     }
@@ -464,7 +478,7 @@
                 <div class="card1">
                     <!-- <div class="login-container"> -->
                         <div class="logo">
-                            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
+                            <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 75px;">
                         </div>
                         <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
                         @if ($errors->any())
