@@ -147,7 +147,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/file/request/{file}', [FileController::class, 'requestDownload'])->name('file.request');
 
     //Route lien de telechargement fichier via mail
-    Route::get('/file/request-download/{file}', [FileController::class, 'requestDownload'])->name('file.request');
+   // Route::get('/file/request-download/{file}', [FileController::class, 'requestDownload'])->name('file.request');
     Route::post('/file/send-download-link/{file}', [FileController::class, 'sendDownloadLink'])->name('file.send');
     Route::get('/file/download/{token}', [FileController::class, 'download'])->name('file.download');
 
