@@ -27,8 +27,8 @@ class EnregistrementController extends Controller
      */
     public function create($file_id)
     {
-    
-        return view('download.download',compact('file_id'));
+        $file = File::findOrFail($file_id);
+        return view('download.download',compact('file_id', 'file'));
     }
 
     /**

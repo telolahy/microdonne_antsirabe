@@ -5,7 +5,7 @@
 <div class="container py-5">
     <div class="card shadow-lg border-0">
         <div class="card-body p-5">
-            <h2 class="mb-4 text-center text-primary">Demande de téléchargement</h2>
+            <h2 class="mb-4 text-center text-primary">Téléchargement de {{$file->file_name}}</h2>
             @if ($errors->any())
             <div class="alert alert-danger">
                     <ul>
@@ -21,7 +21,7 @@
                 <input type="hidden" name="file_id" value="{{$file_id }}">
                 <!-- Motif de la demande -->
                 <div class="mb-4">
-                    <label for="motif" class="form-label fw-bold">Motifs de la demande:</label>
+                    <label for="motif" class="form-label fw-bold">Motifs du téléchargement:</label>
                     <textarea name="motif" id="motif" class="form-control" rows="4" required placeholder="Expliquez pourquoi vous souhaitez accéder à ce fichier..."></textarea>
                 </div>
 
