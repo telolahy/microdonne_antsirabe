@@ -758,7 +758,7 @@
                                     </div>
 
                                         <table>
-                                            <thead>
+                                            <thead> 
                                                 <tr>
                                                     <th class="titreTableauEnquete">Nom du fichier</th>
                                                     <th class="titreTableauEnquete">Description</th>
@@ -770,106 +770,108 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($enquete->fichiers as $fichier)
-                                                    @php
-                                                        $demande = $fichier->demandes()->where('user_id', auth()->id())->latest()->first();
-                                                    @endphp
-                                                    <tr>
-                                                        <td>{{ $fichier->file_name }}</td>
-                                                        <td>
-                                                            <span class="enqueteAssocie">Statut:</span>
+                                                    @if ($fichier->published)
+                                                        @php
+                                                            $demande = $fichier->demandes()->where('user_id', auth()->id())->latest()->first();
+                                                        @endphp
+                                                        <tr>
+                                                            <td>{{ $fichier->file_name }}</td>
+                                                            <td>
+                                                                <span class="enqueteAssocie">Statut:</span>
 
-                                                            @php
-                                                                $demande = \App\Download::where('user_id', auth()->id())
-                                                                            ->where('file_id', $fichier->id)
-                                                                            ->latest()
-                                                                            ->first();
-                                                            @endphp
-                                                            @if($demande)
-                                                                @if($demande->status === 'valide')
-                                                                    <span class="badge badge-success">Validé</span>
-                                                                @elseif($demande->status === 'rejete')
-                                                                    <span class="badge badge-danger">Refusé</span>
+                                                                @php
+                                                                    $demande = \App\Download::where('user_id', auth()->id())
+                                                                                ->where('file_id', $fichier->id)
+                                                                                ->latest()
+                                                                                ->first();
+                                                                @endphp
+                                                                @if($demande)
+                                                                    @if($demande->status === 'valide')
+                                                                        <span class="badge badge-success">Validé</span>
+                                                                    @elseif($demande->status === 'rejete')
+                                                                        <span class="badge badge-danger">Refusé</span>
+                                                                    @else
+                                                                        <span class="badge badge-warning">En attente</span>
+                                                                    @endif
                                                                 @else
-                                                                    <span class="badge badge-warning">En attente</span>
+                                                                    @if($fichier->type === 'sans_validation')
+                                                                        <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                    @else
+                                                                        <span class="badge badge-secondary">Demande requise</span>
+                                                                    @endif
                                                                 @endif
-                                                            @else
-                                                                @if($fichier->type === 'sans_validation')
-                                                                    <span class="badge badge-primary">Fichier téléchargeable</span>
-                                                                @else
-                                                                    <span class="badge badge-secondary">Demande requise</span>
-                                                                @endif
-                                                            @endif
-                                                            <br><br>
+                                                                <br><br>
 
-                                                            {{ $fichier->description ?? 'Inconnue' }}
+                                                                {{ $fichier->description ?? 'Inconnue' }}
 
-                                                        </td>
-                                                        <td style="text-align: center;">{{ $fichier->nombre }}</td>
-                                                        {{-- <td>
-                                                            @php
-                                                                $demande = \App\Download::where('user_id', auth()->id())
-                                                                            ->where('file_id', $fichier->id)
-                                                                            ->latest()
-                                                                            ->first();
-                                                            @endphp
-                                                            @if($demande)
-                                                                @if($demande->status === 'valide')
-                                                                    <span class="badge badge-success">Validé</span>
-                                                                @elseif($demande->status === 'rejete')
-                                                                    <span class="badge badge-danger">Refusé</span>
+                                                            </td>
+                                                            <td style="text-align: center;">{{ $fichier->nombre }}</td>
+                                                            {{-- <td>
+                                                                @php
+                                                                    $demande = \App\Download::where('user_id', auth()->id())
+                                                                                ->where('file_id', $fichier->id)
+                                                                                ->latest()
+                                                                                ->first();
+                                                                @endphp
+                                                                @if($demande)
+                                                                    @if($demande->status === 'valide')
+                                                                        <span class="badge badge-success">Validé</span>
+                                                                    @elseif($demande->status === 'rejete')
+                                                                        <span class="badge badge-danger">Refusé</span>
+                                                                    @else
+                                                                        <span class="badge badge-warning">En attente</span>
+                                                                    @endif
                                                                 @else
-                                                                    <span class="badge badge-warning">En attente</span>
+                                                                    @if($fichier->type === 'sans_validation')
+                                                                        <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                    @else
+                                                                        <span class="badge badge-secondary">Demande requise</span>
+                                                                    @endif
                                                                 @endif
-                                                            @else
-                                                                @if($fichier->type === 'sans_validation')
-                                                                    <span class="badge badge-primary">Fichier téléchargeable</span>
-                                                                @else
-                                                                    <span class="badge badge-secondary">Demande requise</span>
-                                                                @endif
-                                                            @endif
-                                                        </td> --}}
-                                                        {{-- <td class="text-center">
-                                                            @if(!$demande)
-                                                                @if($fichier->type === 'sans_validation')
-                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
-                                                                @elseif($fichier->type === 'avec_validation')
-                                                                    <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
-                                                                @endif
-                                                            @else
-                                                                @if($demande->status === 'valide')
-                                                            <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
-                                                                @elseif($demande->status === 'rejete')
-                                                                    <span class="text-danger">Téléchargement refusé</span>
-                                                                @else
-                                                                    <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
-                                                                @endif
-                                                            @endif
-                                                        </td> --}}
-                                                        <td class="text-center placeBoutton">
-                                                            @if($fichier->type === 'sans_validation')
-                                                                <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
-                                                            @else
+                                                            </td> --}}
+                                                            {{-- <td class="text-center">
                                                                 @if(!$demande)
-                                                                    <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                                    @if($fichier->type === 'sans_validation')
+                                                                <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
+                                                                    @elseif($fichier->type === 'avec_validation')
+                                                                        <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                                    @endif
                                                                 @else
-                                                                    @if($demande->status === 'valide')                                                        
-                                                                        <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                                    @if($demande->status === 'valide')
+                                                                <button class="btn btn-success" onclick="openDownloadModal({{ $fichier->id }}, '{{ $fichier->file_name }}')">Télécharger</button>
                                                                     @elseif($demande->status === 'rejete')
                                                                         <span class="text-danger">Téléchargement refusé</span>
                                                                     @else
                                                                         <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
                                                                     @endif
                                                                 @endif
-                                                            @endif
-                                                        </td>
-                                                        <td class="text-center">
-                                                            @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
-                                                                <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
-                                                            @else
-                                                                <button class="btn btn-primary" disabled>Ajouter un rapport</button>
-                                                            @endif
-                                                        </td>
-                                                    </tr>
+                                                            </td> --}}
+                                                            <td class="text-center placeBoutton">
+                                                                @if($fichier->type === 'sans_validation')
+                                                                    <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                                @else
+                                                                    @if(!$demande)
+                                                                        <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                                    @else
+                                                                        @if($demande->status === 'valide')                                                        
+                                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                                        @elseif($demande->status === 'rejete')
+                                                                            <span class="text-danger">Téléchargement refusé</span>
+                                                                        @else
+                                                                            <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
+                                                                        @endif
+                                                                    @endif
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
+                                                                    <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
+                                                                @else
+                                                                    <button class="btn btn-primary" disabled>Ajouter un rapport</button>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endforeach
                                             </tbody>
                                         </table>
