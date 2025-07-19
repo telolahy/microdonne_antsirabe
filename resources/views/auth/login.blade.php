@@ -513,7 +513,7 @@
         <div class="row">
             <div class="flex-center position-ref">
                 <div class="card"> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="color : #2D495C;">
                         <!-- <i class="bi bi-bookmarks"></i> -->
                         🏷️  Thèmes disponibles</h5>
                     
@@ -606,7 +606,7 @@
             <div class="flex-center position-ref">
                 <div class="card1">
                     <!-- <div class="login-container"> -->
-                    <h5 class="card-title1">
+                    <h5 class="card-title1" style="color : #2D495C;">
                         <!-- <i class="bi bi-lock"></i> -->
                         🔐  Connexion</h5>
                         <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
@@ -665,7 +665,7 @@
             </div>
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="color : #2D495C;">
                         <!-- <i class="bi bi-bar-chart-line"></i> -->
                         📈  Données <br> de recensement et enquêtes disponibles
                     </h5>
