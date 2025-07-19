@@ -908,21 +908,22 @@ td:nth-child(7), th:nth-child(7) {
                                                                             ->first();
                                                         @endphp
 
-                                                        @if($demande)
-                                                            @if($demande->status === 'valide')
-                                                                <span class="badge badge-success">Validé</span>
-                                                            @elseif($demande->status === 'rejete')
-                                                                <span class="badge badge-danger">Refusé</span>
-                                                            @else
-                                                                <span class="badge badge-warning">En attente</span>
-                                                            @endif
+                                                        @if($fichier->type === 'sans_validation')
+                                                            <span class="badge badge-primary">Fichier téléchargeable</span>
                                                         @else
-                                                            @if($fichier->type === 'sans_validation')
-                                                                <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                            @if($demande)
+                                                                @if($demande->status === 'valide')
+                                                                    <span class="badge badge-success">Validé</span>
+                                                                @elseif($demande->status === 'rejete')
+                                                                    <span class="badge badge-danger">Refusé</span>
+                                                                @else
+                                                                    <span class="badge badge-warning">En attente</span>
+                                                                @endif
                                                             @else
                                                                 <span class="badge badge-secondary">Demande requise</span>
                                                             @endif
                                                         @endif
+
 
                                                     @else
                                                         <span class="text-gray-400 italic">Aucune enquête</span>
