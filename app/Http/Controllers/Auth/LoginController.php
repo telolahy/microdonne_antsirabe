@@ -28,7 +28,7 @@ class LoginController extends Controller
     {
         $themes = Theme::has('files')->orderBy('nom')->take(5)->get();
         $nbr_themes = $themes->count();
-        $enquetes = Enquete::has('files')->orderBy('nom')->take(5)->get();
+        $enquetes = Enquete::has('files')->orderBy('created_at', 'desc')->take(5)->get();
         $nbr_enquetes = $enquetes->count();
         return view('auth.login', compact('themes', 'nbr_themes', 'enquetes', 'nbr_enquetes'));
     }
