@@ -70,10 +70,6 @@
         flex: 1;
         transition: all 0.3s ease;
     }
-    .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-    }
 
     .card {
         padding: 0 30px;
@@ -81,6 +77,9 @@
         height: 450px;
         width: 100%;
         min-width: 250px;
+        max-width: 250px;
+        display: flex;
+        flex-direction: column;
     }
     .card i, .card1 i {
         font-size: 1rem;
@@ -88,16 +87,17 @@
     }
     .card-title {
         text-align: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 600;
         color: #333;
         margin-bottom: 10px;
         max-width: 250px; /* Limite la largeur du titre */
         break-word: break-word; /* Permet le retour à la ligne naturel */
+        flex-shrink: 0;
     }
     .card-title1 {
         text-align: center;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 600;
         color: #333;
         margin-bottom: 20px;
@@ -107,11 +107,11 @@
     
     .card1 {
         
-        padding: 0px 25px 13px 25px;
+        padding: 0px 25px 25px 25px;
         max-height: 450px;
         width: 100%;
         min-width: 250px;
-        /* max-width: 400px; */
+        max-width: 250px;
     }
 
     /* .card1 h2 {
@@ -232,44 +232,6 @@
     
     }
 
-    
-
-    /* .map-placeholder {
-        width: 100%;
-        height: 400px;
-        background-size: cover;
-        background-position: center;
-        border-radius: 5px;
-    }
-
-    #world-map {
-        background-image: url('https://via.placeholder.com/400x400?text=World+Map');
-    }
-
-    #madagascar-map {
-        background-image: url('https://via.placeholder.com/400x400?text=Madagascar+Map');
-    }
-
-    .form-group label {
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: #555;
-    }
-
-    .form-control {
-        border-radius: 5px;
-        font-size: 0.9rem;
-        padding: 0.75rem;
-        border-color: #ced4da;
-    }
-
-    .custom-select {
-        font-size: 0.9rem;
-        padding: 0.75rem;
-        border-radius: 5px;
-        border-color: #ced4da;
-    } */
-
     .flex-center {
         align-items: center;
         display: flex;
@@ -303,21 +265,24 @@
     }
 
     .card-body {
-        padding: 20px;
+        padding: 0;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
     }
 
-    .card-body li {
-        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    /* .card-body li {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         
-        /* padding: 10px; */
+        padding: 10px;
         margin-bottom: 10px;
         font-size: 1.2rem;
         color: #555;
-        list-style-type: square; /* Supprime les puces */
+        list-style-type: square; 
         opacity: 0;
-        transform: translateY(20px); /* Départ légèrement en bas */
-        animation: fadeInSlide 0.6s ease-out forwards; /* Animation de 0.6s */
-        animation-delay: calc(0.2s * var(--i)); /* Décalage basé sur l'index */
+        transform: translateY(20px); 
+        animation: fadeInSlide 0.6s ease-out forwards; 
+        animation-delay: calc(0.2s * var(--i));
     }
 
 
@@ -326,7 +291,8 @@
             opacity: 1;
             transform: translateY(0);
         }
-    }
+    } */
+
     .card-body1 {
         padding: 20px;
     }
@@ -336,13 +302,13 @@
         
         /* padding: 10px; */
         margin-bottom: 10px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: rgba (85, 85, 85, 0.9);
         list-style-type: square; /* Supprime les puces */
         opacity: 0;
         transform: rotate(-15deg); /* Départ avec une légère rotation */
         animation: rotateIn 0.8s ease-out forwards;
-        animation-delay: calc(1s + 0.1s * var(--i)); /* Délai progressif */
+        animation-delay: calc(0.2s * var(--i)); /* Délai progressif */
         }
 
 
@@ -362,13 +328,24 @@
     position: absolute;
     top: 50%;
     left: 12px;
-    transform: translateY(-100%);
+    transform: translateY(-90%);
     color: #888;
     font-size: 0.9rem;
 }
 .input-group input {
     padding-left: 38px; /* espace pour l'icône */
 }
+
+ /* Style pour l'icône de l'œil */
+    .input-group .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        transform: translateY(-80%);
+        color: #888;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
 
 .guide {
     padding-top: 10px;
@@ -392,6 +369,77 @@
     transition: transform 0.3s ease;
 }
 
+/* Andrana kely */
+    .carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            flex-grow: 1; /* Prend tout l'espace restant dans .card-body */
+            display: flex;
+            flex-direction: column;
+        }
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 700%; /* 7 slides (6 originaux + 1 copie) */
+            flex-grow: 1; /* Prend tout l'espace disponible */
+        }
+        .carousel-slide {
+            width: 14.2857%; /* 100% / 7 */
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: contain;
+            background-position: center;
+            position: relative;
+        }
+        .carousel-slide-content {
+            text-align: center;
+            color: white;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 0; /* Espacement interne */
+        }
+        .carousel-slide img {
+            max-width: 180px;
+            max-height: 180px;
+            height: auto;
+            object-fit: contain; /* Assure que l'image s'adapte sans déformation */
+            margin-bottom: 5px;
+        }
+
+        .description {
+            padding: 10px;
+            font-size: 1rem;
+            color: #666;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .dots {
+            text-align: center;
+            padding: 5px 0;
+            flex-shrink: 0;
+            min-height: 20px; /* Hauteur minimale pour les dots */
+            /* display: none; */
+        }
+        .dot {
+            height: 7px;
+            width: 7px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 3px;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #0071e3;
+        }
     
     
 
@@ -443,6 +491,12 @@
             font-size: 0.8rem;
             margin-right: 8px;
         }
+        .input-group .input-icon {
+            transform: translateY(-100%);
+        }
+        .input-group .toggle-password {
+            transform: translateY(-100%);
+        }
         
     }
 
@@ -460,10 +514,10 @@
             <div class="flex-center position-ref">
                 <div class="card"> <!-- Visible uniquement sur md et plus grand -->
                     <h5 class="card-title">
-                        <i class="bi bi-bookmarks"></i>
-                        Thèmes disponibles</h5>
-                    <!-- <div class="map-placeholder" id="world-map"> -->
-                        <div class="card-body">
+                        <!-- <i class="bi bi-bookmarks"></i> -->
+                        🏷️  Thèmes disponibles</h5>
+                    
+                        <!-- <div class="card-body">
                             <ul>
                                 @php
                                 $index = 0;
@@ -485,16 +539,76 @@
                                         
                                     </li>
                             </ul>
+                        </div> -->
+                    <div class="carousel">
+                            <div class="carousel-container">
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoAgriculture.jpg') }}" alt="Agriculture">
+                                        <div class="description">
+                                            Agriculture
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoCommerce.jpg') }}" alt="Commerce">
+                                        <div class="description">
+                                            Commerce
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoEducation.jpg') }}" alt="Education">
+                                        <div class="description">
+                                            Education
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoSante.jpg') }}" alt="Santé">
+                                        <div class="description">
+                                            Santé
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoEntreprise.jpg') }}" alt="Entreprise">
+                                        <div class="description">
+                                            Entreprise
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Etc.jpg') }}" alt="Etc...">
+                                        <div class="description">
+                                            Etc
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="carousel-slide-content">
+                                        <img src="{{ Storage::url('images/themes/Instat_PictoAgriculture.jpg') }}" alt="Agriculture">
+                                        <div class="description">
+                                            Agriculture
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dots"></div>
                         </div>
-                    <!-- </div> -->
                 </div>
             </div>
             <div class="flex-center position-ref">
                 <div class="card1">
                     <!-- <div class="login-container"> -->
                     <h5 class="card-title1">
-                        <i class="bi bi-lock"></i>
-                        Connexion</h5>
+                        <!-- <i class="bi bi-lock"></i> -->
+                        🔐  Connexion</h5>
                         <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -522,12 +636,13 @@
                                 <div class="input-group">
                                     <span class="input-icon"><i class="bi bi-lock-fill"></i></span>
                                     <input type="password" id="password" name="password" placeholder="Mot de passe" class="form-control" required>
+                                    <span class="toggle-password"><i class="bi bi-eye"></i></span>
                                 </div>
                             </div>
 
                             <div class="form-group" style="display: flex; align-items: center; justify-content: center; width: auto; height: auto;">
                                 <label class="flex items-center justify-start" for="remember">
-                                    <input type="checkbox" name="remember" id="remember" class="mr-2" style="width: auto; height: auto;">
+                                    <input type="checkbox" name="remember" id="remember" class="mr-2" style="width: auto; height: auto; transform: translateY(20%);">
                                     <span style="white-space: nowrap;">Se souvenir de moi</span>
                                 </label>
                             </div>
@@ -551,8 +666,8 @@
             <div class="flex-center position-ref">
                 <div class="card "> <!-- Visible uniquement sur md et plus grand -->
                     <h5 class="card-title">
-                        <i class="bi bi-bar-chart-line"></i>
-                        Données de recensement et enquêtes disponibles
+                        <!-- <i class="bi bi-bar-chart-line"></i> -->
+                        📈  Données <br> de recensement et enquêtes disponibles
                     </h5>
                     <div class="card-body1">
                             <ul>
@@ -584,6 +699,78 @@
             </div>
         </div>
     </div>
+
+<script>
+        const slides = document.querySelector('.carousel-container').children;
+        const dotsContainer = document.querySelector('.dots');
+        let currentSlide = 0;
+        const totalOriginalSlides = 6; // Nombre de slides originaux
+
+        // Créer les points de navigation pour les 6 slides originaux
+        for (let i = 0; i < totalOriginalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+        updateDots();
+
+        // Passer à la diapositive suivante toutes les 2 secondes
+        setInterval(nextSlide, 2000);
+
+        function updateDots() {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide % totalOriginalSlides);
+            });
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                const offset = -currentSlide * 14.2857; // 100% / 7
+                document.querySelector('.carousel-container').style.transition = 'transform 0.5s ease';
+                document.querySelector('.carousel-container').style.transform = `translateX(${offset}%)`;
+                updateDots();
+            }
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            const offset = -currentSlide * 14.2857; // 100% / 7
+            document.querySelector('.carousel-container').style.transition = 'transform 0.5s ease';
+            document.querySelector('.carousel-container').style.transform = `translateX(${offset}%)`;
+
+            // Si on atteint le 7e slide (copie du 1er), revenir au 1er slide sans animation
+            if (currentSlide === slides.length - 1) {
+                setTimeout(() => {
+                    currentSlide = 0;
+                    document.querySelector('.carousel-container').style.transition = 'none';
+                    document.querySelector('.carousel-container').style.transform = `translateX(0%)`;
+                    updateDots();
+                }, 500); // Attendre la fin de l'animation (0.5s)
+            } else {
+                updateDots();
+            }
+        }
+
+        // Gestion de l'affichage/masquage du mot de passe
+        document.querySelector('.toggle-password').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = this.querySelector('i');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            }
+        });
+        
+</script>
+
 </body>
 
 </html>
