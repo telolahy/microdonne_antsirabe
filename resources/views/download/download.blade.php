@@ -16,11 +16,11 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('sauvegarder.store') }}">
+            <form method="POST" action="{{ route('sauvegarder.store') }}" id="downloadForm">
                 @csrf
                 <input type="hidden" name="file_id" value="{{$file_id }}">
                 <!-- Motif de la demande -->
-                <div class="mb-4">
+                <div class="mb-4" id="motif-section">
                     <label for="motif" class="form-label fw-bold">Motifs du téléchargement:</label>
                     <textarea name="motif" id="motif" class="form-control" rows="4" required placeholder="Expliquez pourquoi vous souhaitez accéder à ce fichier..."></textarea>
                 </div>
@@ -79,9 +79,19 @@
     document.addEventListener('DOMContentLoaded', function () {
         const checkbox = document.getElementById('cgu');
         const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementById('downloadForm');
+        const motifSection = document.getElementById('motif-section');
 
+        // Enable/disable submit button based on checkbox
         checkbox.addEventListener('change', function () {
             submitBtn.disabled = !this.checked;
+        });
+
+        // Hide motif section on form submission
+        form.addEventListener('submit', function (event) {
+            // Hide the motif section just before submission
+            motifSection.style.display = 'none';
+            // Do not prevent default; allow form to submit
         });
     });
 
