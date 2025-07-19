@@ -276,7 +276,7 @@ public function edit($id)
         $file->published = 0; 
         $file->save();
 
-    return redirect()->back()->with('success', 'Le fichier a été retiré.');
+    return redirect()->back()->with('alerte', 'Le fichier a été retiré.');
     }
 
 

@@ -106,6 +106,19 @@
     <div class="container"> 
         <div class="d-flex justify-content-between align-items-center">
             <h6>Tableau de bord de la {{ $direction->name }}</h6>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
+           @if(session('alerte'))
+                <div class="alert alert-warning alert-dismissible fade show shadow-sm rounded-3 px-4 py-3 mt-3" role="alert" style="font-size: 1rem;">
+                    <strong>Attention !</strong> {{ session('alerte') }}
+                </div>
+            @endif
+
+
+
 
             @if(Auth::user()->direction_id == $direction->id)
             <div style="display: flex; gap:5px">
@@ -196,7 +209,7 @@
             &nbsp;
 
         @if($file->published == 0)
-            <form action="{{ route('files.publish', $file->id) }}" method="POST" style="display: inline;">
+            <form action="{{ route('files.publish', $file->id) }}" method="POST" style="display: inline;">  
                 @csrf
                 <button type="submit" class="btn btn-outline-success" title="Publier">
                     Publier
