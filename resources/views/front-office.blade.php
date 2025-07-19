@@ -947,13 +947,13 @@ td:nth-child(7), th:nth-child(7) {
                                                 <td class="text-center placeBoutton">
                                                     @if(!$demande)
                                                         @if($fichier->type === 'sans_validation')
-                                                           <a href="{{ route('sauvegarder.create2', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                           <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                         @elseif($fichier->type === 'avec_validation')
                                                             <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                         @endif
                                                     @else
                                                         @if($demande->status === 'valide')                                                        
-                                                            <a href="{{ route('sauvegarder.create2', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                         @elseif($demande->status === 'rejete')
                                                             <span class="text-danger">Téléchargement refusé</span>
                                                         @else
