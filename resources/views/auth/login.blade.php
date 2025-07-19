@@ -397,7 +397,7 @@
         .carousel-slide-content {
             text-align: center;
             color: white;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -406,8 +406,8 @@
             padding: 5px 0; /* Espacement interne */
         }
         .carousel-slide img {
-            max-width: 180px;
-            max-height: 180px;
+            max-width: 200px;
+            max-height: 200px;
             height: auto;
             object-fit: contain; /* Assure que l'image s'adapte sans déformation */
             margin-bottom: 5px;
