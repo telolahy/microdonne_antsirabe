@@ -166,6 +166,6 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('sauvegarder/create/{file_id}', [EnregistrementController::class, 'create'])->name('sauvegarder.create2');
+Route::get('sauvegarder/create/{file_id}', [EnregistrementController::class, 'create'])->name('sauvegarder.create2'); 
 
 Route::post('sauvegarder', [EnregistrementController::class, 'store'])->name('sauvegarder.store');
