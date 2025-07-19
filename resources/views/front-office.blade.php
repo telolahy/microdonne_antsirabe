@@ -945,7 +945,7 @@ td:nth-child(7), th:nth-child(7) {
 
                                                 <td style="text-align: center;" class="nombreTelechargement">{{ $fichier->nombre }}</td>
                                 
-                                                <td class="text-center placeBoutton">
+                                                {{-- <td class="text-center placeBoutton">
                                                     @if(!$demande)
                                                         @if($fichier->type === 'sans_validation')
                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
@@ -961,7 +961,26 @@ td:nth-child(7), th:nth-child(7) {
                                                             <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
                                                         @endif
                                                     @endif
+                                                </td> --}}
+
+                                                <td class="text-center placeBoutton">
+                                                    @if($fichier->type === 'sans_validation')
+                                                        <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                    @else
+                                                        @if(!$demande)
+                                                            <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                        @else
+                                                            @if($demande->status === 'valide')                                                        
+                                                                <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                            @elseif($demande->status === 'rejete')
+                                                                <span class="text-danger">Téléchargement refusé</span>
+                                                            @else
+                                                                <span class="btn btn-warning" style="cursor: not-allowed;">Demande en attente</span>
+                                                            @endif
+                                                        @endif
+                                                    @endif
                                                 </td>
+
 
                                                 <td class="text-center">
                                                     @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
