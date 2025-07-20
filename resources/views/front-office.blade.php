@@ -910,7 +910,7 @@ td:nth-child(7), th:nth-child(7) {
                                                             @endphp
 
                                                             @if($fichier->type === 'sans_validation')
-                                                                <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                <span class="badge badge-primary">Demande non requise</span>
                                                             @else
                                                                 @if($demande)
                                                                     @if($demande->status === 'valide')
@@ -943,7 +943,7 @@ td:nth-child(7), th:nth-child(7) {
                                                                 <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                             @else
                                                                 @if($demande->status === 'valide')                                                        
-                                                                    <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                                    <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger 1</a>
                                                                 @elseif($demande->status === 'rejete')
                                                                     <span class="text-danger">Téléchargement refusé</span>
                                                                 @else

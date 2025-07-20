@@ -2,6 +2,17 @@
 
 @section('content')
 
+<style>
+    .conditionUtilisation{
+        font-weight: bold;
+    }
+
+    .obligatoire{
+        color: red;
+        font-weight: bold;
+    }
+</style>
+
 <div class="container py-5">
     <div class="card shadow-lg border-0">
         <div class="card-body p-5">
@@ -21,7 +32,7 @@
                 <input type="hidden" name="file_id" value="{{$file_id }}">
                 <!-- Motif de la demande -->
                 <div class="mb-4" id="motif-section">
-                    <label for="motif" class="form-label fw-bold">Motifs du téléchargement:</label>
+                    <label for="motif" class="form-label fw-bold">Motifs du téléchargement: (<span class="obligatoire">*</span> champ obligatoire)</label>
                     <textarea name="motif" id="motif" class="form-control" rows="4" required placeholder="Expliquez pourquoi vous souhaitez accéder à ce fichier..."></textarea>
                 </div>
 
@@ -60,7 +71,7 @@
                 <div class="form-check mb-4">
                     <input type="checkbox" class="form-check-input" id="cgu" name="terms">
                     <label class="form-check-label" for="cgu">
-                        J'accepte les <a href="#" onclick="accepted()">conditions générales d'utilisation</a>.
+                        J'accepte les <span class="conditionUtilisation">conditions générales d'utilisation</span>.
                     </label>
                 </div>
                 <!-- Submit -->

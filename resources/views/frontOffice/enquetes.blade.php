@@ -785,17 +785,17 @@
                                                                                 ->latest()
                                                                                 ->first();
                                                                 @endphp
-                                                                @if($demande)
-                                                                    @if($demande->status === 'valide')
-                                                                        <span class="badge badge-success">Validé</span>
-                                                                    @elseif($demande->status === 'rejete')
-                                                                        <span class="badge badge-danger">Refusé</span>
-                                                                    @else
-                                                                        <span class="badge badge-warning">En attente</span>
-                                                                    @endif
+                                                                @if($fichier->type === 'sans_validation')
+                                                                    <span class="badge badge-primary">Demande non requise</span>
                                                                 @else
-                                                                    @if($fichier->type === 'sans_validation')
-                                                                        <span class="badge badge-primary">Fichier téléchargeable</span>
+                                                                    @if($demande)
+                                                                        @if($demande->status === 'valide')
+                                                                            <span class="badge badge-success">Validé</span>
+                                                                        @elseif($demande->status === 'rejete')
+                                                                            <span class="badge badge-danger">Refusé</span>
+                                                                        @else
+                                                                            <span class="badge badge-warning">En attente</span>
+                                                                        @endif
                                                                     @else
                                                                         <span class="badge badge-secondary">Demande requise</span>
                                                                     @endif
@@ -854,7 +854,7 @@
                                                                         <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
                                                                     @else
                                                                         @if($demande->status === 'valide')                                                        
-                                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
+                                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger 1</a>
                                                                         @elseif($demande->status === 'rejete')
                                                                             <span class="text-danger">Téléchargement refusé</span>
                                                                         @else
