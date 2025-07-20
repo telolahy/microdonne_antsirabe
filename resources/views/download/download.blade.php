@@ -9,7 +9,12 @@
 
     .obligatoire{
         color: red;
-        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .champObli{
+        font-size: 0.8rem;
+        color: #666;
     }
 </style>
 
@@ -32,7 +37,7 @@
                 <input type="hidden" name="file_id" value="{{$file_id }}">
                 <!-- Motif de la demande -->
                 <div class="mb-4" id="motif-section">
-                    <label for="motif" class="form-label fw-bold">Motifs du téléchargement: (<span class="obligatoire">*</span> champ obligatoire)</label>
+                    <label for="motif" class="form-label fw-bold">Motifs du téléchargement:<span class="obligatoire">*</span></label>
                     <textarea name="motif" id="motif" class="form-control" rows="4" required placeholder="Expliquez pourquoi vous souhaitez accéder à ce fichier..."></textarea>
                 </div>
 
@@ -80,6 +85,7 @@
                         <i class="bi bi-download me-2"></i> Télécharger maintenant
                     </button>
                 </div>
+                <p class="champObli"><span class="obligatoire">* </span>Champ obligatoire</p>
             </form>
         </div>
     </div>

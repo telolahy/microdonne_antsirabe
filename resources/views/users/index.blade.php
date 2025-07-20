@@ -25,7 +25,7 @@
             padding: 0px;
             margin-left: 0px; 
             margin-top: 0px;
-            min-height: 100vh;
+            min-height: 50vh;
         }
         table {
             width: 100%;
@@ -91,59 +91,155 @@
             background-color: #333; 
             z-index: 1000; 
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-        } 
+        }
+        .title-container {
+            margin-top: 35px;
+        }
+        .file-table {
+            margin-bottom: 40px;
+        }
+        .no-result {
+            text-align: center;
+            font-size: 28px;
+            color: #888;
+            margin-top: 15vh;
+            padding-bottom: 15vh;
+        }
+        .close-search {
+            position: absolute;
+            font-size: 25px;
+            margin-right: 140px;
+        }
+        .underline {
+            width: 100%;
+            height: 4px;
+            background-color: rgb(22, 18, 4);
+            margin-bottom: 30px;
+        }
+        @media (max-width: 768px) {
+            .file-table th, .file-table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+            .custom-role-select {
+                max-width: 100px;
+                min-width: 80px;
+            }
+            .search-container, .search-container form {
+                width: 100%;
+            }
+            .file-table {
+                border: 0;
+                width: 100%;
+            }
+
+            .file-table thead {
+                display: none;
+            }
+
+            .file-table tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                padding: 1rem;
+                background-color: #f9f9f9;
+            }
+
+            .file-table tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border: none;
+            }
+
+            .file-table tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                flex-basis: 45%;
+                text-align: left;
+                color: #333;
+            }
+
+            .file-table tbody td:last-child {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="containerUser">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6>Gestion des utilisateurs</h6>
+        <div class="d-flex justify-content-between title-container flex-column flex-md-row">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1><b>Gestion des utilisateurs</b></h1>
+            </div>
+    
+            <div class="d-flex justify-content-between align-items-center search-container">
+                <form method="GET" action="{{ route('users.index') }}" class="d-flex justify-content-end mb-4">
+                    <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2" value="{{ request()->get('search') }}">
+                    @if (isset($_GET['search']) && $_GET['search'] !== '')
+                        <a href="{{ route('users.index') }}" class="close-search"><i class="bi bi-x"></i></a>
+                    @endif
+                    <button type="submit" class="btn btn-dark">Rechercher</button>
+                </form>
+            </div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center">
-            <form method="GET" action="{{ route('users.index') }}" class="d-flex mb-4">
-                <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2" value="{{ request()->get('search') }}">
-                <button type="submit" class="btn btn-dark">Rechercher</button>
-            </form>
-        </div>
+        <div class="underline"></div>
 
-        <table class="file-table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Rôle</th>
-                    <th>Date de création</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
-                        {{ $directions[$user->direction_id] ?? 'Non défini' }}
-                    </td>
-                    <td>{{ $user->created_at->format('d/m/Y') }}</td>
-                    <td> 
-                        <form id="changeRoleForm-{{ $user->id }}" method="POST" action="{{ route('users.changerRole', $user->id) }}">
-                            @csrf
-                            <select name="direction_id"
-                                    class="form-select form-select-sm role-dropdown"
-                                    onchange="confirmDropdownChange(this, '{{ $user->id }}', '{{ $user->name }}')"
-                                    data-old-value="{{ $user->direction_id }}">
-                                @foreach($directions as $id => $name)
-                                    <option value="{{ $id }}" {{ $user->direction_id == $id ? 'selected' : '' }}>{{ $name }}</option>
-                                @endforeach
-                            </select>
-                        </form>                                            
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        @if (isset($_GET['search']) && $_GET['search'] !== '')
+            <div class="alert">
+                <h5>Résultats de la recherche pour : <strong>{{ $_GET['search'] }}</strong></h5>
+            </div>
+        @endif
+
+        @if (!$users->isEmpty())
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôle</th>
+                        <th>Date de création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                    <tr>
+                        <td data-label="Nom">{{ $user->name }}</td>
+                        <td data-label="Email">{{ $user->email }}</td>
+                        <td data-label="Rôle">
+                            {{ $directions[$user->direction_id] ?? 'Non défini' }}
+                        </td>
+                        <td data-label="Date de création">{{ $user->created_at->format('d/m/Y') }}</td>
+                        <td data-label="Actions">
+                            <form id="changeRoleForm-{{ $user->id }}" method="POST" action="{{ route('users.changerRole', $user->id) }}">
+                                @csrf
+                                <select name="direction_id"
+                                        class="form-select form-select-sm role-dropdown form-control"
+                                        onchange="confirmDropdownChange(this, '{{ $user->id }}', '{{ $user->name }}')"
+                                        data-old-value="{{ $user->direction_id }}">
+                                    @foreach($directions as $id => $name)
+                                        <option value="{{ $id }}" {{ $user->direction_id == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                            </form>                                            
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
+        @if($users->isEmpty() && isset($_GET["search"]) && $_GET["search"] !== "")
+            <div class="no-result">
+                <p>Aucun résultat trouvé.</p>
+            </div>
+        @endif
+        
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
