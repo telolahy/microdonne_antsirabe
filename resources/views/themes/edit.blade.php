@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+
+<style>
+    .containerModification {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding-top: 40px;
+        padding-left: 40px
+    }
+</style>
+
+    <div class="containerModification">
         <h2>Modifier le Thème</h2>
         
         <form action="{{ route('themes.update', $theme->id) }}" method="POST" enctype="multipart/form-data">
@@ -9,7 +21,7 @@
             @method('PUT')
 
             <div class="form-group">
-                <label for="nom">Nom</label>
+                <label for="nom" class="mt-3">Nom</label>
                 <input type="text" name="nom" id="nom" class="form-control" value="{{ old('nom', $theme->nom) }}" required>
             </div>
 
