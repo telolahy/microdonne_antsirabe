@@ -20,18 +20,20 @@ class FrontOfficeController extends Controller
     public function index(Request $request)
     {
         $themeId = $request->input('theme_id');
-        $search = $request->input('search');
-
+       $search = $request->input('search');
         $themes = Theme::when($search, function ($query) use ($search) {
             $query->where(function ($query) use ($search) {
                 $query->where('nom', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
                     ->orWhereHas('files', function ($q) use ($search) {
-                        $q->where('file_name', 'like', '%' . $search . '%');
+                        $q->where('file_name', 'like', '%' . $search . '%')
+                        ->where('published', 1); // Ajouter cette condition
                     });
             });
         })
-        ->has('files') //condition pour ne retourner que les thèmes avec des fichiers
+        ->whereHas('files', function ($q) {
+            $q->where('published', 1); // Ne retourner que les thèmes avec des fichiers publiés
+        })
         ->orderBy('nom')
         ->paginate(8);
  
