@@ -92,14 +92,6 @@
             overflow-x: hidden;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 20px;
-            background-color: #f8d7da;
-            color: #721c24;
-            font-weight: bold;
-            border-radius: 5px;
-        }
         .img-thumbnail {
             max-width: 100px;
             max-height: 100px;
@@ -117,19 +109,149 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+        .underline {
+            width: 100%;
+            height: 4px;
+            background-color: rgb(22, 18, 4);
+            margin-bottom: 30px;
+        }
+        .search-input {
+            width: 300px;
+            margin-right: 10px;
+        }
+
+        .close-search {
+            position: absolute;
+            font-size: 25px;
+            margin-right: 140px;
+        }
+
+        .no-result {
+            text-align: center;
+            font-size: 28px;
+            color: #888;
+            margin-top: 15vh;
+            padding-bottom: 15vh;
+        }
+
+        @media (max-width: 768px) {
+            .search-input {
+                width: 100%;
+                margin-right: 0;
+            }
+            .file-table th, .file-table td {
+                font-size: 0.9em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .file-table {
+                border: 0;
+                width: 100%;
+            }
+
+            .file-table thead {
+                display: none;
+            }
+
+            .file-table tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                padding: 1rem;
+                background-color: #fff;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+
+            .file-table tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
+
+            .file-table tbody td:last-child {
+                border-bottom: none;
+            }
+
+            .file-table tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: #555;
+                flex-basis: 40%;
+            }
+
+            .file-table tbody td:nth-child(3) {
+                flex-direction: column;
+            }
+
+            .file-table img {
+                max-width: 100px;
+                height: auto;
+                border-radius: 6px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .title-container .row:first-child {
+                flex-direction: column;
+                height: 80px;
+            }
+            .title-container .row:first-child > div {
+                width: 100%;
+                max-width: 100%;
+                height: 50px !important;
+                min-height: 10px !important;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="containerTheme">
-        <div class="d-flex justify-content-between align-items-center">
-            <h6>Tableau de bord de la {{ $direction->name }}</h6>
-            @if(Auth::user()->direction_id == $direction->id)
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#upload" style="color: white">
-                    Créer
-                </button>
-            @endif
+
+        <div class="container-fluid title-container">
+            <div class="row">
+                <div class="col-9">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1><b>Tableau de bord de la {{ $direction->name }}</b></h1>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex justify-content-end align-items-center">
+                        @if(Auth::user()->direction_id == $direction->id)
+                            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#upload" style="color: white">
+                                Créer
+                            </button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <form method="GET" action="{{ route('themes.index') }}" class="d-flex justify-content-end">
+                        <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2 search-input" value="{{ request()->get('search') }}">
+
+                        @if (isset($_GET['search']) && $_GET['search'] !== '')
+                            <a href="{{ route('themes.index') }}" class="close-search"><i class="bi bi-x"></i></a>
+                        @endif
+                        
+                        <button type="submit" class="btn btn-dark">Rechercher</button>
+                    </form>
+                </div>
+            </div>
         </div>
+
+        <div class="underline mt-3 mb-3"></div>
+
+        @if (isset($_GET['search']) && $_GET['search'] !== '')
+            <div class="alert">
+                <h5>Résultats de la recherche pour : <strong>{{ $_GET['search'] }}</strong></h5>
+            </div>
+        @endif
+
         @if ($errors->any())
             <div class="alert alert-danger mb-4">
                 <ul>
@@ -139,15 +261,10 @@
                 </ul>
             </div>
         @endif
-        <div class="d-flex justify-content-between align-items-center">
-            <form method="GET" action="{{ route('themes.index') }}" class="d-flex mb-4">
-                <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2" value="{{ request()->get('search') }}">
-                <button type="submit" class="btn btn-dark">Rechercher</button>
-            </form>
-        </div>
+        
         @if(Auth::user()->direction_id == $direction->id)
             @if($themes->isEmpty())
-                <div class="no-results">
+                <div class="no-result">
                     Aucun résultat correspondant à votre recherche.
                 </div>
             @else
@@ -165,43 +282,42 @@
                     <tbody>
                         @foreach($themes as $theme)
                             <tr>
-                                <td>
+                                <td data-label="Image">
                                     @if($theme->image)
-                                        <img src="{{ asset('storage/images/themes/' . $theme->image) }}" alt="Image" class="img-thumbnail" style="width:">
+                                        <img src="{{ asset('storage/images/themes/' . $theme->image) }}" alt="Image" class="img-thumbnail" style="max-width: 100px;">
                                     @else
                                         <span>Aucune image</span>
                                     @endif
                                 </td>
-                                <td>{{ $theme->nom }}</td>
-                                <td>{{ $theme->description }}</td>
-                                <td>{{ $theme->direction->name }}</td>
-                                <td>{{ $theme->created_at->format('d/m/Y') }}</td>
-                                <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <form action="{{ route('themes.destroy', $theme->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-outline-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                    &nbsp;
-                                    &nbsp;
-
-                                        <a href="{{ route('themes.edit', $theme->id) }}" class="btn btn-outline-primary">
+                                <td data-label="Nom">{{ $theme->nom }}</td>
+                                <td data-label="Descriptions">{{ $theme->description }}</td>
+                                <td data-label="Direction">{{ $theme->direction->name }}</td>
+                                <td data-label="Date de création">{{ $theme->created_at->format('d/m/Y') }}</td>
+                                <td data-label="Actions">
+                                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                                        <form action="{{ route('themes.destroy', $theme->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        <a href="{{ route('themes.edit', $theme->id) }}" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </div>
                                 </td>
-
                             </tr>
                         @endforeach
+
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end mt-4">
                     {{ $themes->links() }}
                 </div>
+                
             @endif
+ 
         @else
             <p>Vous n'avez pas l'autorisation d'accéder à cette direction.</p>
         @endif
