@@ -82,22 +82,22 @@ class FrontOfficeController extends Controller
     {
        // dd('coucou');
         $user = Auth::user();
-        $search = $request->input('search'); 
-    
-        $enquetes = Enquete::query();
+       $search = $request->input('search');
 
+        $enquetes = Enquete::query();
         if ($search) {
             $enquetes = $enquetes->where(function ($query) use ($search) {
                 $query->where('nom', 'like', '%' . $search . '%')
                     ->orWhere('description', 'like', '%' . $search . '%')
                     ->orWhereHas('files', function ($q) use ($search) {
-                        $q->where('file_name', 'like', '%' . $search . '%');
+                        $q->where('file_name', 'like', '%' . $search . '%')
+                        ->where('published', 1); // Ajouter cette condition
                     });
             });
         }
-
-        $enquetes = $enquetes->has('files')->orderBy('updated_at', 'desc')->paginate(8, ['*'], 'enquetes_page');
-
+        $enquetes = $enquetes->whereHas('files', function ($q) {
+            $q->where('published', 1); // Ne retourner que les enquêtes avec des fichiers publiés
+        })->orderBy('updated_at', 'desc')->paginate(8, ['*'], 'enquetes_page');
     
         $fichiers = null;  
         $userDownload = Download::where('user_id', $user->id)->first(); 
