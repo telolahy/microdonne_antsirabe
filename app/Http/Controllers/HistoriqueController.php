@@ -67,22 +67,31 @@ class HistoriqueController extends Controller
 
     public function notif(Request $request)
     {
-        $downloadsQuery = Download::with(['demandeur', 'file'])
-                            ->where('status', 'en_attente') 
-                            ->orderBy('updated_at', 'desc');
-                    
-        if ($request->has('user_id') && $request->user_id != '') {
-            $downloadsQuery->where('user_id', $request->user_id);
-        }
-    
-        if ($request->has('file_id') && $request->file_id != '') {
-            $downloadsQuery->where('file_id', $request->file_id);
-        }
-    
-       // $downloads = $downloadsQuery->get();
+       $downloadsQuery = Download::with(['demandeur', 'file'])
+        ->where('status', 'en_attente')
+        ->whereHas('file', function ($fileQuery) {
+            $fileQuery->whereHas('direction', function ($q) {
+                // rien ici si on n'a pas besoin de filtrer la direction
+            });
+        })
+        ->whereHas('demandeur', function ($demandeurQuery) {
+            $demandeurQuery->whereHas('direction', function ($q) {
+                // pareil ici, pas de filtre de direction
+            });
+        })
+        // ici on compare les deux directions
+        ->whereRaw('EXISTS (
+            SELECT 1 FROM files 
+            WHERE files.id = downloads.file_id 
+            AND files.direction_id = (
+                SELECT users.direction_id FROM users WHERE users.id = downloads.user_id
+            )
+        )')
+        ->orderBy('updated_at', 'desc');
+
         $downloads = $downloadsQuery->paginate(5);
 
-      //  dd($downloads);
+       // dd($downloads);
     
         return view('notification.index', compact('downloads'));
     }
