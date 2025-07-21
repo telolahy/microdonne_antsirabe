@@ -13,7 +13,7 @@
         </div>
     @else
         <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
+            <table class="table table-striped table-hover align-middle"> 
                 <thead class="table-dark">
                     <tr style="background-color:#333;">
                         <th scope="col" class="ps-4">Demandeur</th>
@@ -27,7 +27,7 @@
                         <tr>
                             <td class="ps-4 fw-medium">{{ $download->demandeur->name ?? 'Inconnu' }}</td>
                             <td>
-                                <a href="{{ route('files.downloads', $download->file->id) }}" class="text-decoration-none d-flex align-items-center">
+                                <a href="{{ route('files.downloads', $download->file_id) }}" class="btn btn-succes d-flex align-items-center">
                                     <i class="fas fa-file-alt me-2 text-primary"></i>
                                     <span>{{ $download->file->file_name ?? 'Fichier non trouvé' }}</span>
                                 </a>
@@ -42,7 +42,12 @@
                     @endforeach
                 </tbody>
             </table>
+            
+
         </div>
+        <div class="d-flex justify-content-center mt-4">
+                {{ $downloads->links() }}
+            </div>
     @endif
 </div>
 

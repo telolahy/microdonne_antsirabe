@@ -814,7 +814,6 @@ td:nth-child(7), th:nth-child(7) {
     </div>
 
     <div class="underline"></div>
-
     @if(isset($_GET["search"]) && $_GET["search"] !== "")
         <div class="search-results">
             <p>
@@ -940,7 +939,8 @@ td:nth-child(7), th:nth-child(7) {
                                                             <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                         @else
                                                             @if(!$demande)
-                                                                <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                                {{-- <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a> --}}
+                                                                <a href="{{ route('demande.create', ['file_id' => $fichier->id]) }}" class="btn btn-secondary bouttonTheme">Faire une demande</a>
                                                             @else
                                                                 @if($demande->status === 'valide')                                                        
                                                                     <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger 1</a>
@@ -992,7 +992,7 @@ td:nth-child(7), th:nth-child(7) {
 <div id="requestModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <h3>Faire une Demande</h3>
+        <h3>Faire une Demande</h3> 
         <form action="{{ route('downloads.demandeThemes', ['file' => 'ID']) }}" method="POST" id="requestForm">
             @csrf
             <input type="hidden" id="file_id" name="file_id">

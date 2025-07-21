@@ -95,7 +95,7 @@
 <body>
 <div class="container">
     <div style="display: flex; align-items: center; justify-content: space-between;">
-        <h6>Utilisateurs ayant téléchargé le fichier :</h6>
+        <h6>Utilisateurs ayant téléchargé le fichier yyy:</h6>
         <div style="display: flex; gap: 10px;">
             <div style="background-color:white; color: black; padding: 10px; border-radius: 5px;">
                 <p style="margin: 0;">En attente : {{ $countWaiting }}</p>

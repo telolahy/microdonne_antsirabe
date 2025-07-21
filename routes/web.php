@@ -18,6 +18,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\EnqueteController;
 use App\Http\Controllers\RapportController;
 use App\Http\Controllers\DownloadController;
@@ -94,6 +95,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('files/upload', [FileController::class, 'store'])->name('files.store');
         Route::delete('/files/{id}', [FileController::class, 'destroy'])->name('files.destroy'); 
         Route::get('/files/{file}/downloads', [FileController::class, 'showfiledownload'])->name('files.downloads');
+
+        Route::get('/keke/{id}', [FileController::class, 'telecharger'])->name('files.keke');
+
+
         Route::post('/files/{id}/publish', [FileController::class, 'publish'])->name('files.publish');
         Route::post('/files/{id}/unpublish', [FileController::class, 'unpublish'])->name('files.unpublish');
         Route::get('files/{file}/edit', [FileController::class, 'edit'])->name('files.edit');
@@ -103,7 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/downloads/{download}/rejeter', [DownloadController::class, 'rejeter'])->name('downloads.rejeter');
         Route::post('/downloads/demande/{fileId}', [DownloadController::class, 'demande'])->name('downloads.demande');
         Route::post('/downloads/demandeEnquetes/{file}', [DownloadController::class, 'demandeEnquetes'])->name('downloads.demandeEnquetes');
-        Route::post('/downloads/demandeThemes/{file}', [DownloadController::class, 'demandeThemes'])->name('downloads.demandeThemes');
+        Route::post('/downloads/demandeThemes/{file}', [DownloadController::class, 'demandeThemes'])->name('downloads.demandeThemes'); 
         Route::get('/downloads-en-attente', [DownloadController::class, 'getDownloadsEnAttente']);
         Route::get('/historique', [DownloadController::class, 'validation'])->name('textes.index');
 
@@ -169,3 +174,6 @@ Route::middleware('auth')->group(function () {
 Route::get('sauvegarder/create/{file_id}', [EnregistrementController::class, 'create'])->name('sauvegarder.create'); 
 
 Route::post('sauvegarder', [EnregistrementController::class, 'store'])->name('sauvegarder.store');
+
+Route::get('demande/create/{file_id}', [DemandeController::class, 'create'])->name('demande.create'); 
+Route::post('demande', [DemandeController::class, 'store'])->name('demande.store');

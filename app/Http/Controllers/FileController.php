@@ -251,18 +251,28 @@ public function edit($id)
     } */
     
 
+    public function telecharger($id)
+    {
+        $file = File::findOrFail($id);
+        $path = storage_path('app/' . $file->file_path); // Chemin correct : storage/app/uploads/nom_du_fichier
+        if (!file_exists($path)) {
+            return back()->with('error', 'Fichier introuvable.');
+        }
+        return response()->download($path, $file->file_name);
+    }
+
     public function showfiledownload($fileId)
-{ 
-    $user = Auth::user();
-    $direction = Direction::findOrFail($user->direction_id);  
-    $file = File::findOrFail($fileId);
-    $downloads = $file->downloads()->with('user', 'rapport')->orderBy('created_at', 'desc')->paginate(10);
-    $countWaiting = $file->downloads()->where('status', 'en_attente')->count();
-    $countRejected = $file->downloads()->where('status', 'rejete')->count();
-    $countValidated = $file->downloads()->where('status', 'valide')->count();
-    $totalDownloads = $countWaiting + $countRejected + $countValidated;
-    return view('direction.listedownload', compact('downloads', 'file', 'direction', 'countWaiting', 'countRejected', 'countValidated', 'totalDownloads'));
-}
+    { 
+        $user = Auth::user();
+        $direction = Direction::findOrFail($user->direction_id);  
+        $file = File::findOrFail($fileId);
+        $downloads = $file->downloads()->with('user', 'rapport')->orderBy('created_at', 'desc')->paginate(10);
+        $countWaiting = $file->downloads()->where('status', 'en_attente')->count();
+        $countRejected = $file->downloads()->where('status', 'rejete')->count();
+        $countValidated = $file->downloads()->where('status', 'valide')->count();
+        $totalDownloads = $countWaiting + $countRejected + $countValidated;
+        return view('direction.listedownload', compact('downloads', 'file', 'direction', 'countWaiting', 'countRejected', 'countValidated', 'totalDownloads'));
+    }
     public function publish($id)
 {
         $file = File::findOrFail($id);
