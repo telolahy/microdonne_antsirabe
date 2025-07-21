@@ -33,7 +33,8 @@
                         </tr>
                         <tr>
                             <th scope="row">Date d'inscription</th>
-                            <td>{{ $user->created_at->format('d M Y') }}</td>
+                            <td><p>Date de création : {{ $user->created_at ? $user->created_at->format('d/m/Y') : 'Non défini' }}</p>
+</td>
                         </tr>
                     </tbody>
                 </table>

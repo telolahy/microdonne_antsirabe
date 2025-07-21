@@ -135,8 +135,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('files/{file}', [FileController::class, 'show'])->name('files.show');
 
         Route::get('/profile', [UserController::class, 'show'])->name('profile');
-        Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
+       // Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+        //Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
 
         Route::get('/historiques', [HistoriqueController::class, 'show'])->name('historiques.index');
         Route::get('/notifications', [HistoriqueController::class, 'notif'])->name('notifications.index');
@@ -165,11 +165,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // stagiaire
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::get('/gestion-utilisateur', [UserChangeController::class, 'index'])->name('users.index');
     Route::post('/gestion-utilisateur/{user}/changer-role', [UserChangeController::class, 'changerRole'])->name('users.changerRole');
+
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
-
-
 
 Route::get('sauvegarder/create/{file_id}', [EnregistrementController::class, 'create'])->name('sauvegarder.create'); 
 
