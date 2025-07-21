@@ -208,27 +208,45 @@
                 </thead>
                 <tbody>
                     @foreach($users as $user)
-                    <tr>
-                        <td data-label="Nom">{{ $user->name }}</td>
-                        <td data-label="Email">{{ $user->email }}</td>
-                        <td data-label="Rôle">
-                            {{ $directions[$user->direction_id] ?? 'Non défini' }}
-                        </td>
-                        <td data-label="Date de création">{{ $user->created_at->format('d/m/Y') }}</td>
-                        <td data-label="Actions">
-                            <form id="changeRoleForm-{{ $user->id }}" method="POST" action="{{ route('users.changerRole', $user->id) }}">
-                                @csrf
-                                <select name="direction_id"
-                                        class="form-select form-select-sm role-dropdown form-control"
-                                        onchange="confirmDropdownChange(this, '{{ $user->id }}', '{{ $user->name }}')"
-                                        data-old-value="{{ $user->direction_id }}">
-                                    @foreach($directions as $id => $name)
-                                        <option value="{{ $id }}" {{ $user->direction_id == $id ? 'selected' : '' }}>{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                            </form>                                            
-                        </td>
-                    </tr>
+                   <tr>
+    <td data-label="Nom">{{ $user->name }}</td>
+    <td data-label="Email">{{ $user->email }}</td>
+    <td data-label="Rôle">
+        {{ $directions[$user->direction_id] ?? 'Non défini' }}
+    </td>
+    <td data-label="Date de création">{{ $user->created_at->format('d/m/Y') }}</td>
+
+    <td data-label="Actions" style="display: flex; align-items: center; gap: 8px;">
+
+
+        {{-- Voir profil --}}
+        <a href="{{ route('users.show', $user->id) }}" title="Voir Profil" class="btn btn-outline-secondary btn-sm" style="padding: 4px 8px;">
+            <i class="fas fa-eye"></i>
+        </a>
+
+        {{-- Modifier (EDIT) --}}
+        <a href="{{ route('users.edit', $user->id) }}" title="Éditer" class="btn btn-outline-primary btn-sm" style="padding: 4px 8px;">
+            <i class="fas fa-edit"></i>
+        </a>
+
+        {{-- Supprimer --}}
+        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-danger btn-sm" title="Supprimer" style="padding: 4px 8px;">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </form>
+
+    </td>
+</tr>
+
+
+
+
+
+
+
                     @endforeach
                 </tbody>
             </table>

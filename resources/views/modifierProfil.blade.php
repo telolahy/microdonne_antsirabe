@@ -2,7 +2,16 @@
 
 @section('content')
 <div class="container">
+
+   
     <h2 class="text-center my-4">Modifier l'utilisateur</h2>
+
+    {{-- Message de succès --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto;">
         @csrf
@@ -44,6 +53,22 @@
             <label for="profession">Profession</label>
             <input type="text" name="profession" id="profession" class="form-control" value="{{ old('profession', $user->profession) }}">
             @error('profession') <div class="alert alert-danger">{{ $message }}</div> @enderror
+        </div>
+
+        {{-- Select Direction --}}
+        <div class="form-group">
+            <label for="direction_id">Direction</label>
+            <select name="direction_id" id="direction_id" class="form-control">
+                <option value="">-- Choisir une direction --</option>
+                @foreach($directions as $id => $name)
+                    <option value="{{ $id }}" {{ (old('direction_id', $user->direction_id) == $id) ? 'selected' : '' }}>
+                        {{ $name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('direction_id')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="d-flex justify-content-start">
