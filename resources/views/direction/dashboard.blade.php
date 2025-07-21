@@ -253,7 +253,7 @@
 
             <div class="col">
                 @if(Auth::user()->direction_id == $direction->id)
-                <div style="display: flex; gap:5px">
+                <div class="d-flex justify-content-end">
                     <div>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
                             Upload un fichier

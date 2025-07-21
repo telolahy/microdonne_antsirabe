@@ -483,18 +483,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="{{asset('dist/aos.js')}}"></script>
-    <script>
-        AOS.init({
-            once: false,
-            duration: 600,
-            offset: 50,
-            mirror: true,
-            disable: function() {
-                return window.innerWidth < 885; // désactiver AOS sur mobile
-            }
-        });
-    </script>
 <script>
+    AOS.init({
+        once: false,
+        duration: 600,
+        offset: 50,
+        mirror: true,
+        disable: function() {
+            return window.innerWidth < 885; // désactiver AOS sur mobile
+        }
+    });
+</script>
 
 <script>
     $(document).ready(function () {
