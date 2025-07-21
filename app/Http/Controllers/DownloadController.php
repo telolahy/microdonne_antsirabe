@@ -33,7 +33,7 @@ class DownloadController extends Controller
     public function demandeThemes(Request $request, $fileId)
     {
         $request->validate([
-            'motif' => 'nullable|string',
+            'motif' => 'required|string',
         ]); 
 
         $user = Auth::user();
@@ -52,7 +52,7 @@ class DownloadController extends Controller
     public function demande(Request $request, $fileId)
 {
     $request->validate([
-        'motif' => 'nullable|string',
+        'motif' => 'required|string',
     ]); 
 
     if (!Auth::check()) {

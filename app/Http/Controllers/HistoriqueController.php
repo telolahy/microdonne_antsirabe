@@ -70,7 +70,7 @@ class HistoriqueController extends Controller
         $downloadsQuery = Download::with(['demandeur', 'file'])
                             ->where('status', 'en_attente') 
                             ->orderBy('updated_at', 'desc');
-    
+                    
         if ($request->has('user_id') && $request->user_id != '') {
             $downloadsQuery->where('user_id', $request->user_id);
         }
@@ -79,7 +79,10 @@ class HistoriqueController extends Controller
             $downloadsQuery->where('file_id', $request->file_id);
         }
     
-        $downloads = $downloadsQuery->get();
+       // $downloads = $downloadsQuery->get();
+        $downloads = $downloadsQuery->paginate(5);
+
+      //  dd($downloads);
     
         return view('notification.index', compact('downloads'));
     }
