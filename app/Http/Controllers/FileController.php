@@ -254,7 +254,7 @@ public function edit($id)
     public function telecharger($id)
     {
         $file = File::findOrFail($id);
-        $path = storage_path('app/' . $file->file_path); // Chemin correct : storage/app/uploads/nom_du_fichier
+        $path = storage_path('app/' . $file->file_path);
         if (!file_exists($path)) {
             return back()->with('error', 'Fichier introuvable.');
         }

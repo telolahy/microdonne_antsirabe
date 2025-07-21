@@ -851,10 +851,12 @@
                                                                     <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                                 @else
                                                                     @if(!$demande)
-                                                                        <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a>
+                                                                        {{-- <a href="#" class="btn btn-secondary bouttonTheme" onclick="openModal({{ $fichier->id }})">Faire une demande</a> --}}
+                                                                        <a href="{{ route('demande.create', ['file_id' => $fichier->id]) }}" class="btn btn-secondary bouttonTheme">Faire une demande</a>
                                                                     @else
                                                                         @if($demande->status === 'valide')                                                        
-                                                                            <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger 1</a>
+                                                                            {{-- <a href="{{ route('sauvegarder.create', ['file_id' => $fichier->id]) }}" class="btn btn-success">Télécharger 1</a> --}}
+                                                                            <a href="{{ route('files.keke', ['id' => $fichier->id]) }}" class="btn btn-success">Télécharger</a>
                                                                         @elseif($demande->status === 'rejete')
                                                                             <span class="text-danger">Téléchargement refusé</span>
                                                                         @else
