@@ -223,7 +223,7 @@
                     <div class="d-flex justify-content-end align-items-center">
                         @if(Auth::user()->direction_id == $direction->id)
                             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#upload" style="color: white">
-                                Créer
+                                Créer thème
                             </button>
                         @endif
                     </div>
