@@ -33,6 +33,21 @@
             max-width: 100px;
         }
 
+        .file-table td:nth-child(1), .file-table th:nth-child(1) {
+            width: 100px;
+            max-width: 100px;
+            white-space: nowrap;
+        }
+
+        .file-table td:nth-child(2), .file-table th:nth-child(2) {
+            width: 100px;
+            max-width: 100px;
+            white-space: nowrap;
+        }
+        .file-table td:nth-child(3), .file-table th:nth-child(3) {
+            min-width: 220px;
+            max-width: 220px;
+        } 
 
         .navbar {
             position: fixed;
@@ -243,6 +258,21 @@
             }
 
             .file-table td:nth-child(6), .file-table th:nth-child(6) {
+                width: 100%;
+                max-width: 100%;
+                white-space: nowrap;
+            }
+            .file-table td:nth-child(1), .file-table th:nth-child(1) {
+                width: 100%;
+                max-width: 100%;
+                white-space: nowrap;
+            }
+            .file-table td:nth-child(2), .file-table th:nth-child(2) {
+                width: 100%;
+                max-width: 100%;
+                white-space: nowrap;
+            }
+            .file-table td:nth-child(3), .file-table th:nth-child(3) {
                 width: 100%;
                 max-width: 100%;
                 white-space: nowrap;

@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<style>
+    .containerModification {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding-top: 40px;
+        padding-left: 40px
+    }
+</style>
+
+<div class="containerModification">
     <h1>Modifier l'enquête : {{ $enquete->nom }}</h1>
 
     <form action="{{ route('enquete.update', $enquete->id) }}" method="POST" enctype="multipart/form-data">
