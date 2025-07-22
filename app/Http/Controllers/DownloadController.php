@@ -13,6 +13,7 @@ class DownloadController extends Controller
 {
     public function demandeEnquetes(Request $request, $fileId)
     {
+        dd('couocu');
         $request->validate([
             'motif' => 'nullable|string',
         ]); 
@@ -41,7 +42,7 @@ class DownloadController extends Controller
         // Créer une nouvelle demande de téléchargement
         Download::create([
             'file_id' => $fileId,
-            'user_id' => $user->id,
+            'user_id' => $user->id,   
             'status' => 'en_attente',
             'motif' => $request->motif,
         ]);

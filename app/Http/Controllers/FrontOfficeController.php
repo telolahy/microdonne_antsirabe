@@ -167,15 +167,16 @@ public function showThemes()
         $fichiers = null;
     }
 
-public function afficherHistorique(){
+public function afficherHistorique()
+{
     $userId = Auth::id(); 
+    //dd($userId);
 
     $historiques = Historique::where('historiques.user_id', $userId)
         ->join('files', 'historiques.file_id', '=', 'files.id') 
         ->select('historiques.*', 'files.file_name')
         ->orderBy('historiques.created_at', 'desc')
         ->get();
-
     return view('frontOffice.historique', compact('historiques'));
 }
 

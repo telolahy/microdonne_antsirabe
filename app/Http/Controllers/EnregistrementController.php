@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Download;
 use App\File;
+use App\Download;
+use App\Historique;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,11 +52,10 @@ class EnregistrementController extends Controller
         
         $download = Download::create([
             'motif' => $request->motif,
-            'file_id' => $request->file_id,
+            'file_id' => $request->file_id,   
             'user_id' => $user->id,
             'status' => "valide",
         ]);
-
         // Enregistrement du téléchargement (ex: incrémenter un compteur)
         $file->increment('nombre');
         
