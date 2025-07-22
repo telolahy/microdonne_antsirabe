@@ -109,6 +109,13 @@
             background-color: rgb(22, 18, 4);
             margin-bottom: 30px;
         }
+
+        .alert{
+            margin: 0 auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
         /* STYLE PAR DÉFAUT : TABLEAU */
         .responsive-table {
             width: 100%;
@@ -235,22 +242,25 @@
     <div class="containerDashboard container-fluid">
         <div class="margin-head"></div>
         <div class="d-flex justify-content-between align-items-center top-container">
-            <div class="col-9">
+            <div class="col-6">
                 <div class="d-flex justify-content-between align-items-left">
                     <h1><b>Tableau de bord de la {{ $direction->name }}</b></h1>
                 </div>
             </div>
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
+            <div class="col">
+                <div class="alert-container" style="display: flex; justify-content: center; align-items: center; ">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if(session('alerte'))
+                        <div class="alert alert-warning alert-dismissible fade show shadow-sm mt-1" role="alert" style="font-size: 1rem;">
+                            <strong>Attention !</strong> {{ session('alerte') }}
+                        </div>
+                    @endif
                 </div>
-            @endif
-           @if(session('alerte'))
-                <div class="alert alert-warning alert-dismissible fade show shadow-sm rounded-3 px-4 py-3 mt-3" role="alert" style="font-size: 1rem;">
-                    <strong>Attention !</strong> {{ session('alerte') }}
-                </div>
-            @endif
-
+            </div>
             <div class="col">
                 @if(Auth::user()->direction_id == $direction->id)
                 <div class="d-flex justify-content-end">
