@@ -56,6 +56,12 @@ class EnregistrementController extends Controller
             'user_id' => $user->id,
             'status' => "valide",
         ]);
+
+        $historique = Historique::create([
+            'file_id' => $request->file_id,   
+            'user_id' => $user->id,
+        ]);
+
         // Enregistrement du téléchargement (ex: incrémenter un compteur)
         $file->increment('nombre');
         
