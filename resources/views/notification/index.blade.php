@@ -1,6 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; 
+        z-index: 1000; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    }
+</style>
 <div class="container">
     <div class="notification-header d-flex justify-content-between align-items-center mb-4">
         <h1 class="mb-0">Notifications</h1>
