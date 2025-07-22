@@ -262,7 +262,7 @@
             </div>
         @endif
         
-        @if(Auth::user()->direction_id == $direction->id)
+        {{-- @if(Auth::user()->direction_id == $direction->id) --}}
             @if($themes->isEmpty())
                 <div class="no-result">
                     Aucun résultat correspondant à votre recherche.
@@ -318,9 +318,9 @@
                 
             @endif
  
-        @else
+       {{--  @else
             <p>Vous n'avez pas l'autorisation d'accéder à cette direction.</p>
-        @endif
+        @endif --}}
     </div>
 
     <div class="modal fade" id="upload" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">

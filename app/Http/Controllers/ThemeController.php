@@ -44,16 +44,14 @@ public function index(Request $request)
     $direction = $user->direction;
     $search = $request->input('search');
 
-    if ($search) {
-        $themes = Theme::where('direction_id', $direction->id)
-                        ->where(function ($query) use ($search) {
-                            $query->where('nom', 'like', '%' . $search . '%')
-                                  ->orWhere('description', 'like', '%' . $search . '%');
-                        })
-                        ->paginate(10); 
+   if ($search) {
+        $themes = Theme::where(function ($query) use ($search) {
+            $query->where('nom', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%');
+        })
+        ->paginate(10);
     } else {
-        $themes = Theme::where('direction_id', $direction->id)
-                        ->paginate(10); 
+        $themes = Theme::paginate(10);
     }
 
     return view('themes.index', compact('themes', 'direction', 'user'));
