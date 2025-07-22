@@ -7,6 +7,7 @@ use App\Download;
 use App\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\DownloadRejectNotification;
 use App\Notifications\DownloadValidatedNotification;
 
 class DownloadController extends Controller
@@ -99,7 +100,7 @@ class DownloadController extends Controller
          $download->status = 'rejete';
          $download->validated_by = Auth::id();
          $download->save();
- 
+        $download->user->notify(new DownloadRejectNotification($download));
          return redirect()->back()->with('success', 'Le téléchargement a été rejeté.');
      }
 
