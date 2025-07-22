@@ -22,7 +22,7 @@ class HistoriqueController extends Controller
                     $query->where('name', 'like', '%' . $searchTerm . '%');
                 })
                 ->orWhereHas('file', function ($query) use ($searchTerm) {
-                    $query->where('file_name', 'like', '%' . $searchTerm . '%');
+                    $query->where('file_name', 'like', '%' . $searchTerm . '%');   
                 });
             });
         }
@@ -61,6 +61,7 @@ class HistoriqueController extends Controller
     
         
         $downloads = $downloadsQuery->paginate(5, ['*'], 'downloads_page');
+      // dd($downloads);
     
         return view('historique.index', compact('historiques', 'downloads'));
     }

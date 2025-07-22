@@ -193,7 +193,7 @@
                                 <td>{{ $download->file->file_name ?? 'N/A' }}</td>
                                 <td>{{ $download->demandeur->name ?? 'N/A' }}</td>
                                 <td>{{ ucfirst($download->status) ?? 'N/A' }}</td>
-                                <td>{{ $download->validateur->name ?? 'Non validé' }} {{ $download->validateur->prenom }}</td>
+                                <td>{{ $download->validateur->name ?? 'Non validé' }} {{ $download->validateur->prenom ?? 'N/A' }}</td>
                                 <td>{{ $download->updated_at->format('d/m/Y H:i') }}</td>
                             </tr>
                         @endforeach
