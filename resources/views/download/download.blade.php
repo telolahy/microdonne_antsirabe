@@ -16,7 +16,15 @@
         font-size: 0.8rem;
         color: #666;
     }
-    
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; 
+        z-index: 1000; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    }
     #submitBtn {
         width: 100%;
         max-width: 300px; /* Limite la largeur maximale */
