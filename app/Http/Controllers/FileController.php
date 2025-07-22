@@ -253,8 +253,14 @@ public function edit($id)
 
     public function telecharger($id)
     {
+        $user = Auth::user();
         $file = File::findOrFail($id);
         $path = storage_path('app/' . $file->file_path);
+        
+        $historique = Historique::create([
+            'file_id' => $file->id,   
+            'user_id' => $user->id,
+        ]);
         if (!file_exists($path)) {
             return back()->with('error', 'Fichier introuvable.');
         }
