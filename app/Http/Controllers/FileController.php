@@ -269,6 +269,7 @@ public function edit($id)
 
     public function showfiledownload($fileId)
     { 
+        //dd('coucou');
         $user = Auth::user();
         $direction = Direction::findOrFail($user->direction_id);  
         $file = File::findOrFail($fileId);

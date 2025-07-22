@@ -27,6 +27,7 @@ class DirectionController extends Controller
 
     public function show($directionId, $enqueteId)
     {
+        //dd('coucou');
         $user = Auth::user();
         if ($user->direction_id == $directionId) {
             $direction = Direction::findOrFail($directionId);

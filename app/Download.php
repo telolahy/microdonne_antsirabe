@@ -28,9 +28,9 @@ class Download extends Model
         return $this->hasOne(Rapports::class, 'download_id');
     }
     public function validateur()
-{
-    return $this->belongsTo(User::class, 'validated_by');  
-}
+    {
+        return $this->belongsTo(User::class, 'validated_by');  
+    }
     public function demandeur()
     {
         return $this->belongsTo(User::class, 'user_id');

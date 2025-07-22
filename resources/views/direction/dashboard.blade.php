@@ -318,13 +318,13 @@
                             <td data-label="Demandes">
                                 <div>
                                     <a href="{{ route('files.downloads', $file->id) }}">Voir les téléchargements</a>&nbsp
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="fas fa-bell" style="font-size: 25px; position: relative;">
                                             <span class="notification-count" style="position: absolute; top: -5px; right: -10px; background-color: red; color: white; border-radius: 50%; padding: 3px 7px; font-size: 12px;">
                                             {{ count($downloadsEnAttenteByFile[$file->id] ?? []) }}
                                             </span>
                                         </span>
-                                    </a>
+                                    </a> --}}
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="notification-list">
                                         @foreach($downloadsEnAttenteByFile[$file->id] ?? [] as $download)
                                             <a class="dropdown-item" href="#">
