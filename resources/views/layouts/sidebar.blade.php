@@ -233,13 +233,16 @@
         </a>
       </li>
       {{-- Stagiaire --}}
-      @if(Auth::user()->direction_id != 0)
-        <li class="nav-item">
-            <a href="{{ route('users.index') }}" class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
-                <i class="bi bi-people"></i> GESTION DES UTILISATEURS
-            </a>
-        </li>
-      @endif
+      @can('DSIC')
+          @if(Auth::user()->direction_id != 0)
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i> GESTION DES UTILISATEURS
+                </a>
+            </li>
+          @endif
+      @endcan
+      
   </ul>
 </div>
 @endif

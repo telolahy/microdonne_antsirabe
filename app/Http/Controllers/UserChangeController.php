@@ -4,16 +4,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\User; 
 use App\Direction; 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UserChangeController extends Controller
 {
 
     public function index(Request $request)
     {
+        if (!Gate::allows('DSIC')) {
+            abort(403, 'Accès non autorisé.');
+        }
         $search = $request->input('search');
         $users = User::query()
             ->when($search, function ($query, $search) {
