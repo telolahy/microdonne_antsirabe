@@ -1,7 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<style>
+    .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+    .containerModif{
+        padding-top: 4rem;
+    }
+</style>
+
+<div class="containerModif">
+
 
    
     <h2 class="text-center my-4">Modifier l'utilisateur</h2>
@@ -73,7 +91,7 @@
 
         <div class="d-flex justify-content-start">
             <button type="submit" class="btn btn-primary">Mettre à jour</button>
-            <a href="{{ url()->previous() }}" class="btn btn-secondary">Retour</a>
+            <a href="{{ route('users.index') }}" class="btn btn-secondary">Retour</a>
         </div>
     </form>
 </div>

@@ -165,6 +165,11 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
+            .actionGestionnaire {
+                flex-direction: row!important;
+            }
+
         }
     </style>
 </head>
@@ -216,27 +221,30 @@
     </td>
     <td data-label="Date de création">{{ $user->created_at->format('d/m/Y') }}</td>
 
-    <td data-label="Actions" style="display: flex; align-items: center; gap: 8px;">
+    <td data-label="Actions" style="display: flex; align-items: center; gap: 8px;" class="actionGestionnaire">
 
 
-        {{-- Voir profil --}}
-        <a href="{{ route('users.show', $user->id) }}" title="Voir Profil" class="btn btn-outline-secondary btn-sm" style="padding: 4px 8px;">
-            <i class="fas fa-eye"></i>
-        </a>
+        <div class="d-flex" style="gap: 8px;">
+            {{-- Changer le rôle --}}
+            {{-- Voir profil --}}
+            <a href="{{ route('users.show', $user->id) }}" title="Voir Profil" class="btn btn-outline-secondary btn-sm" style="padding: 4px 8px;">
+                <i class="fas fa-eye"></i>
+            </a>
 
-        {{-- Modifier (EDIT) --}}
-        <a href="{{ route('users.edit', $user->id) }}" title="Éditer" class="btn btn-outline-primary btn-sm" style="padding: 4px 8px;">
-            <i class="fas fa-edit"></i>
-        </a>
+            {{-- Modifier (EDIT) --}}
+            <a href="{{ route('users.edit', $user->id) }}" title="Éditer" class="btn btn-outline-primary btn-sm" style="padding: 4px 8px;">
+                <i class="fas fa-edit"></i>
+            </a>
 
-        {{-- Supprimer --}}
-        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Supprimer cet utilisateur ?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-danger btn-sm" title="Supprimer" style="padding: 4px 8px;">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </form>
+            {{-- Supprimer --}}
+            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger btn-sm" title="Supprimer" style="padding: 4px 8px;">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+        </div>
 
     </td>
 </tr>
