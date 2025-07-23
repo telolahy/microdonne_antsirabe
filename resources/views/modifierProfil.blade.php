@@ -74,20 +74,24 @@
         </div>
 
         {{-- Select Direction --}}
-        <div class="form-group">
-            <label for="direction_id">Direction</label>
-            <select name="direction_id" id="direction_id" class="form-control">
-                <option value="">-- Choisir une direction --</option>
-                @foreach($directions as $id => $name)
-                    <option value="{{ $id }}" {{ (old('direction_id', $user->direction_id) == $id) ? 'selected' : '' }}>
-                        {{ $name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('direction_id')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-        </div>
+
+        @can('DSIC')
+            <div class="form-group">
+                <label for="direction_id">Direction</label>
+                <select name="direction_id" id="direction_id" class="form-control">
+                    <option value="">-- Choisir une direction --</option>
+                    @foreach($directions as $id => $name)
+                        <option value="{{ $id }}" {{ (old('direction_id', $user->direction_id) == $id) ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('direction_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+        @endcan
+       
 
         <div class="d-flex justify-content-start">
             <button type="submit" class="btn btn-primary">Mettre à jour</button>

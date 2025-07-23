@@ -214,11 +214,13 @@
               <i class="bi bi-file-earmark-text"></i> RECENSEMENTS ET ENQUÊTES
           </a>
       </li>
-     <li class="nav-item">
-          <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
-              <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
-          </a>
-      </li>
+       @can('DSIC')
+        <li class="nav-item">
+              <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
+                  <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
+              </a>
+          </li>
+       @endcan
       <li class="nav-item">
         <a href="{{ route('notifications.index') }}" class="nav-link {{ Request::routeIs('notifications.index') ? 'active' : '' }}">
           <div style="position: relative; display: inline-block;">
