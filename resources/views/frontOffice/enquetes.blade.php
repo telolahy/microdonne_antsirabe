@@ -1310,7 +1310,7 @@ function filterFiles(input) {
 
     const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     const table = input.closest('div').nextElementSibling;
-    const rows = table.querySelectorAll('tbody tr');
+    const rows = table.querySelectorAll('tr');
 
     rows.forEach(row => {
         const nameCell = row.querySelector('td:nth-child(1)');
