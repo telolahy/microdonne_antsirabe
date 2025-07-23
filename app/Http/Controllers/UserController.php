@@ -45,7 +45,7 @@ class UserController extends Controller
             'telephone' => 'required|string|max:15',
             'profession' => 'required|string|max:255',
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'direction_id' => 'required|exists:directions,id',
+            'direction_id' => 'nullable|exists:directions,id',
             'password' => 'nullable|min:6|confirmed',
         ]);
 

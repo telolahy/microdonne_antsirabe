@@ -442,16 +442,25 @@
                     <a class="nav-link1 ml-3 mr-3" href="#">{{ Auth::user()->direction->name }}</a>
 
                 @endif
+               @php
+                    $profilePath = public_path('images/profiles/' . Auth::user()->profile);
+                    $profileUrl = file_exists($profilePath) && Auth::user()->profile
+                        ? asset('images/profiles/' . Auth::user()->profile)
+                        : asset('images.png');
+                @endphp
+
                 <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('images/profiles/' . Auth::user()->profile) ?? asset('default-avatar.png') }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
-                    <!-- Micky d-->
+                    <img src="{{ $profileUrl }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
                     <span class="ml-2 user-name">{{ Auth::user()->name }}</span>
-                    <!-- Micky f-->
                 </a>
+
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="{{ route('profile') }}">
-                        <i class="bi bi-person-circle"></i> Voir Profil
-                    </a>
+                    @can('DSIC')
+                        <a class="dropdown-item" href="{{ route('profile') }}">
+                            <i class="bi bi-person-circle"></i> Voir Profil
+                        </a>
+                    @endcan
+                   
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

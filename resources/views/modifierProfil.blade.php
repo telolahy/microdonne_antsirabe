@@ -122,7 +122,6 @@
         </div>
 
         {{-- Select Direction --}}
-        @can('DSIC')
           <div class="form-group">
               <label for="direction_id">Direction</label>
               <select name="direction_id" id="direction_id"
@@ -138,8 +137,6 @@
                   <div class="invalid-feedback">{{ $message }}</div>
               @enderror
           </div>
-         @endcan
-
         <div class="d-flex justify-content-start  ">
             <button type="submit" class="btn btn-primary mr-2">Mettre à jour</button>
             <a href="{{ url()->previous() }}" class="btn btn-secondary">Retour</a>
