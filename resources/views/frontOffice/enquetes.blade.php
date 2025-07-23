@@ -529,7 +529,7 @@
         color: #888;
         margin-top: 30px;
         padding-bottom: 100px;
-        min-height: 50vh;
+        /* min-height: 50vh; */
     }
     .search-results {
         text-align: center;
