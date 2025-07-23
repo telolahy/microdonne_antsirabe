@@ -13,11 +13,12 @@ class UserController extends Controller
     {
         return $request->user();
     }
-        public function profile()
-        {
-            $user = auth()->user();
-            return view('profil', compact('user'));
-        }
+
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('profil', compact('user'));
+    }
 
     // Affiche le profil d'un utilisateur donné
     public function show(User $user)
@@ -39,13 +40,13 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:6|confirmed',
             'prenom' => 'required|string|max:255',
-            'adresse' => 'nullable|string|max:255',
-            'telephone' => 'nullable|string|max:15',
-            'profession' => 'nullable|string|max:255',
+            'adresse' => 'required|string|max:255',
+            'telephone' => 'required|string|max:15',
+            'profession' => 'required|string|max:255',
             'profile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'direction_id' => 'nullable|exists:directions,id',
+            'direction_id' => 'required|exists:directions,id',
+            'password' => 'nullable|min:6|confirmed',
         ]);
 
         $data = $request->all();
@@ -68,8 +69,18 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('users.edit', $user->id)
-                         ->with('success', 'Profil mis à jour avec succès.');
+        // Redirection vers la page d'index avec message succès
+        return redirect()->route('users.index')
+                 ->with('success', 'Profil mis à jour avec succès.');
+    }
+
+    // Supprime un utilisateur
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index')
+                         ->with('success', 'Utilisateur supprimé avec succès.');
     }
 
     // Supprimer l'utilisateur
