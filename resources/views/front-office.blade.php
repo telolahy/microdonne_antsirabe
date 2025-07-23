@@ -818,7 +818,7 @@ td:nth-child(7), th:nth-child(7) {
         @endif
         <div class="search-container">
             <form action="{{ route('front-office')}}" method="GET">
-                <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}" onkeyup="filterFiles(this)">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher un thème..." value="{{ request('search') }}" onkeyup="filterFiles1(this)">
                     <a class="delete-button1" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                 @if(isset($_GET["search"]) && $_GET["search"] !== "")
                     <a class="delete-button" href="{{ route('front-office')}}"><i class="bi bi-x"></i></a>
@@ -1376,6 +1376,22 @@ td:nth-child(7), th:nth-child(7) {
             const match = nameText.includes(searchTerm) || descriptionText.includes(searchTerm) || statusText.includes(searchTerm) || enqueteText.includes(searchTerm);
             row.style.display = match ? '' : 'none';
         });
+    }
+
+    function filterFiles1(input) {
+        const value = input.value.trim();
+        if (value === '') {
+
+
+            $(".search-container .delete-button").hide();
+            $(".search-container .delete-button1").hide();
+        } else {
+            
+            // return
+            
+            $(".search-container .delete-button").show();
+            $(".search-container .delete-button1").show();
+        }
     }
 
     function clearSearch(element) {

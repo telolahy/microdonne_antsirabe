@@ -677,7 +677,7 @@
         <h1 class="page-title"><i class="bi bi-bar-chart-line"></i>Recensement et enquêtes</h1>
         <div class="search-container">
             <form method="GET" action="{{ route('showEnquetes') }}">
-                <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête..." value="{{ request('search') }}" onkeyup="filterFiles(this)">
+                <input type="text" name="search" class="search-input" placeholder="Rechercher une enquête..." value="{{ request('search') }}" onkeyup="filterFiles1(this)">
                 <a class="delete-button1" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                 @if(isset($_GET["search"]) && $_GET["search"] !== "")
                     <a class="delete-button" href="{{ route('showEnquetes')}}"><i class="bi bi-x"></i></a>
@@ -1115,6 +1115,21 @@ function filterFiles(input) {
         row.style.display = match ? '' : 'none';
     });
 }
+function filterFiles1(input) {
+        const value = input.value.trim();
+        if (value === '') {
+
+
+            $(".search-container .delete-button").hide();
+            $(".search-container .delete-button1").hide();
+        } else {
+            
+            // return
+            
+            $(".search-container .delete-button").show();
+            $(".search-container .delete-button1").show();
+        }
+    }
 
 function clearSearch(element) {
     const searchInput = element.previousElementSibling;
