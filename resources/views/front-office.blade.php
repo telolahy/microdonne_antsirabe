@@ -873,6 +873,11 @@ td:nth-child(7), th:nth-child(7) {
                     @php $delay += 100; @endphp
                 @endforeach
             </div>
+
+            <div class="pagination-wrapper">
+                {{ $themes->links() }}
+            </div>
+            
         </div>
         @foreach($chunk as $theme)
             <div id="files-{{ $theme->id }}" class="file-card-container">
@@ -1001,10 +1006,6 @@ td:nth-child(7), th:nth-child(7) {
             </div>
         @endforeach
     @endforeach
-    </div>
-
-    <div class="pagination-wrapper">
-        {{ $themes->links() }}
     </div>
 
     @if($themes->isEmpty() && isset($_GET["search"]) && $_GET["search"] !== "")
