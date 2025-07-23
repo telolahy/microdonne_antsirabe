@@ -109,6 +109,13 @@
             background-color: rgb(22, 18, 4);
             margin-bottom: 30px;
         }
+
+        .alert{
+            margin: 0 auto;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
         /* STYLE PAR DÉFAUT : TABLEAU */
         .responsive-table {
             width: 100%;
@@ -235,25 +242,28 @@
     <div class="containerDashboard container-fluid">
         <div class="margin-head"></div>
         <div class="d-flex justify-content-between align-items-center top-container">
-            <div class="col-9">
+            <div class="col-6">
                 <div class="d-flex justify-content-between align-items-left">
                     <h1><b>Tableau de bord de la {{ $direction->name }}</b></h1>
                 </div>
             </div>
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
+            <div class="col">
+                <div class="alert-container" style="display: flex; justify-content: center; align-items: center; ">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-1" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if(session('alerte'))
+                        <div class="alert alert-warning alert-dismissible fade show shadow-sm mt-1" role="alert" style="font-size: 1rem;">
+                            <strong>Attention !</strong> {{ session('alerte') }}
+                        </div>
+                    @endif
                 </div>
-            @endif
-           @if(session('alerte'))
-                <div class="alert alert-warning alert-dismissible fade show shadow-sm rounded-3 px-4 py-3 mt-3" role="alert" style="font-size: 1rem;">
-                    <strong>Attention !</strong> {{ session('alerte') }}
-                </div>
-            @endif
-
+            </div>
             <div class="col">
                 @if(Auth::user()->direction_id == $direction->id)
-                <div style="display: flex; gap:5px">
+                <div class="d-flex justify-content-end">
                     <div>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
                             Upload un fichier
@@ -308,13 +318,13 @@
                             <td data-label="Demandes">
                                 <div>
                                     <a href="{{ route('files.downloads', $file->id) }}">Voir les téléchargements</a>&nbsp
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span class="fas fa-bell" style="font-size: 25px; position: relative;">
                                             <span class="notification-count" style="position: absolute; top: -5px; right: -10px; background-color: red; color: white; border-radius: 50%; padding: 3px 7px; font-size: 12px;">
                                             {{ count($downloadsEnAttenteByFile[$file->id] ?? []) }}
                                             </span>
                                         </span>
-                                    </a>
+                                    </a> --}}
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="notification-list">
                                         @foreach($downloadsEnAttenteByFile[$file->id] ?? [] as $download)
                                             <a class="dropdown-item" href="#">

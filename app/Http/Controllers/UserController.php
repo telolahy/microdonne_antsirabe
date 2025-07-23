@@ -82,4 +82,13 @@ class UserController extends Controller
         return redirect()->route('users.index')
                          ->with('success', 'Utilisateur supprimé avec succès.');
     }
+
+    // Supprimer l'utilisateur
+   public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé.');
+    }
+
 }

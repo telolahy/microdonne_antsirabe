@@ -214,11 +214,13 @@
               <i class="bi bi-file-earmark-text"></i> RECENSEMENTS ET ENQUÊTES
           </a>
       </li>
-     {{--  <li class="nav-item">
-          <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
-              <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
-          </a>
-      </li> --}}
+       @can('DSIC')
+        <li class="nav-item">
+              <a href="{{ route('historiques.index') }}" class="nav-link {{ Request::routeIs('historiques.index') ? 'active' : '' }}">
+                  <i class="bi bi-clock"></i> HISTORIQUE DES ACTIONS
+              </a>
+          </li>
+       @endcan
       <li class="nav-item">
         <a href="{{ route('notifications.index') }}" class="nav-link {{ Request::routeIs('notifications.index') ? 'active' : '' }}">
           <div style="position: relative; display: inline-block;">
@@ -233,13 +235,16 @@
         </a>
       </li>
       {{-- Stagiaire --}}
-      @if(Auth::user()->direction_id != 0)
-        <li class="nav-item">
-            <a href="{{ route('users.index') }}" class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
-                <i class="bi bi-people"></i> GESTION DES UTILISATEURS
-            </a>
-        </li>
-      @endif
+      @can('DSIC')
+          @if(Auth::user()->direction_id != 0)
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link {{ Request::routeIs('users.index') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i> GESTION DES UTILISATEURS
+                </a>
+            </li>
+          @endif
+      @endcan
+      
   </ul>
 </div>
 @endif

@@ -165,6 +165,11 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
+
+            .actionGestionnaire {
+                flex-direction: row!important;
+            }
+
         }
     </style>
 </head>
@@ -176,6 +181,18 @@
                 <h1><b>Gestion des utilisateurs</b></h1>
             </div>
     
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="d-flex justify-content-between align-items-center search-container">
                 <form method="GET" action="{{ route('users.index') }}" class="d-flex justify-content-end mb-4">
                     <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2" value="{{ request()->get('search') }}">
@@ -216,27 +233,30 @@
     </td>
     <td data-label="Date de création">{{ $user->created_at->format('d/m/Y') }}</td>
 
-    <td data-label="Actions" style="display: flex; align-items: center; gap: 8px;">
+    <td data-label="Actions" style="display: flex; align-items: center; gap: 8px;" class="actionGestionnaire">
 
 
-        {{-- Voir profil --}}
-        <a href="{{ route('users.show', $user->id) }}" title="Voir Profil" class="btn btn-outline-secondary btn-sm" style="padding: 4px 8px;">
-            <i class="fas fa-eye"></i>
-        </a>
+        <div class="d-flex" style="gap: 8px;">
+            {{-- Changer le rôle --}}
+            {{-- Voir profil --}}
+            <a href="{{ route('users.show', $user->id) }}" title="Voir Profil" class="btn btn-outline-secondary btn-sm" style="padding: 4px 8px;">
+                <i class="fas fa-eye"></i>
+            </a>
 
-        {{-- Modifier (EDIT) --}}
-        <a href="{{ route('users.edit', $user->id) }}" title="Éditer" class="btn btn-outline-primary btn-sm" style="padding: 4px 8px;">
-            <i class="fas fa-edit"></i>
-        </a>
+            {{-- Modifier (EDIT) --}}
+            <a href="{{ route('users.edit', $user->id) }}" title="Éditer" class="btn btn-outline-primary btn-sm" style="padding: 4px 8px;">
+                <i class="fas fa-edit"></i>
+            </a>
 
-        {{-- Supprimer --}}
-        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Supprimer cet utilisateur ?')">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-danger btn-sm" title="Supprimer" style="padding: 4px 8px;">
-                <i class="fas fa-trash-alt"></i>
-            </button>
-        </form>
+            {{-- Supprimer --}}
+            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger btn-sm" title="Supprimer" style="padding: 4px 8px;">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </form>
+        </div>
 
     </td>
 </tr>

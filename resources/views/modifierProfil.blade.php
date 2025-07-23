@@ -1,7 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
+<style>
+    .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+    .containerModif{
+        padding-top: 4rem;
+    }
+</style>
+
+<div class="containerModif">
+
 
     <h2 class="text-center my-4">Modifier l'utilisateur</h2>
 
@@ -104,21 +122,23 @@
         </div>
 
         {{-- Select Direction --}}
-        <div class="form-group">
-            <label for="direction_id">Direction</label>
-            <select name="direction_id" id="direction_id"
-                    class="form-control @error('direction_id') is-invalid @enderror">
-                <option value="">-- Choisir une direction --</option>
-                @foreach($directions as $id => $name)
-                    <option value="{{ $id }}" {{ (old('direction_id', $user->direction_id) == $id) ? 'selected' : '' }}>
-                        {{ $name }}
-                    </option>
-                @endforeach
-            </select>
-            @error('direction_id')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
+        @can('DSIC')
+          <div class="form-group">
+              <label for="direction_id">Direction</label>
+              <select name="direction_id" id="direction_id"
+                      class="form-control @error('direction_id') is-invalid @enderror">
+                  <option value="">-- Choisir une direction --</option>
+                  @foreach($directions as $id => $name)
+                      <option value="{{ $id }}" {{ (old('direction_id', $user->direction_id) == $id) ? 'selected' : '' }}>
+                          {{ $name }}
+                      </option>
+                  @endforeach
+              </select>
+              @error('direction_id')
+                  <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
+          </div>
+         @endcan
 
         <div class="d-flex justify-content-start  ">
             <button type="submit" class="btn btn-primary mr-2">Mettre à jour</button>

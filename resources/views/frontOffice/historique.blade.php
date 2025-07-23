@@ -23,13 +23,16 @@
                 </thead>
                 <tbody id="historique-tbody">
                     @foreach($historiques as $historique)
-                        <tr>
+                        <tr> 
                             <td class="file-name">{{ $historique->file_name }}</td>
                             <td class="file-date">{{ $historique->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+             <div class="pagination">
+                {{ $historiques->links() }}
+            </div>
             <p id="no-results-message" class="no-results-message" style="display: none;">Aucun résultat correspondant.</p>
         @endif
     </div>

@@ -11,6 +11,81 @@
         color: red;
         font-weight: bold;
     }
+
+    .champObli{
+        font-size: 0.8rem;
+        color: #666;
+    }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; 
+        z-index: 1000; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    }
+    #submitBtn {
+        width: 100%;
+        max-width: 300px; /* Limite la largeur maximale */
+        padding: 12px 20px; /* Padding proportionnel */
+        font-size: 1rem; /* Taille de police par défaut */
+        display: block;
+        margin: 0 auto; /* Centrer le bouton */
+        transition: all 0.3s ease; /* Transition fluide pour les changements */
+        white-space: nowrap; /* Empêche le texte de se couper ou de passer à la ligne */
+        overflow: hidden; /* Cache tout débordement */
+    }
+
+    /* Media query pour écrans moyens */
+    @media (max-width: 768px) {
+        #submitBtn {
+            max-width: 260px; /* Légèrement plus petit pour écrans moyens */
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Media query pour petits écrans */
+    @media (max-width: 576px) {
+        #submitBtn.btn.btn-primary {
+            max-width: 220px; /* Réduit la largeur sur mobile */
+            padding: 10px 15px; /* Réduit le padding */
+            font-size: 0.85rem !important; /* Force la taille de police */
+            display: flex; /* Utilise flex pour aligner icône et texte */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }
+
+        #submitBtn i {
+            font-size: 0.85rem; /* Réduit la taille de l'icône */
+            margin-right: 8px; /* Espace entre l'icône et le texte */
+        }
+
+        .card-body {
+            padding: 15px; /* Réduit le padding de la carte sur mobile */
+        }
+
+        h2.text-primary {
+            font-size: 1.4rem; /* Réduit la taille du titre sur mobile */
+        }
+    }
+
+    /* Media query pour très petits écrans */
+    @media (max-width: 360px) {
+        #submitBtn.btn.btn-primary {
+            max-width: 200px; /* Réduit davantage la largeur */
+            padding: 8px 10px; /* Réduit le padding */
+            font-size: 0.65rem !important; /* Taille de police ajustée pour lisibilité */
+            display: flex; /* Utilise flex pour aligner icône et texte */
+            align-items: center; /* Centre verticalement */
+            justify-content: center; /* Centre horizontalement */
+        }
+
+        #submitBtn i {
+            font-size: 0.65rem; /* Réduit la taille de l'icône */
+            margin-right: 5px; /* Réduit l'espace entre l'icône et le texte */
+        }
+    }
 </style>
 
 <div class="container py-5">
@@ -33,7 +108,7 @@
                 <input type="hidden" name="file_id" value="{{$file_id }}">
                 <!-- Motif de la demande -->
                 <div class="mb-4" id="motif-section">
-                    <label for="motif" class="form-label fw-bold">Motifs de la demande: (<span class="obligatoire">*</span> champ obligatoire)</label>
+                    <label for="motif" class="form-label fw-bold">Motifs de la demande: <span class="obligatoire">*</span> </label>
                     <textarea name="motif" id="motif" class="form-control" rows="4" required placeholder="Expliquez pourquoi vous souhaitez accéder à ce fichier..."></textarea>
                 </div>
 
@@ -77,10 +152,11 @@
                 </div>
                 <!-- Submit -->
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-lg px-5" id="submitBtn" disabled>
+                    <button type="submit" class="btn btn-primary" id="submitBtn" disabled>
                         <i class="bi bi-download me-2"></i> Envoyer la demande
                     </button>
                 </div>
+                <p class="champObli"><span class="obligatoire">* </span>Champ obligatoire</p>
             </form>
         </div>
     </div>

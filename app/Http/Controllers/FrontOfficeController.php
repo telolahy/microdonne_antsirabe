@@ -167,14 +167,22 @@ public function showThemes()
         $fichiers = null;
     }
 
-public function afficherHistorique(){
+public function afficherHistorique()
+{
     $userId = Auth::id(); 
+    //dd($userId);
 
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('error', 'Vous devez être connecté pour voir votre historique.');
+    }
+
+    $userId = Auth::id();
+    
     $historiques = Historique::where('historiques.user_id', $userId)
-        ->join('files', 'historiques.file_id', '=', 'files.id') 
-        ->select('historiques.*', 'files.file_name')
+        ->leftJoin('files', 'historiques.file_id', '=', 'files.id') // Utilisation de leftJoin pour gérer les fichiers supprimés
+        ->select('historiques.created_at', 'historiques.file_id', 'files.file_name')
         ->orderBy('historiques.created_at', 'desc')
-        ->get();
+        ->paginate(5); // Pagination avec 10 éléments par page
 
     return view('frontOffice.historique', compact('historiques'));
 }

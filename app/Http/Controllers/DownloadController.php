@@ -7,12 +7,14 @@ use App\Download;
 use App\Direction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\DownloadRejectNotification;
 use App\Notifications\DownloadValidatedNotification;
 
 class DownloadController extends Controller
 {
     public function demandeEnquetes(Request $request, $fileId)
     {
+        dd('couocu');
         $request->validate([
             'motif' => 'nullable|string',
         ]); 
@@ -41,7 +43,7 @@ class DownloadController extends Controller
         // Créer une nouvelle demande de téléchargement
         Download::create([
             'file_id' => $fileId,
-            'user_id' => $user->id,
+            'user_id' => $user->id,   
             'status' => 'en_attente',
             'motif' => $request->motif,
         ]);
@@ -98,7 +100,7 @@ class DownloadController extends Controller
          $download->status = 'rejete';
          $download->validated_by = Auth::id();
          $download->save();
- 
+        $download->user->notify(new DownloadRejectNotification($download));
          return redirect()->back()->with('success', 'Le téléchargement a été rejeté.');
      }
 

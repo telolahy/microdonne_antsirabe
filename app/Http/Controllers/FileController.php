@@ -253,8 +253,16 @@ public function edit($id)
 
     public function telecharger($id)
     {
+        $user = Auth::user();
         $file = File::findOrFail($id);
+        $file->isdownload = 1; 
+        $file->save(); 
         $path = storage_path('app/' . $file->file_path);
+        
+        $historique = Historique::create([
+            'file_id' => $file->id,   
+            'user_id' => $user->id,
+        ]);
         if (!file_exists($path)) {
             return back()->with('error', 'Fichier introuvable.');
         }
@@ -263,6 +271,7 @@ public function edit($id)
 
     public function showfiledownload($fileId)
     { 
+        //dd('coucou');
         $user = Auth::user();
         $direction = Direction::findOrFail($user->direction_id);  
         $file = File::findOrFail($fileId);
