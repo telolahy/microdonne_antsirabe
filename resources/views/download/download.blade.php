@@ -3,6 +3,9 @@
 @section('content')
 
 <style>
+    .card{
+        margin-top: 50px;
+    }
     .conditionUtilisation{
         font-weight: bold;
     }
