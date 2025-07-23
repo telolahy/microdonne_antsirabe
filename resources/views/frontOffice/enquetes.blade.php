@@ -447,6 +447,41 @@
         border-radius: 5px;
         margin: 20px 0;
     }
+    .pagination a,
+    .pagination span {
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        margin: 0 2px;
+        text-decoration: none;
+        color: #2c3e50;
+    }
+
+    .pagination a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .pagination .active span {
+        background-color: #2c3e50;
+        color: white;
+        border-color: #2c3e50;
+    }
+
+    .page-number.active {
+        background-color: #009688;
+        color: white;
+    }
+    .paginationControls {
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+    .paginationControls .page-number {
+        cursor: pointer;
+    }
+    .paginationControls .page-link.disabled:hover {
+            color: #747b8c;
+            background-color: #ffffff;
+    }
 
     .file-card p {
         margin: 25px 0;
@@ -877,6 +912,15 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div id="paginationControls-{{ $enquete->id }}" class="paginationControls">
+                                            <div aria-label="Page navigation">
+                                                <ul class="pagination">
+                                                    <li class="disabled page-link" id="prevPage-{{ $enquete->id }}" onclick="prevPage({{ $enquete->id }})">Précédent</li>
+                                                    <div id="pageNumbers-{{ $enquete->id }}" class="d-flex"></div>
+                                                    <li class="page-link" id="nextPage-{{ $enquete->id }}" onclick="nextPage({{ $enquete->id }})">Suivant</li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                  </div>
                                 </div>
                             @else
@@ -1021,7 +1065,45 @@
 </script>
 
 <script>
+
+    // Nombre de Fichier par page
+    const pageSize = 5
+
+    var original = {
+        id: null,
+        data: null,
+        pageNumber: 1,
+        pageSize: pageSize,
+        currentPage: 1,
+    }
+
 function toggleFiles(enqueteId) {
+    if (enqueteId === original.id) {
+            // If the same enquete is clicked, restore the table
+            restoreTable(original.id);
+            original = {
+                id: null,
+                data: null,
+                pageNumber: 1,
+                pageSize: pageSize,
+                currentPage: 1,
+            }
+        } else if (original.id !== null) {
+            // If a different enquete is clicked, initialize the pagination table
+            restoreTable(original.id);
+            original = {
+                id: null,
+                data: null,
+                pageNumber: 1,
+                pageSize: pageSize,
+                currentPage: 1,
+            }
+            initPaginationTable(enqueteId);
+        } else {
+            // If no enquete is clicked, initialize the pagination table
+            initPaginationTable(enqueteId);
+        }
+
     document.querySelectorAll('.file-card-container').forEach(container => {
         if (container.id !== `files-${enqueteId}`) {
             container.style.display = 'none';
@@ -1046,9 +1128,124 @@ function toggleFiles(enqueteId) {
     }
 }
 
+function restoreTable(enqueteId) {
+        console.log(original.data); // Debug line
+        if (original.data) {
+            $(`#files-${enqueteId} table`).empty();
+            $(`#files-${enqueteId} table`).append(original.data.clone());
+        }
+    }
+
+    function initPaginationTable(enqueteId) {
+        original = {
+            id: null,
+            data: null,
+            pageNumber: 1,
+            pageSize: pageSize,
+            currentPage: 1,
+        }
+
+        //// Pagination dynamic
+
+        const rowsArray = $(`#files-${enqueteId} table tr`).clone();
+
+        original.id = enqueteId
+        original.data = rowsArray.clone()
+        
+        
+        const head = original.data.slice(0,1).clone()
+        const tempData = original.data.slice(1,original.pageSize + 1).clone()
+        
+        $(`#files-${enqueteId} table`).empty()
+        $(`#files-${enqueteId} table`).prepend($('<thead>').append(head));
+        $(`#files-${enqueteId} table`).append($('<tbody>').append(tempData));
+
+        original.pageNumber = Math.ceil((original.data.length - 1) / original.pageSize);
+
+        const pageNumbersContainer = document.getElementById(`pageNumbers-${enqueteId}`);
+        
+        if (original.pageNumber <= 1) {
+            document.getElementById(`paginationControls-${enqueteId}`).style.display = "none";
+        } else {
+            document.getElementById(`paginationControls-${enqueteId}`).style.display = "flex";
+        }
+
+        pageNumbersContainer.innerHTML = '';
+        
+        for (let i = 0; i < original.pageNumber; i++) {
+            const pageNumber = document.createElement('span');
+            pageNumber.textContent = i + 1;
+            pageNumber.className = 'page-number';
+            pageNumber.dataset.page = i + 1;
+            pageNumber.onclick = function() {
+                changePage(enqueteId, i + 1);
+            };
+            pageNumbersContainer.appendChild(pageNumber);
+        }
+
+        $(`#pageNumbers-${enqueteId} .page-number:first-child`).addClass("active")
+
+        //// End Pagination dynamic
+    }
+
+    // Change page function
+    function changePage(enqueteId, pageNumber) {
+
+        $(`#pageNumbers-${enqueteId} .page-number:nth-child(${original.currentPage})`).removeClass("active")
+        $(`#pageNumbers-${enqueteId} .page-number:nth-child(${pageNumber})`).addClass("active")
+
+        const begin = (pageNumber - 1) * original.pageSize + 1;
+
+        const end = begin + original.pageSize;
+        const head = original.data.slice(0,1).clone()
+        const tempData = original.data.slice(begin, end).clone()
+        
+        $(`#files-${enqueteId} table`).empty()
+        $(`#files-${enqueteId} table`).prepend($('<thead>').append(head));
+        $(`#files-${enqueteId} table`).append($('<tbody>').append(tempData));
+
+        
+        original.currentPage = pageNumber;
+        console.log("Changing page to:", pageNumber, "for theme ID:", enqueteId); // Debug line
+
+        if (pageNumber === original.pageNumber) {
+            $(`#nextPage-${enqueteId}`).addClass('disabled');
+        } else {
+            $(`#nextPage-${enqueteId}`).removeClass('disabled');
+        }
+        if (pageNumber === 1) {
+            $(`#prevPage-${enqueteId}`).addClass('disabled');
+        } else {
+            $(`#prevPage-${enqueteId}`).removeClass('disabled');
+        }
+    }
+
+    function nextPage(enqueteId) {
+        const nextPage = original.currentPage + 1;
+        if (nextPage <= original.pageNumber) {
+            changePage(enqueteId, nextPage);
+        }
+    }
+
+    function prevPage(enqueteId) {
+        const prevPage = original.currentPage - 1;
+        if (prevPage >= 1) {
+            changePage(enqueteId, prevPage);
+        }
+    }
+
 function closeFiles(enqueteId) {
     document.getElementById(`files-${enqueteId}`).style.display = 'none';
     document.getElementById(`card-${enqueteId}`).classList.remove('selected');
+
+    restoreTable(enqueteId)
+        original = {
+            id: null,
+            data: null,
+            pageNumber: 1,
+            pageSize: pageSize,
+            currentPage: 1,
+        }
 }
 
 function openReportModal(fileId) {
@@ -1091,8 +1288,19 @@ function closeConditionsModal() {
 }
 function filterFiles(input) {
 
+    const tableTemp = input.closest('div').nextElementSibling
+        const paginationDiv = tableTemp.nextElementSibling
+        const enqueteId = paginationDiv.id.split('-')[1]
+        paginationDiv.style.display = "none"
+
+        $(tableTemp).empty();
+        $(tableTemp).append(original.data.clone());
+
     const value = input.value.trim();
     if (value === '') {
+
+        initPaginationTable(enqueteId)
+
         $(".search-container .delete-button").hide();
         $(".search-container .delete-button1").hide();
     } else {
