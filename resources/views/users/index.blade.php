@@ -270,6 +270,9 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end mt-4">
+                    {{ $users->links() }}
+                </div>
         @endif
 
         @if($users->isEmpty() && isset($_GET["search"]) && $_GET["search"] !== "")

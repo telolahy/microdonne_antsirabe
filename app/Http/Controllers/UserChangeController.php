@@ -24,7 +24,8 @@ class UserChangeController extends Controller
                 $query->where('name', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%");
             })
-            ->get();
+            // ->get();
+            ->paginate(10);
         $directions = Direction::pluck('name', 'id');
         return view('users.index', compact('users', 'directions'));
     }
