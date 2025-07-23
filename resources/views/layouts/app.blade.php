@@ -445,7 +445,7 @@
                 <a href="#" class="d-flex align-items-center dropdown-toggle" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('images/profiles/' . Auth::user()->profile) ?? asset('default-avatar.png') }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%;">
                     <!-- Micky d-->
-                    <span class="ml-2 user-name">{{ Auth::user()->name }} {{ Auth::user()->prenom }}</span>
+                    <span class="ml-2 user-name">{{ Auth::user()->name }}</span>
                     <!-- Micky f-->
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
