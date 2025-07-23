@@ -205,6 +205,24 @@
         margin-top: 20px;
         padding-bottom: 20px;
     }
+
+    .page-number.active {
+        background-color: #009688;
+        color: white;
+    }
+    .paginationControls {
+        display: flex;
+        justify-content: center;
+        margin-top: 2vh;
+    }
+    .paginationControls .page-number {
+        cursor: pointer;
+    }
+    .paginationControls .page-link.disabled:hover {
+            color: #747b8c;
+            background-color: #ffffff;
+    }
+
     @media (max-width: 600px) {
         td:nth-child(1), th:nth-child(1) { width: 10%; }
         td:nth-child(4), th:nth-child(4) { width: 8%; }
@@ -785,7 +803,6 @@ td:nth-child(7), th:nth-child(7) {
         color: white;
     }
 
-
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
@@ -966,6 +983,15 @@ td:nth-child(7), th:nth-child(7) {
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div id="paginationControls-{{ $theme->id }}" class="paginationControls">
+                                    <div aria-label="Page navigation">
+                                        <ul class="pagination">
+                                            <li class="disabled page-link" id="prevPage-{{ $theme->id }}" onclick="prevPage({{ $theme->id }})">Précédent</li>
+                                            <div id="pageNumbers-{{ $theme->id }}" class="d-flex"></div>
+                                            <li class="page-link" id="nextPage-{{ $theme->id }}" onclick="nextPage({{ $theme->id }})">Suivant</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     @else
@@ -1070,6 +1096,7 @@ td:nth-child(7), th:nth-child(7) {
 </div>
 
 <script>
+
     function openDownloadModal(fileId, fileName) {
         const modal = document.getElementById('downloadModal');
         const form = document.getElementById('downloadForm');
@@ -1098,135 +1125,305 @@ td:nth-child(7), th:nth-child(7) {
 </script>
 
 <script>
-// Updated JavaScript functions
-function toggleFiles(themeId) {
-    console.log("Toggling files for theme ID:", themeId); // Debug line
-    const fileCard = document.getElementById(`files-${themeId}`);
-    const card = document.getElementById(`card-${themeId}`);
-    
-    if (!fileCard || !card) {
-        console.error("Could not find elements for theme ID:", themeId);
-        return;
+
+    // Nombre de Fichier par page
+    const pageSize = 5
+
+    var original = {
+        id: null,
+        data: null,
+        pageNumber: 1,
+        pageSize: pageSize,
+        currentPage: 1,
     }
-    
-    const isVisible = window.getComputedStyle(fileCard).display !== 'none';
-    
-    // Close all other open file cards
-    document.querySelectorAll('.file-card-container').forEach(container => {
-        if (container.id !== `files-${themeId}`) {
-            container.style.display = 'none';
-            container.classList.remove('slide-down');
+
+    // Updated JavaScript functions
+    function toggleFiles(themeId) {
+
+        if (themeId === original.id) {
+            // If the same theme is clicked, restore the table
+            restoreTable(original.id);
+            original = {
+                id: null,
+                data: null,
+                pageNumber: 1,
+                pageSize: pageSize,
+                currentPage: 1,
+            }
+        } else if (original.id !== null) {
+            // If a different theme is clicked, initialize the pagination table
+            restoreTable(original.id);
+            original = {
+                id: null,
+                data: null,
+                pageNumber: 1,
+                pageSize: pageSize,
+                currentPage: 1,
+            }
+            initPaginationTable(themeId);
+        } else {
+            // If no theme is clicked, initialize the pagination table
+            initPaginationTable(themeId);
         }
-    });
-    
-    // Remove selection from all cards
-    document.querySelectorAll('.enquete-card').forEach(c => {
-        if (c.id !== `card-${themeId}`) {
-            c.classList.remove('selected');
-        }
-    });
-    
-    if (isVisible) {
-        fileCard.style.display = 'none';
-        fileCard.classList.remove('slide-down');
-        card.classList.remove('selected');
-    } else {
-        fileCard.style.display = 'block';
-        card.classList.add('selected');
+
+        console.log("Toggling files for theme ID:", themeId); // Debug line
+        const fileCard = document.getElementById(`files-${themeId}`);
+        const card = document.getElementById(`card-${themeId}`);
         
-        // Add animation
-        setTimeout(() => {
-            fileCard.classList.add('slide-down');
+        if (!fileCard || !card) {
+            console.error("Could not find elements for theme ID:", themeId);
+            return;
+        }
+        
+        const isVisible = window.getComputedStyle(fileCard).display !== 'none';
+        
+        // Close all other open file cards
+        document.querySelectorAll('.file-card-container').forEach(container => {
+            if (container.id !== `files-${themeId}`) {
+                container.style.display = 'none';
+                container.classList.remove('slide-down');
+            }
+        });
+        
+        // Remove selection from all cards
+        document.querySelectorAll('.enquete-card').forEach(c => {
+            if (c.id !== `card-${themeId}`) {
+                c.classList.remove('selected');
+            }
+        });
+        
+        if (isVisible) {
+            fileCard.style.display = 'none';
+            fileCard.classList.remove('slide-down');
+            card.classList.remove('selected');
+        } else {
+            fileCard.style.display = 'block';
+            card.classList.add('selected');
             
-            // Scroll to file container
-            fileCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 10);
-    }
-}
-
-function closeFiles(themeId) {
-    const fileCard = document.getElementById(`files-${themeId}`);
-    const card = document.getElementById(`card-${themeId}`);
-    
-    if (fileCard && card) {
-        fileCard.style.display = 'none';
-        fileCard.classList.remove('slide-down');
-        card.classList.remove('selected');
-    }
-}
-function filterFiles(input) {
-
-    const value = input.value.trim();
-    if (value === '') {
-        $(".search-container .delete-button").hide();
-        $(".search-container .delete-button1").hide();
-    } else {
-        $(".search-container .delete-button").show();
-        $(".search-container .delete-button1").show();
+            // Add animation
+            setTimeout(() => {
+                fileCard.classList.add('slide-down');
+                
+                // Scroll to file container
+                fileCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 10);
+        }
     }
 
-    const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-    const table = input.closest('div').nextElementSibling;
-    const rows = table.querySelectorAll('tbody tr');
+    function restoreTable(themeId) {
+        console.log(original.data); // Debug line
+        if (original.data) {
+            $(`#files-${themeId} table`).empty();
+            $(`#files-${themeId} table`).append(original.data.clone());
+        }
+    }
 
-    rows.forEach(row => {
-        const nameCell = row.querySelector('td:nth-child(1)');
-        const descriptionCell = row.querySelector('td:nth-child(2)');
-        const enqueteCell = row.querySelector('td:nth-child(3)');
-        const statusCell = row.querySelector('td:nth-child(4)');
-        const nameText = nameCell ? nameCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
-        const descriptionText = descriptionCell ? descriptionCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
-        const enqueteText = enqueteCell ? enqueteCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
-        const statusText = statusCell ? statusCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
-        const match = nameText.includes(searchTerm) || descriptionText.includes(searchTerm) || statusText.includes(searchTerm) || enqueteText.includes(searchTerm);
-        row.style.display = match ? '' : 'none';
+    function initPaginationTable(themeId) {
+        original = {
+            id: null,
+            data: null,
+            pageNumber: 1,
+            pageSize: pageSize,
+            currentPage: 1,
+        }
+
+        //// Pagination dynamic
+
+        const rowsArray = $(`#files-${themeId} table tr`).clone();
+
+        original.id = themeId
+        original.data = rowsArray.clone()
+        
+        
+        const head = original.data.slice(0,1).clone()
+        const tempData = original.data.slice(1,original.pageSize + 1).clone()
+        
+        $(`#files-${themeId} table`).empty()
+        $(`#files-${themeId} table`).prepend($('<thead>').append(head));
+        $(`#files-${themeId} table`).append($('<tbody>').append(tempData));
+
+        original.pageNumber = Math.ceil((original.data.length - 1) / original.pageSize);
+
+        const pageNumbersContainer = document.getElementById(`pageNumbers-${themeId}`);
+        
+        if (original.pageNumber <= 1) {
+            document.getElementById(`paginationControls-${themeId}`).style.display = "none";
+        } else {
+            document.getElementById(`paginationControls-${themeId}`).style.display = "flex";
+        }
+
+        pageNumbersContainer.innerHTML = '';
+        
+        for (let i = 0; i < original.pageNumber; i++) {
+            const pageNumber = document.createElement('span');
+            pageNumber.textContent = i + 1;
+            pageNumber.className = 'page-number';
+            pageNumber.dataset.page = i + 1;
+            pageNumber.onclick = function() {
+                changePage(themeId, i + 1);
+            };
+            pageNumbersContainer.appendChild(pageNumber);
+        }
+
+        $(`#pageNumbers-${themeId} .page-number:first-child`).addClass("active")
+
+        //// End Pagination dynamic
+    }
+
+    // Change page function
+    function changePage(themeId, pageNumber) {
+
+        $(`#pageNumbers-${themeId} .page-number:nth-child(${original.currentPage})`).removeClass("active")
+        $(`#pageNumbers-${themeId} .page-number:nth-child(${pageNumber})`).addClass("active")
+
+        const begin = (pageNumber - 1) * original.pageSize + 1;
+
+        const end = begin + original.pageSize;
+        const head = original.data.slice(0,1).clone()
+        const tempData = original.data.slice(begin, end).clone()
+        
+        $(`#files-${themeId} table`).empty()
+        $(`#files-${themeId} table`).prepend($('<thead>').append(head));
+        $(`#files-${themeId} table`).append($('<tbody>').append(tempData));
+
+        
+        original.currentPage = pageNumber;
+        console.log("Changing page to:", pageNumber, "for theme ID:", themeId); // Debug line
+
+        if (pageNumber === original.pageNumber) {
+            $(`#nextPage-${themeId}`).addClass('disabled');
+        } else {
+            $(`#nextPage-${themeId}`).removeClass('disabled');
+        }
+        if (pageNumber === 1) {
+            $(`#prevPage-${themeId}`).addClass('disabled');
+        } else {
+            $(`#prevPage-${themeId}`).removeClass('disabled');
+        }
+    }
+
+    function nextPage(themeId) {
+        const nextPage = original.currentPage + 1;
+        if (nextPage <= original.pageNumber) {
+            changePage(themeId, nextPage);
+        }
+    }
+
+    function prevPage(themeId) {
+        const prevPage = original.currentPage - 1;
+        if (prevPage >= 1) {
+            changePage(themeId, prevPage);
+        }
+    }
+
+    function closeFiles(themeId) {
+        const fileCard = document.getElementById(`files-${themeId}`);
+        const card = document.getElementById(`card-${themeId}`);
+        
+        restoreTable(themeId)
+        original = {
+            id: null,
+            data: null,
+            pageNumber: 1,
+            pageSize: pageSize,
+            currentPage: 1,
+        }
+        
+        if (fileCard && card) {
+            fileCard.style.display = 'none';
+            fileCard.classList.remove('slide-down');
+            card.classList.remove('selected');
+        }
+    }
+    function filterFiles(input) {
+
+        const tableTemp = input.closest('div').nextElementSibling
+        const paginationDiv = tableTemp.nextElementSibling
+        const themeId = paginationDiv.id.split('-')[1]
+        paginationDiv.style.display = "none"
+
+        $(tableTemp).empty();
+        $(tableTemp).append(original.data.clone());
+
+        const value = input.value.trim();
+        if (value === '') {
+
+            initPaginationTable(themeId)
+
+            $(".search-container .delete-button").hide();
+            $(".search-container .delete-button1").hide();
+        } else {
+            
+            // return
+            
+            $(".search-container .delete-button").show();
+            $(".search-container .delete-button1").show();
+        }
+
+        const searchTerm = input.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const table = input.closest('div').nextElementSibling;
+        const rows = table.querySelectorAll('tr');
+
+        rows.forEach(row => {
+            const nameCell = row.querySelector('td:nth-child(1)');
+            const descriptionCell = row.querySelector('td:nth-child(2)');
+            const enqueteCell = row.querySelector('td:nth-child(3)');
+            const statusCell = row.querySelector('td:nth-child(4)');
+            const nameText = nameCell ? nameCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+            const descriptionText = descriptionCell ? descriptionCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+            const enqueteText = enqueteCell ? enqueteCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+            const statusText = statusCell ? statusCell.textContent.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') : '';
+            const match = nameText.includes(searchTerm) || descriptionText.includes(searchTerm) || statusText.includes(searchTerm) || enqueteText.includes(searchTerm);
+            row.style.display = match ? '' : 'none';
+        });
+    }
+
+    function clearSearch(element) {
+        const searchInput = element.previousElementSibling;
+        searchInput.value = '';
+        filterFiles(searchInput);
+    }
+
+    function openReportModal(fileId) {
+        const modal = document.getElementById('reportModal');
+        document.getElementById('download_id').value = fileId;
+        modal.style.display = 'block';
+    }
+
+    function closeReportModal() {
+        document.getElementById('reportModal').style.display = 'none';
+    }
+
+    function openModal(fileId) {
+        const modal = document.getElementById('requestModal');
+        document.getElementById('file_id').value = fileId;
+        const form = document.getElementById('requestForm');
+        form.action = form.action.replace('ID', fileId);
+        
+        modal.style.display = 'block';
+    }
+    function closeModal() {
+        document.getElementById('requestModal').style.display = 'none';
+    }
+
+    function toggleSubmitButton() {
+        const checkbox = document.getElementById('accept_conditions');
+        const submitButton = document.getElementById('submitRequestBtn');
+        submitButton.disabled = !checkbox.checked;
+    }
+
+    function openConditionsModal() {
+        const modal = document.getElementById('conditionsModal');
+        modal.style.display = 'block';
+    }
+
+    function closeConditionsModal() {
+        document.getElementById('conditionsModal').style.display = 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Page loaded, checking for theme cards");
+        const cards = document.querySelectorAll('.enquete-card');
+        console.log(`Found ${cards.length} theme cards`);
     });
-}
-function clearSearch(element) {
-    const searchInput = element.previousElementSibling;
-    searchInput.value = '';
-    filterFiles(searchInput);
-}
-function openReportModal(fileId) {
-    const modal = document.getElementById('reportModal');
-    document.getElementById('download_id').value = fileId;
-    modal.style.display = 'block';
-}
-
-function closeReportModal() {
-    document.getElementById('reportModal').style.display = 'none';
-}
-
-function openModal(fileId) {
-    const modal = document.getElementById('requestModal');
-    document.getElementById('file_id').value = fileId;
-    const form = document.getElementById('requestForm');
-    form.action = form.action.replace('ID', fileId);
-    
-    modal.style.display = 'block';
-}
-function closeModal() {
-    document.getElementById('requestModal').style.display = 'none';
-}
-
-function toggleSubmitButton() {
-    const checkbox = document.getElementById('accept_conditions');
-    const submitButton = document.getElementById('submitRequestBtn');
-    submitButton.disabled = !checkbox.checked;
-}
-
-function openConditionsModal() {
-    const modal = document.getElementById('conditionsModal');
-    modal.style.display = 'block';
-}
-
-function closeConditionsModal() {
-    document.getElementById('conditionsModal').style.display = 'none';
-}
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Page loaded, checking for theme cards");
-    const cards = document.querySelectorAll('.enquete-card');
-    console.log(`Found ${cards.length} theme cards`);
-});
 </script>
 @endsection
