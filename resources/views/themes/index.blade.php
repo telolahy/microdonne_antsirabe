@@ -134,6 +134,22 @@
             padding-bottom: 15vh;
         }
 
+        .delete-button1 {
+            position: absolute;
+            color: #888;
+            font-size: 25px;
+            cursor: pointer;
+            transition: color 0.3s;
+            margin-right: 140px;
+            margin-top: 2px;
+            display: none;
+        }
+
+        .delete-button1:hover {
+            color: #2c3e50;
+            /* transform: scale(1.2); */
+        }
+
         @media (max-width: 768px) {
             .search-input {
                 width: 100%;
@@ -232,8 +248,8 @@
             <div class="row mt-4">
                 <div class="col">
                     <form method="GET" action="{{ route('themes.index') }}" class="d-flex justify-content-end">
-                        <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2 search-input" value="{{ request()->get('search') }}">
-
+                        <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2 search-input" value="{{ request()->get('search') }}" onkeyup="filterFiles1(this)">
+                            <a class="delete-button1" onclick="clearSearch(this)"><i class="bi bi-x"></i></a>
                         @if (isset($_GET['search']) && $_GET['search'] !== '')
                             <a href="{{ route('themes.index') }}" class="close-search"><i class="bi bi-x"></i></a>
                         @endif
@@ -354,6 +370,26 @@
         </div>
     </div>
 </body>
+<script>
+    function filterFiles1(input) {
+            const value = input.value.trim();
+            console.log('Input value:', value);
+            console.log('Delete button found:', $('.delete-button1').length); // Vérifie si l'élément existe
+            if (value === '') {
+                $(".delete-button1").hide();
+            } else {
+                
+                // return
+                $(".delete-button1").show();
+            }
+        }
+
+        function clearSearch(element) {
+            const searchInput = element.previousElementSibling;
+            searchInput.value = '';
+            filterFiles1(searchInput);
+        }
+</script>
 @endsection
 
 @section('scripts')
