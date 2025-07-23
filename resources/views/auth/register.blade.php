@@ -1,196 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microdonnées INSTAT Madagascar</title>
-    <link rel="shortcut icon" href="/logo/logo instat.ico" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="shortcut icon" href="/logo/logo_instat.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        :root {
+            --instat-primary: #000000;
+            --instat-secondary: #B0ABA8;
+        }
+        
         body {
-            font-family: Poppins, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #B0ABA8;
-            /* background: linear-gradient(to left, #f9f9f9, #eeeeee, #dddddd); */
-            /* background: linear-gradient(to right, #ad6b2b, #edc659, #e1b739, #d4a821); */
+            background-color: var(--instat-secondary);
             margin: 0;
+            padding: 20px;
         }
 
-        .container {
-            max-width: 800px;
+        .login-wrapper {
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 900px;
         }
 
         .login-container {
             background-color: white;
-            padding: 20px; /* Réduire le padding */
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .login-container h2 {
-            margin-bottom: 20px;
+        .logo-container {
+            padding: 20px 0;
             text-align: center;
+            background-color: white;
         }
 
-        .login-container label {
-            display: block;
-            margin-bottom: 8px;
+        .logo-container img {
+            max-height: 80px;
+            width: auto;
         }
 
-        .login-container input {
-            width: 100%;
-            padding: 8px; /* Réduire le padding */
-            margin-bottom: 15px; /* Réduire la marge inférieure */
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background: #fff;
+        .form-container {
+            padding: 25px;
         }
 
-        .login-container input:focus {
-            outline: none;
-            background-color: #fff;
-        }
-
-        .login-container button {
-            width: auto; /* Ajuster la largeur automatiquement */
-            padding: 10px 20px; /* Ajouter du padding pour le bouton */
-            background-color: #000000;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: lighter;
-            display: block;
-            margin-left: auto;
-            margin-right: auto; /* Centrer le bouton */
-        }
-
-        .login-container button:hover {
-            background-color: #454444;
-        }
-
-        .login-container a {
-            color: #1a73e8;
-            text-decoration: none;
-            display: block;
+        .form-title {
+            color: var(--instat-primary);
+            margin-bottom: 1.5rem;
             text-align: center;
-            margin-top: 10px;
+            font-weight: 600;
         }
 
-        .logo {
-            margin-bottom: 10px;
+        .form-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            padding: 10px 12px;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+            margin-bottom: 1rem;
+        }
+
+        .boutonSinscrire {
             display: flex;
             justify-content: center;
+            margin-top: 1.5rem;
+
+        }
+        .form-control:focus {
+            border-color: var(--instat-primary);
+            box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
         }
 
-        .logo img {
-            max-width: 120px;
+        .btn-inst {
+            background-color: var(--instat-primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            border: none;
+            transition: all 0.3s;
+            /* Largeur automatique par défaut */
+            width: auto;
+            display: inline-block;
         }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
+        .btn-inst:hover {
+            background-color: #333;
+            transform: translateY(-1px);
         }
 
-        .col-md-6 {
-            flex: 0 0 48%;
-            box-sizing: border-box;
+        .login-link {
+            color: var(--instat-primary);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+            text-align: center;
+            width: 100%;
         }
 
-        @media screen and (min-width: 530px){
-            body{
-                display: flex;
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .logo-container img {
+                max-height: 70px;
+            }
+            
+            .boutonSinscrire{
+                width: 100!important%;
+            }
+            .form-container {
+                padding: 20px;
+            }
+            
+            .col-md-6 {
+                padding: 0 5px;
+            }
+            
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 30px;
             }
         }
 
-        .form-check {
-            display: flex;
-            align-items: center;
+        @media (max-width: 576px) {
+            .login-container {
+                border-radius: 0;
+            }
+            
+            .form-control {
+                padding: 8px 10px;
+                font-size: 14px;
+            }
+            
+            .btn-inst {
+                padding: 8px 16px;
+            }
         }
-
-        .form-check-input {
-            margin-right: 3px;  /* Espacement à droite de la case à cocher */
-        }
-
-        .form-check-label {
-            margin-left: 0px;  /* Espacement entre la case et le texte */
-        }
-
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="login-wrapper">
         <div class="login-container">
-            <div class="logo">
-                <img src="/logo/logo_instat.png" class="w-10 px-0" style="height: 100px;">
-            </div> 
-            <!-- Si l'utilisateur n'a pas validé ses identifiants, afficher une erreur -->
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li class="error-message" style="color:red">{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <div class="logo-container">
+                <img src="/logo/logo_instat.png" alt="Logo INSTAT">
+            </div>
+            
+            <div class="form-container">
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <ul class="mb-0">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
-            <!-- Formulaire d'inscription -->
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="name">Nom</label>
-                            <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Nom</label>
+                                <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="prenom" class="form-label">Prénom(s)</label>
+                                <input type="text" id="prenom" name="prenom" class="form-control" value="{{ old('prenom') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="adresse" class="form-label">Adresse</label>
+                                <input type="text" id="adresse" name="adresse" class="form-control" value="{{ old('adresse') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="telephone" class="form-label">Téléphone</label>
+                                <input type="text" id="telephone" name="telephone" class="form-control" value="{{ old('telephone') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="profession" class="form-label">Profession</label>
+                                <input type="text" id="profession" name="profession" class="form-control" value="{{ old('profession') }}" required>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="prenom">Prénom(s)</label>
-                            <input type="text" id="prenom" name="prenom" class="form-control" value="{{ old('prenom') }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="adresse">Adresse</label>
-                            <input type="text" id="adresse" name="adresse" class="form-control" value="{{ old('adresse') }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telephone">Téléphone</label>
-                            <input type="text" id="telephone" name="telephone" class="form-control" value="{{ old('telephone') }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="profession">Profession</label>
-                            <input type="text" id="profession" name="profession" class="form-control" value="{{ old('profession') }}" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="entite" class="form-label">Entité</label>
+                                <input type="text" id="entite" name="entite" class="form-control" value="{{ old('entite') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="form-label">Mot de passe</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+                                <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="entite">Entité</label>
-                            <input type="text" id="entite" name="entite" class="form-control" value="{{ old('entite') }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Mot de passe</label>
-                            <input type="password" id="password" name="password" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="password_confirmation">Confirmer le mot de passe</label>
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
-                        </div>
+                    
+                    <div class="d-grid mt-4 boutonSinscrire">
+                        <button type="submit" class="btn btn-inst">S'inscrire</button>
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary">S'inscrire</button>
-                <a class="nav-link" href="{{ route('login') }}" style="margin-right: 10px;">Vous avez déjà un compte ?</a>
-            </form>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{{ route('login') }}" class="login-link">Vous avez déjà un compte ? Connectez-vous</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>
