@@ -39,18 +39,18 @@
 
     <style>
     body {
-        min-height: 100vh;
+        /* min-height: 100vh; */
         margin-top:150px;
     }
     .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: #333; 
-    z-index: 1000; 
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333; 
+        z-index: 1000; 
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
     .page-title {
         font-size: 32px;
@@ -75,7 +75,8 @@
 
     .historique-container {
         padding: 20px;
-        margin-left:0px
+        margin-left:0px;
+        min-height: 50vh;
     }
 
     .search-container {
