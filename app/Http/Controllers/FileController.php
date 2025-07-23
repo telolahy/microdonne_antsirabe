@@ -255,6 +255,8 @@ public function edit($id)
     {
         $user = Auth::user();
         $file = File::findOrFail($id);
+        $file->isdownload = 1; 
+        $file->save(); 
         $path = storage_path('app/' . $file->file_path);
         
         $historique = Historique::create([

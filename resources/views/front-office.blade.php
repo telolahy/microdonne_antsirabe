@@ -955,7 +955,7 @@ td:nth-child(7), th:nth-child(7) {
 
 
                                                     <td class="text-center">
-                                                        @if($demande && $demande->status !== 'rejete' && $demande->status !== 'en_attente' && $fichier->type !== 'sans_validation')
+                                                        @if($fichier->isdownload === 1) 
                                                             <a href="#" class="btn btn-primary" onclick="openReportModal({{ $fichier->id }})">Envoyer rapport</a>
                                                         @else
                                                             <button class="btn btn-primary" disabled>Ajouter un rapport</button>

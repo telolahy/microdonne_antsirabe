@@ -44,6 +44,8 @@ class EnregistrementController extends Controller
         $id = $request->file_id;
         $user = Auth::user();
         $file = File::findOrFail($id);
+        $file->isdownload = 1; 
+        $file->save(); 
         $validated = $request->validate([
             'motif' => 'required|string|min:5',
             'terms' => 'accepted',
