@@ -181,6 +181,18 @@
                 <h1><b>Gestion des utilisateurs</b></h1>
             </div>
     
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="d-flex justify-content-between align-items-center search-container">
                 <form method="GET" action="{{ route('users.index') }}" class="d-flex justify-content-end mb-4">
                     <input type="text" name="search" placeholder="Rechercher..." class="form-control mr-2" value="{{ request()->get('search') }}">
