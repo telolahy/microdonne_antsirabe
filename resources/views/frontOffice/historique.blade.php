@@ -6,7 +6,7 @@
         <div class="underline"></div>
 
         <!-- Barre de recherche -->
-        <div class="search-container">
+        <div class="search-container chercher">
             <input type="text" id="search-bar" placeholder="Rechercher un fichier..." class="search-input">
             <input type="date" id="date-filter" class="date-input">
         </div>
@@ -24,8 +24,8 @@
                 <tbody id="historique-tbody">
                     @foreach($historiques as $historique)
                         <tr> 
-                            <td class="file-name">{{ $historique->file_name }}</td>
-                            <td class="file-date">{{ $historique->created_at->format('Y-m-d') }}</td>
+                            <td data-label="Nom du fichier" class="file-name">{{ $historique->file_name }}</td>
+                            <td data-label="Date de téléchargement" class="file-date">{{ $historique->created_at->format('Y-m-d') }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -125,6 +125,70 @@
         margin-top: 20px;
         margin: 15vh 0;
     }
+
+    @media (max-width: 515px) {
+        .historique-table,
+        .historique-table thead,
+        .historique-table tbody,
+        .historique-table th,
+        .historique-table td,
+        .historique-table tr {
+            display: block;
+            width: 100%;
+        }
+
+        .historique-table thead {
+            display: none;
+        }
+
+        .historique-table tr {
+            margin-bottom: 1rem;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+            padding: 0.5rem;
+        }
+
+        .historique-table td {
+            /* padding: 0.75rem 1rem 0.75rem 7rem; */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .historique-table td::before {
+            content: attr(data-label);
+            /* position: absolute; */
+            left: 1rem;
+            /* top: 0.75rem; */
+            font-weight: bold;
+            color: #333;
+            /* width: 6rem; */
+            white-space: nowrap;
+        }
+
+        .historique-table td:last-child {
+            border-bottom: none;
+        }
+
+        .chercher {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-input {
+            width: 100%;
+        }
+
+        .date-input {
+            width: 100%;
+        }
+    }
+
     </style>
 
     <script>
