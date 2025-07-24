@@ -158,6 +158,10 @@
             <div class="logo-container">
                 <img src="/logo/logo_instat.png" alt="Logo INSTAT">
             </div>
+
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <h1><b>Inscription</b></h1>
+            </div>
             
             <div class="form-container">
                 @if ($errors->any())
