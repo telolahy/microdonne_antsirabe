@@ -112,6 +112,11 @@
             text-decoration: underline;
         }
 
+        .obligatoire{
+            color: red;
+            font-size: 1.2rem;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .logo-container img {
@@ -180,41 +185,41 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="name" class="form-label">Nom</label>
+                                <label for="name" class="form-label">Nom <span class="obligatoire">*</span></label>
                                 <input type="text" id="name" name="name" class="form-control" value="{{ old('name') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="prenom" class="form-label">Prénom(s)</label>
+                                <label for="prenom" class="form-label">Prénom(s) <span class="obligatoire">*</span></label>
                                 <input type="text" id="prenom" name="prenom" class="form-control" value="{{ old('prenom') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="adresse" class="form-label">Adresse</label>
+                                <label for="adresse" class="form-label">Adresse <span class="obligatoire">*</span></label>
                                 <input type="text" id="adresse" name="adresse" class="form-control" value="{{ old('adresse') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="telephone" class="form-label">Téléphone</label>
+                                <label for="telephone" class="form-label">Téléphone <span class="obligatoire">*</span></label>
                                 <input type="text" id="telephone" name="telephone" class="form-control" value="{{ old('telephone') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="profession" class="form-label">Profession</label>
+                                <label for="profession" class="form-label">Profession <span class="obligatoire">*</span></label>
                                 <input type="text" id="profession" name="profession" class="form-control" value="{{ old('profession') }}" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="entite" class="form-label">Entité</label>
+                                <label for="entite" class="form-label">Entité <span class="obligatoire">*</span></label>
                                 <input type="text" id="entite" name="entite" class="form-control" value="{{ old('entite') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="form-label">Email</label>
+                                <label for="email" class="form-label">Email <span class="obligatoire">*</span></label>
                                 <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="form-label">Mot de passe</label>
+                                <label for="password" class="form-label">Mot de passe <span class="obligatoire">*</span></label>
                                 <input type="password" id="password" name="password" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+                                <label for="password_confirmation" class="form-label">Confirmer le mot de passe <span class="obligatoire">*</span></label>
                                 <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" required>
                             </div>
                         </div>
@@ -227,6 +232,7 @@
                     <div class="text-center mt-3">
                         <a href="{{ route('login') }}" class="login-link">Vous avez déjà un compte ? Connectez-vous</a>
                     </div>
+                    <p class="champObli"><span class="obligatoire">* </span>Champ obligatoire</p>
                 </form>
             </div>
         </div>
